@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@theme {
+  --color-alpha: #f7f5f3;
+  --color-beta: #3e3b39;
+  --color-gamma: #6b7d7d;
+  --color-delta: #eae6e1;
+  --color-epsilon: #4a545c;
+
+}
+
+no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+no-scrollbar::-webkit-scrollbar {
+  -ms-overflow-style: none;
+}
+
+:root {
+  --primary: #cebda6;
+  --secondary: #f9ede0;
+  --textHighlight: #7a6651;
+}
+
+section {
+  @apply w-full px-8 md:px-24 py-28;
+}
+
+.section-title {
+  position: relative;
+  margin-bottom: 40px;
+  font-size: 3.75rem;
+  line-height: 1;
+  font-weight: 700;
+  font-family: sans-serif;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 6px;
+  border-radius: 6px;
+  bottom: -30px;
+  left: 0;
+  background-color: var(--textHighlight);
+}

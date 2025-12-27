@@ -1,0 +1,98 @@
+SQL stands for structured query language. It's a programming language used in creating databases and storing databases
+
+
+SQL relies on data bases so you have to create one if you wanna store any data
+
+-- create database if not exists Names;
+
+    Where names is the database. To run this database, use ctrl+enter on the line
+
+now the database is there but it' not in use so now we must select the database
+
+-- use Names;
+
+    Then run it using ctrl+enter
+
+Now we have our database. The next thing to do is to create a table. A table is a collection of data within the database.
+
+-- create table if not exists ChildrenNames
+
+    then run it. remember to terminate each line of code with a semicolon. 
+    NOTE: the keywords "if not exist" aren't exactly necessary since sql hasbeen updated past that point. It's more like a formality.
+
+DATATYPES
+
+    Unfortunately, I didn't go thru the DATATYPES but i think there are like 7. The ones I know of are:
+    -- NUMERIC
+    1. Numeric Data Types:
+
+Used for storing numbers (with or without decimals).
+
+            Type	 -       Description	           -   Example
+        INT / INTEGER  -	Whole numbers (no decimals).    -	25, -100, 0
+        SMALLINT    -	Smaller whole numbers (uses less storage).  -	500
+        BIGINT  -	Very large whole numbers.   -	9000000000
+        DECIMAL(p, s) or NUMERIC(p, s)	 -   Fixed-point numbers with exact  precision. Good for money or measurements.
+        p = total digits, s = digits after decimal.  -	DECIMAL(6,2) → allows 1234.56
+    
+    
+
+    2. Character / String Data Types
+
+Used for text, letters, or symbols.
+
+Type	Description	Example
+CHAR(n)	    -    Fixed-length text. Always stores exactly n characters (pads with spaces if shorter).   -	CHAR(5) → 'Hi '
+VARCHAR(n)      -	Variable-length text, up to n characters. More efficient for most text fields.  -	VARCHAR(50) → 'Hello World'
+TEXT    -	For long blocks of text (like paragraphs, notes, articles).     -	'This is a long message...'
+
+
+The other data types arent used often and we havent used them in class since the first class
+
+FILLING THE TABLE:
+
+
+
+NOTE: terminating lines
+
+In the global field, termination is done with a ";" . within a table or function, it's done with a comma ','. And the last line in a table, function or globe is unterminated. Termination should only be done when something comes after
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ALTER 
+Alter is used to modify a table. By adding columns, modify columns, renaming columns, adding primary key, removing columns exact
+
+Examples:
+
+1a. ALTER TABLE students
+    ADD age INT;
+
+1b. ALTER TABLE students
+    ADD (email VARCHAR(100), address TEXT);    
+
+    This adds a new column to the table
+
+2a. ALTER TABLE students
+    MODIFY age SMALLINT;
+    This changes the datatype if the column
+
+2b. ALTER TABLE students
+    CHANGE COLUMN firstname first_name VARCHAR(50);
+    This renames a column
+
+3. ALTER TABLE students
+    DROP COLUMN address;
+    This removes the column
