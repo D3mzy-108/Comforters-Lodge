@@ -110,9 +110,9 @@ export default function SiteFeatures() {
               <div className="w-full">
                 <Tabs
                   defaultValue="daily-devotional"
-                  className="w-full space-y-3"
+                  className="w-full bg-(--secondary) border-2 border-(--primary) rounded-2xl"
                 >
-                  <div className="bg-(--secondary) border-2 border-(--primary) rounded-2xl p-2 w-fit max-w-full overflow-auto">
+                  <div className="rounded-2xl px-2 pt-4 w-fit max-w-full overflow-auto">
                     <TabsList>
                       <div className="w-full h-fit flex gap-2 sm:gap-4">
                         <TabsTrigger
@@ -137,7 +137,7 @@ export default function SiteFeatures() {
                     </TabsList>
                   </div>
 
-                  <div className="rounded-2xl bg-(--secondary) border-2 border-(--primary) border-t-none p-4 text-lg">
+                  <div className="rounded-2xl p-4 text-lg">
                     <TabsContents>
                       {[
                         {
