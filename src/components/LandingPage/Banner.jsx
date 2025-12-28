@@ -25,13 +25,22 @@ export default function HeroBanner() {
               The five minutes that can reset your whole mind: let God speak
               first and shape the rest of your day.
             </p>
-            <Button
-              variant={"link"}
-              size={"sm"}
-              className={`font-normal text-lg rounded-xl px-0 py-5 text-white underline`}
-            >
-              {"Check out our communities >>"}
-            </Button>
+            <div className="w-fit flex gap-1">
+              <Button
+                variant={"default"}
+                size={"sm"}
+                className={`text-lg rounded-full px-5 py-6 text-black bg-(--primary) border-2 border-(--primary) hover:bg-(--secondary)`}
+              >
+                {"Today's Devotional >>"}
+              </Button>
+              <Button
+                variant={"link"}
+                size={"sm"}
+                className={`font-normal text-lg rounded-xl px-5 py-6 text-white underline`}
+              >
+                {"Check out our communities >>"}
+              </Button>
+            </div>
           </div>
         </div>
       </div>
