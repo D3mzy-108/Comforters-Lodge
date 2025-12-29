@@ -1,5 +1,6 @@
 import HeroBg from "@/assets/images/banner/landing-page-hero-banner.png";
 import { Button } from "@/components/animate-ui/components/buttons/button";
+import { Link } from "react-router-dom";
 
 export default function HeroBanner() {
   return (
@@ -26,13 +27,19 @@ export default function HeroBanner() {
               first and shape the rest of your day.
             </p>
             <div className="w-fit flex gap-1">
-              <Button
-                variant={"default"}
-                size={"sm"}
-                className={`text-lg rounded-full px-5 py-6 text-black bg-(--primary) border-2 border-(--primary) hover:bg-(--secondary)`}
+              <Link
+                to={`/devotionals?date=${new Date().getFullYear()}-${
+                  new Date().getMonth() + 1
+                }-${new Date().getDate()}`}
               >
-                {"Today's Devotional >>"}
-              </Button>
+                <Button
+                  variant={"default"}
+                  size={"sm"}
+                  className={`text-lg rounded-full px-5 py-6 text-black bg-(--primary) border-2 border-(--primary) hover:bg-(--secondary)`}
+                >
+                  {"Today's Devotional >>"}
+                </Button>
+              </Link>
               <Button
                 variant={"link"}
                 size={"sm"}
