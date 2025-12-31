@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import NavBar from "../components/Navbar";
-import { FaHeadphones } from "react-icons/fa";
+import { HeadphonesIcon } from "lucide-react";
 
 const sampleDevotionals = [
   {
@@ -389,7 +389,7 @@ const TodaysDevotional = ({ devotionals = sampleDevotionals }) => {
             className="px-3 fixed bottom-10 md:right-10 lg:right-50 py-2 rounded-full bg-black/40 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white"
             title="Listen"
           >
-            <FaHeadphones className="h-14 w-12" />
+            <HeadphonesIcon className="h-14 w-12" />
           </button>
         </article>
       </main>

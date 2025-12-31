@@ -68,7 +68,7 @@ const NavBar = () => {
       label: "Communities",
     },
     {
-      to: "/",
+      to: "/pages/Today",
       label: "Feed",
     },
     {
