@@ -97,7 +97,7 @@ export default function SiteFeatures() {
                   <span className="text-(--textHighlight)">
                     {"Experience God"}
                   </span>
-                  <span className="text-black/90">{" in a Fresh Way"}</span>
+                  <span className="text-black/90">{" in a Different Way"}</span>
                 </legend>
                 <p className="text-black/60 text-xl font-normal italic">
                   {

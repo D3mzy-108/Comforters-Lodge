@@ -1,5 +1,6 @@
 import HeroBg from "@/assets/images/banner/landing-page-hero-banner.png";
 import { Button } from "@/components/animate-ui/components/buttons/button";
+import { Link } from "react-router-dom";
 
 export default function HeroBanner() {
   return (
@@ -25,13 +26,28 @@ export default function HeroBanner() {
               The five minutes that can reset your whole mind: let God speak
               first and shape the rest of your day.
             </p>
-            <Button
-              variant={"link"}
-              size={"sm"}
-              className={`font-normal text-lg rounded-xl px-0 py-5 text-white underline`}
-            >
-              {"Check out our communities >>"}
-            </Button>
+            <div className="w-fit flex gap-1">
+              <Link
+                to={`/devotionals?date=${new Date().getFullYear()}-${
+                  new Date().getMonth() + 1
+                }-${new Date().getDate()}`}
+              >
+                <Button
+                  variant={"default"}
+                  size={"sm"}
+                  className={`text-lg rounded-full px-5 py-6 text-black bg-(--primary) border-2 border-(--primary) hover:bg-(--secondary)`}
+                >
+                  {"Today's Devotional >>"}
+                </Button>
+              </Link>
+              <Button
+                variant={"link"}
+                size={"sm"}
+                className={`font-normal text-lg rounded-xl px-5 py-6 text-white underline`}
+              >
+                {"Check out our communities >>"}
+              </Button>
+            </div>
           </div>
         </div>
       </div>
