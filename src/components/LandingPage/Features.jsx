@@ -13,6 +13,7 @@ import {
 } from "@/components/animate-ui/components/radix/accordion";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 import { BookOpen, Leaf, Music } from "lucide-react";
+import { Link } from "react-router";
 
 export default function SiteFeatures() {
   const accordionItems = [
@@ -145,21 +146,21 @@ export default function SiteFeatures() {
                           paragraph:
                             "A growing relationship with God thrives on consistent, daily connection. Each month, thousands of readers use our daily reflections to pause, center their hearts on Scripture, and discover God in a deeper, more personal way. It's more than just reading; it's about a life-changing encounter with the Word that carries you through your day.",
                           btnText: "Explore Our Feed",
-                          btnActivity: () => {},
+                          href: "/feed",
                         },
                         {
                           name: "community",
                           paragraph:
                             "Join a vibrant, global family of believers where you can share your journey, find encouragement, and grow alongside others. Through our discussion groups and shared stories, you’ll find a safe space to ask questions, offer support, and experience the strength that comes from walking together in Christ. Faith was never meant to be lived alone.",
                           btnText: "Join Our Community",
-                          btnActivity: () => {},
+                          href: "/",
                         },
                         {
                           name: "guided-prayer",
                           paragraph:
                             "The heartbeat of the Christian life is prayer, yet we all have moments when we don't know what to say. Our guided prayer sessions provide a gentle structure to help you quiet the noise and enter into a meaningful conversation with your Creator. Whether you are seeking peace, interceding for others, or offering praise, these prompts help you align your heart with His.",
                           btnText: "Send a Message",
-                          btnActivity: () => {},
+                          href: "/",
                         },
                       ].map((_, index) => {
                         return (
@@ -169,12 +170,13 @@ export default function SiteFeatures() {
                               <p>{_.paragraph}</p>
 
                               {/* ACTION BUTTON */}
-                              <button
-                                className={`font-medium rounded-full px-6 py-4 text-black bg-(--primary) text-base border-2 border-(--primary) hover:text-black hover:bg-(--secondary) duration-300`}
-                                onClick={_.btnActivity}
-                              >
-                                {_.btnText}
-                              </button>
+                              <Link to={_.href}>
+                                <button
+                                  className={`font-medium rounded-full px-6 py-4 text-black bg-(--primary) text-base border-2 border-(--primary) hover:text-black hover:bg-(--secondary) duration-300`}
+                                >
+                                  {_.btnText}
+                                </button>
+                              </Link>
                             </div>
                           </TabsContent>
                         );

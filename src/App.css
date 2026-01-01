@@ -12,13 +12,6 @@
 
 }
 
-no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-no-scrollbar::-webkit-scrollbar {
-  -ms-overflow-style: none;
-}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
