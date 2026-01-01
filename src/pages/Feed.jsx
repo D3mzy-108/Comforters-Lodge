@@ -73,8 +73,8 @@ function Feed() {
     }
 
     arr.sort((a, b) => {
-      if (sort === "newest") return b.date.localeCompare(a.date);
-      if (sort === "oldest") return a.date.localeCompare(b.date);
+      if (sort === "newest") return b.date_posted.localeCompare(a.date_posted);
+      if (sort === "oldest") return a.date_posted.localeCompare(b.date_posted);
       return 0;
     });
 
@@ -159,7 +159,7 @@ function Feed() {
                 variant="secondary"
                 className="h-11 rounded-2xl gap-2 bg-(--primary) text-black"
                 onClick={() =>
-                  setSort((s) => (s === "newest" ? "short" : "newest"))
+                  setSort((s) => (s === "newest" ? "oldest" : "newest"))
                 }
               >
                 <SortAsc className="h-4 w-4" />
