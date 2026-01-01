@@ -26,12 +26,8 @@ export default function HeroBanner() {
               The five minutes that can reset your whole mind: let God speak
               first and shape the rest of your day.
             </p>
-            <div className="w-fit flex gap-1">
-              <Link
-                to={`/devotionals?date=${new Date().getFullYear()}-${
-                  new Date().getMonth() + 1
-                }-${new Date().getDate()}`}
-              >
+            <div className="w-fit flex max-md:flex-col gap-1 max-md:gap-3">
+              <Link to={`/feed`}>
                 <Button
                   variant={"default"}
                   size={"sm"}

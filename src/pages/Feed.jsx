@@ -1,101 +1,287 @@
-import React from "react";
-import NavBar from "../components/Navbar";
-import { ArrowLeft, Forward, Share, Share2Icon, SortAsc } from "lucide-react";
-import { Link } from "react-router";
-import Footer from "../components/Footer";
+import { useEffect, useMemo, useState } from "react";
+import {
+  BookOpenIcon,
+  ChevronRight,
+  SearchIcon,
+  SortAsc,
+  SparklesIcon,
+} from "lucide-react";
+import { api } from "@/utils/api/api_connection";
+import { Button } from "@/components/animate-ui/components/buttons/button.tsx";
+// eslint-disable-next-line no-unused-vars
+import { motion, AnimatePresence } from "motion/react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card.tsx";
+import { Input } from "@/components/ui/input.tsx";
+import { Separator } from "@/components/ui/separator.tsx";
+import {
+  DevotionalDialog,
+  DevotionalRail,
+} from "@/components/Feed/DevotionalRail";
+import LessonCard from "@/components/Feed/LessonCardComponents";
+
+function Section({ icon, title, children }) {
+  return (
+    <div className="rounded-3xl border bg-background/70 p-4">
+      <div className="flex items-center gap-2">
+        <div className="inline-flex h-9 w-9 items-center justify-center rounded-2xl border bg-background">
+          {icon}
+        </div>
+        <div className="text-sm font-semibold">{title}</div>
+      </div>
+      <div className="mt-3 text-sm leading-relaxed text-foreground/90">
+        {children}
+      </div>
+    </div>
+  );
+}
 
 function Feed() {
-  const Demo = [
-    {
-      title: "Jelly",
-      preview: "lorem ipsum dolor sit amet constracteur",
-      destination: "",
-    },
-    {
-      title: "Can",
-      preview: "lorem ipsum dolor sit amet constracteur",
-      destination: "",
-    },
-    {
-      title: "Peanut",
-      preview: "lorem ipsum dolor sit amet constracteur",
-      destination: "",
-    },
-    {
-      title: "Carr",
-      preview: "lorem ipsum dolor sit amet constracteur",
-      destination: "",
-    },
-  ];
+  const [query, setQuery] = useState("");
+  const [sort, setSort] = useState("newest");
+  const [lessons, setLessons] = useState([]);
+  const [devotionals, setDevotionals] = useState([]);
+
+  const [selectedDev, setSelectedDev] = useState(null);
+  const [devDialogOpen, setDevDialogOpen] = useState(false);
+  const [devDialogBg, setDevDialogBg] = useState(false);
+
+  const filtered = useMemo(() => {
+    let arr = lessons;
+
+    const q = query.trim().toLowerCase();
+    if (q) {
+      arr = arr.filter((l) => {
+        const hay = [
+          l.opening_hook,
+          l.personal_question,
+          l.biblical_qa,
+          l.reflection,
+          l.story,
+          l.prayer,
+          l.activity_guide,
+          l.date_posted,
+        ]
+          .join(" ")
+          .toLowerCase();
+        return hay.includes(q);
+      });
+    }
+
+    arr.sort((a, b) => {
+      if (sort === "newest") return b.date.localeCompare(a.date);
+      if (sort === "oldest") return a.date.localeCompare(b.date);
+      return 0;
+    });
+
+    return arr;
+  }, [query, sort, lessons]);
+
+  // eslint-disable-next-line no-unused-vars
+  function openLesson(lesson) {
+    // TODO: OPEN LESSON PAGE
+  }
+
+  function openDev(d, containerBg) {
+    setSelectedDev(d);
+    setDevDialogOpen(true);
+    setDevDialogBg(containerBg);
+  }
+
+  // ==============================
+  // LOAD PAGE DATA
+  // ==============================
+
+  const refreshPosts = async () => {
+    try {
+      const data = await api("/posts");
+      setLessons(data);
+    } catch (e) {
+      console.log(e.message);
+      setLessons(lessons);
+    }
+  };
+
+  const refreshDevotions = async () => {
+    try {
+      const data = await api("/devotions");
+      setDevotionals(data);
+    } catch (e) {
+      console.log(e.message);
+      setDevotionals(devotionals);
+    }
+  };
+
+  const refreshAll = async () => {
+    await Promise.all([refreshPosts(), refreshDevotions()]);
+  };
+
+  useEffect(() => {
+    // Initial load
+    refreshAll();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <div className="bg-white min-h-screen">
-      <section className="py-4! px-10 border flex border-black/20">
-        <div className="w-full h-fit flex justify-start items-center gap-4">
-          <Link to="/">
-            <div className="p-4 border w-fit rounded-full hover:bg-black/20 ease-in-out duration-150 transition-all">
-              <ArrowLeft />
-            </div>{" "}
-          </Link>
-          <div className="flex flex-col gap-2">
-            <h1 className="text-xl lg:text-2xl  font-bold">Feed</h1>
-            <p className="text-sm lg:text-lg text-gray-600">
-              Daily Devotionals & Lessons
-            </p>
-          </div>
-        </div>
-        <div className="ml-10 p-4 w-full flex items-center gap-4">
-          <input
-            type="text"
-            placeholder=" Search lessons, themes..."
-            className="w-full h-10 p-4 bg-white rounded-xl border-black border focus:border-2"
-          />
-          <div className="flex py-2 px-4 border rounded-xl hover:bg-black/75 hover:text-white ease-in-out duration-150 transition-all">
-            <SortAsc />
-            <p>Sort</p>
-          </div>
-        </div>
-      </section>
-      <section className="py-20! grid bg-alpha">
-        <div className="grid grid-flow-col auto-cols-[20rem]  px-10 gap-4 h-30 md:h-50 w-full overflow-x-scroll overflow-y-auto">
-          {Demo.map((d) => (
-            <div
-              className={` text-wrap h-50 p-4 rounded-xl text-white bg-linear-120 from-red-700 to-blue-800`}
-            >
-              <div className="flex flex-col gap-2 justify-end h-full">
-                <h1 className="text-xl">{d.title}</h1>
-                <h1>{d.preview}</h1>
+    <div className="min-h-screen bg-linear-to-b from-muted/40 via-background to-background">
+      {/* Top bar */}
+      <div className="sticky top-0 z-30 bg-(--secondary)/20 backdrop-blur supports-backdrop-filter:bg-background/60">
+        <div className="mx-auto px-4 md:px-8 py-6">
+          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-center gap-3">
+              <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border bg-background shadow-sm">
+                <SparklesIcon className="h-5 w-5" />
+              </div>
+              <div>
+                <div className="text-lg font-semibold">Fellowship Feed</div>
+                <div className="text-sm text-muted-foreground">
+                  Daily devotionals and lessons for a shared walk with Jesus.
+                </div>
               </div>
             </div>
-          ))}
+
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+              <div className="relative w-full sm:w-80">
+                <SearchIcon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search lessons, series, tags..."
+                  className="h-11 rounded-2xl pl-9"
+                />
+              </div>
+
+              <Button
+                variant="secondary"
+                className="h-11 rounded-2xl gap-2 bg-(--primary) text-black"
+                onClick={() =>
+                  setSort((s) => (s === "newest" ? "short" : "newest"))
+                }
+              >
+                <SortAsc className="h-4 w-4" />
+                Sort
+              </Button>
+            </div>
+          </div>
         </div>
-      </section>
-      <section className="grid grid-cols-9 min-h-screen p-10 bg-alpha gap-8">
-        <div className="h-full col-span-5">
-            <div className="p-8 w-full flex justify-between"> 
-                <h1 className="text-2xl font-bold tracking-wide">Title
-                    {/* This box should show only the devotional of that day */}
-                </h1>
-                {/* <Share2Icon/> */}
-                <Forward/>
+      </div>
+
+      {/* Body */}
+      <main className="mx-auto px-4 md:px-12 py-6 md:py-8 space-y-6">
+        <DevotionalRail devotionals={devotionals} onOpen={openDev} />
+
+        <div className="grid gap-4 lg:grid-cols-[1.4fr_.6fr]">
+          {/* Feed */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="inline-flex h-9 w-9 items-center justify-center rounded-2xl border bg-background">
+                  <BookOpenIcon className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="text-sm font-semibold">Lessons</div>
+                  <div className="text-xs text-muted-foreground">
+                    Short highlights now, full details later.
+                  </div>
+                </div>
+              </div>
+              <div className="text-xs text-muted-foreground">
+                Showing {filtered.length}
+              </div>
             </div>
-            <div className="mt-8 text-wrap flex flex-col gap-4 border-b border-beta/50 p-8">
-                <h1 className="text-2xl font-semibold tracking-wide">Key Thought</h1>
-                <p>
-                    
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus voluptatum ad fuga veritatis temporibus, corporis nesciunt laborum nisi amet rem dolorum quo dolore ratione ea consequatur neque. Distinctio, placeat.
-                </p>
-                <div></div>
+
+            <AnimatePresence mode="popLayout">
+              <motion.div
+                key={sort + "|" + query}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.18 }}
+                className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+              >
+                {filtered.map((lesson) => (
+                  <LessonCard
+                    key={lesson.id}
+                    lesson={lesson}
+                    onOpen={openLesson}
+                  />
+                ))}
+              </motion.div>
+            </AnimatePresence>
+
+            {filtered.length === 0 && (
+              <Card className="rounded-3xl border bg-background/70">
+                <CardContent className="p-6 text-sm text-muted-foreground">
+                  No lessons match that search. Try a different word or clear
+                  filters.
+                </CardContent>
+              </Card>
+            )}
+          </div>
+
+          {/* Sidebar */}
+          <aside className="space-y-4 lg:border-l lg:border-l-gray-200">
+            <div className="flex flex-col gap-4 divide p-4">
+              <Card className="rounded-3xl bg-(--secondary)/20 border border-b-2 border-(--primary) shadow">
+                <CardHeader>
+                  <CardTitle className="text-lg font-medium text-(--textHighlight)">
+                    Quick Actions
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="grid gap-2">
+                  <Button
+                    variant="secondary"
+                    className="rounded-lg p-6 shadow-sm justify-between bg-(--secondary)/40"
+                  >
+                    Request prayer
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    className="rounded-lg p-6 shadow-sm justify-between bg-(--secondary)/40"
+                  >
+                    Join small group
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    className="rounded-lg p-6 shadow-sm justify-between bg-(--secondary)/40"
+                  >
+                    See announcements
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </CardContent>
+              </Card>
             </div>
-            <div className="mt-4 text-wrap flex flex-col gap-4 p-8">
-                <h1 className="text-2xl font-semibold tracking-wide">Prayer</h1>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus voluptatum ad fuga veritatis temporibus, corporis nesciunt laborum nisi amet rem dolorum quo dolore ratione ea consequatur neque. Distinctio, placeat.
-                </p>
-            </div>
+          </aside>
         </div>
-        <div className="h-full col-span-4 border rounded-xl border-beta"></div>
-      </section>
-      <Footer/>
+      </main>
+
+      <DevotionalDialog
+        open={devDialogOpen}
+        onOpenChange={setDevDialogOpen}
+        devotional={selectedDev}
+        containerBG={devDialogBg}
+      />
+
+      <footer className="mx-auto max-w-6xl px-4 pb-10 pt-2 text-xs text-muted-foreground">
+        <Separator className="mb-4" />
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <div>© {new Date().getFullYear()} Bible Fellowship</div>
+          <div className="flex items-center gap-2">
+            <span className="rounded-full border bg-background px-3 py-1">
+              Built for: feed + devotionals
+            </span>
+            <span className="rounded-full border bg-background px-3 py-1">
+              Cards: minimal, magazine, sermon
+            </span>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
