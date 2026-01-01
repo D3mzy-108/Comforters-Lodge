@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/animate-ui/components/buttons/button";
-import { MenuIcon, ChevronRight } from "lucide-react";
+import { MenuIcon } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,10 +9,6 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/animate-ui/components/radix/dropdown-menu";
 
@@ -64,11 +60,11 @@ const NavBar = () => {
 
   const navLinks = [
     {
-      to: "/pages/Daily-Devotion?q=",
+      to: "/",
       label: "Communities",
     },
     {
-      to: "/",
+      to: "/feed",
       label: "Feed",
     },
     {

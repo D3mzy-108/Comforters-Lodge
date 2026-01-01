@@ -1,0 +1,95 @@
+"use client";
+import { cx, formatDate } from "@/utils/formatters";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card.tsx";
+import { Badge } from "@/components/ui/badge.tsx";
+import { Button } from "@/components/animate-ui/components/buttons/button.tsx";
+import { BookOpenIcon, ChevronRight } from "lucide-react";
+import { Link } from "react-router";
+
+function LessonMetaRow({ lesson }) {
+  return (
+    <div className="flex flex-wrap items-center gap-2 text-xs">
+      <Badge
+        variant="secondary"
+        className="rounded-full bg-(--primary) text-black"
+      >
+        #{lesson.id}
+      </Badge>
+      <span className="text-muted-foreground">•</span>
+      <span className="text-muted-foreground">
+        {formatDate(lesson.date_posted)}
+      </span>
+    </div>
+  );
+}
+
+export default function LessonCard({ lesson, onOpen }) {
+  return (
+    <Card
+      className={cx(
+        "rounded-3xl border border-(--primary) bg-background/70 shadow-md transition hover:shadow-lg text-wrap"
+      )}
+    >
+      <CardHeader className="space-y-3">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <LessonMetaRow lesson={lesson} />
+            <CardTitle className="mt-4 line-clamp-2 text-lg">
+              {lesson.personal_question}
+            </CardTitle>
+          </div>
+          <div
+            className={cx(
+              "inline-flex items-center gap-2 rounded-2xl px-3 py-2"
+            )}
+          >
+            <BookOpenIcon className="h-4 w-4" />
+            {/* <span className="text-xs font-semibold">{lesson.passage}</span> */}
+          </div>
+        </div>
+
+        <div className="space-y-3 border border-(--primary) rounded-2xl">
+          <div className="rounded-2xl p-3 border-b border-b-(--primary) bg-(--secondary)/40">
+            <div className="text-sm font-semibold text-muted-foreground">
+              Reflection
+            </div>
+            <div className="mt-1 line-clamp-2 text-base">
+              {lesson.reflection}
+            </div>
+          </div>
+          <div className="rounded-2xl p-3">
+            <div className="text-sm font-semibold text-muted-foreground">
+              Activity guide
+            </div>
+            <div className="mt-1 line-clamp-2 text-base">
+              {lesson.activity_guide}
+            </div>
+          </div>
+        </div>
+      </CardHeader>
+
+      <CardContent className="pt-0">
+        <div className="flex items-center justify-between">
+          <Badge variant="outline" className="rounded-full text-sm">
+            Lesson
+          </Badge>
+          <Link to={`/lesson?date=${lesson.date_posted}&id=${lesson.id}`}>
+            <Button
+              variant="ghost"
+              className="rounded-2xl"
+              onClick={() => onOpen(lesson)}
+            >
+              Read
+              <ChevronRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
