@@ -58,24 +58,44 @@ const NavBar = () => {
       : "bg-transparent text-[#C4C5C6]"
   }`;
 
+
+
+  // Home, Hymns, scripture & prayer added to list, Communties -> About, Feed-> Devotionals
+
   const navLinks = [
     {
       to: "/",
-      label: "Communities",
-    },
-    {
-      to: "/feed",
-      label: "Feed",
+      label: "Home",
     },
     {
       to: "/",
-      label: "Shop",
+      label: "About",
+    },
+    {
+      to: "/feed",
+      label: "Devotionals",
+    },
+    {
+      to: "/feed",
+      label: "Hymns",
+    },
+    {
+      to: "/feed",
+      label: "Scripture",
+    },
+    {
+      to: "/feed",
+      label: "Prayer",
+    },
+    {
+      to: "/",
+      label: "Donate",
     },
   ];
 
   return (
     <div className={navStateClasses}>
-      <div className="flex w-full px-0 py-3 lg:px-0 items-center gap-3">
+      <div className="flex w-full px-4 py-3 lg:px-0 items-center gap-3">
         {/* ***************LOGO******************* */}
         <div className="flex items-center lg:px-4 px-2 justify-between">
           <span className="lg:pl-6 lg:pr-4 py-2 border-r-2 border-(--primary)">
@@ -88,7 +108,7 @@ const NavBar = () => {
           </span>
         </div>
         {/* ************NAVLIST**************** */}
-        <ul className="hidden md:flex justify-start flex-1 text-xl items-center">
+        <ul className="hidden lg:flex justify-start flex-1 text-xl items-center">
           {navLinks.map((link, index) => (
             <li key={index}>
               <Link to={link.to}>
@@ -106,12 +126,12 @@ const NavBar = () => {
           ))}
         </ul>
 
-        <div className="w-fit hidden md:block">
+        <div className="w-fit hidden lg:block">
           <AuthTriggerBtns />
         </div>
 
         {/* MOBILE NAVBAR DROPDOWN MENU */}
-        <div className="w-fit block md:hidden ml-auto px-3">
+        <div className="w-fit block lg:hidden ml-auto px-3">
           <DropdownMenu>
             <DropdownMenuTrigger className="bg-(--secondary) rounded-full p-3 border-none outline-none">
               <MenuIcon className="text-xl text-black" />

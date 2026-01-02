@@ -19,30 +19,31 @@ export default function HeroBanner() {
       >
         <div className="w-full md:w-5/6">
           <div className="w-full max-w-[700px] flex flex-col items-start gap-2">
-            <h1 className="text-3xl md:text-6xl font-roboto font-bold">
-              Build your Relationship with God
+            <h1 className="text-md text-[#7a6651] mb-2">
+              Abiding Grace, Peace & Love.
+
             </h1>
-            <p className="py-6 text-lg text-white/60 md:text-2xl">
-              The five minutes that can reset your whole mind: let God speak
-              first and shape the rest of your day.
+            <h1 className="text-3xl md:text-4xl">
+              Build a deeper relationship with God. Start your day centered on the Word of Truth, connected to the Spirit, and renewed in your soul.
+
+              {/* Updated texts */}
+            </h1>
+            <p className="py-6 lg:py-3 text-lg text-white/60 md:text-2xl">
+              Five minutes to reset your day. Let God speak first. Our
+              daily devotionals are designed to help you pause, hear His voice,
+              and carry His peace into everything that follows.
             </p>
             <div className="w-fit flex max-md:flex-col gap-1 max-md:gap-3">
               <Link to={`/feed`}>
                 <Button
-                  variant={"default"}
+                  variant={"link"}
                   size={"sm"}
-                  className={`text-lg rounded-full px-5 py-6 text-black bg-(--primary) border-2 border-(--primary) hover:bg-(--secondary)`}
+                  className={`font-normal text-lg flex rounded-xl px-5 py-6 text-white underline`}
                 >
-                  {"Today's Devotional >>"}
+                  <h6 className="text-gray-200/50">Start with <span className="text-white">{"Today's Devotional >>"}</span></h6>
+                  
                 </Button>
               </Link>
-              <Button
-                variant={"link"}
-                size={"sm"}
-                className={`font-normal text-lg rounded-xl px-5 py-6 text-white underline`}
-              >
-                {"Check out our communities >>"}
-              </Button>
             </div>
           </div>
         </div>

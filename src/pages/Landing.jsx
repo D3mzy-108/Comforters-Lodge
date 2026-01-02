@@ -9,17 +9,18 @@ import Demo3 from "@/assets/Demo3.jpg";
 import HeroBanner from "@/components/LandingPage/Banner";
 import SiteFeatures from "@/components/LandingPage/Features";
 import { Link } from "react-router-dom";
+import { Button } from "@/components/animate-ui/components/buttons/button";
 
 const Landing = () => {
   const books = [
-    { src: Demo1, title: "Waiting for Christmas" },
-    { src: Demo2, title: "Love the Lord Your God" },
-    { src: Demo3, title: "28 Day Catalyst" },
+    { src: Demo1, title: "· FLEE: How Strategic Flight Fuels Eternal Purpose." },
+    { src: Demo2, title: "STAND: When Conviction Refuses To Bow" },
+    { src: Demo3, title: "Follow Me: A 60-Day Walk with Jesus" },
     { src: Demo2, title: "Read Ask Go" },
   ];
 
   return (
-    <div className="w-full space-y-12">
+    <div className="w-full space-y-12 relative">
       <NavBar />
 
       {/* **************************Hero************************** */}
@@ -61,6 +62,16 @@ const Landing = () => {
         </div>
       </section>
       <Footer />
+        {/* Bug here idk what to do */}
+            <Link to={'/feed'}><div className="fixed p-8 w-fit  rounded-xl right-16 text-white bottom-16">
+              <Button
+                variant={"default"}
+                size={"default"}
+                className={`fixed p-8 w-fit bg-[#7a6651] right-16 bottom-16`}
+              >
+                {"Devotionals >>"}
+              </Button></div>
+            </Link>
     </div>
   );
 };

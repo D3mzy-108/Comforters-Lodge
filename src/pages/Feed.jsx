@@ -127,7 +127,7 @@ function Feed() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-muted/40 via-background to-background">
+    <div className="min-h-screen text-wrap bg-linear-to-b from-muted/40 via-background to-background">
       {/* Top bar */}
       <div className="sticky top-0 z-30 bg-(--secondary)/20 backdrop-blur supports-backdrop-filter:bg-background/60">
         <div className="mx-auto px-4 md:px-8 py-6">
