@@ -20,7 +20,7 @@ export default function SiteFeatures() {
     {
       id: "truth",
       title: "Focus on Truth",
-      subtitle: "Center your heart on what doesn't change.",
+      subtitle: "Center your heart on what never changes with foundational studies.",
       icon: BookOpen,
       content: (
         <>
@@ -41,8 +41,8 @@ export default function SiteFeatures() {
     },
     {
       id: "worship",
-      title: "Weekday Worship",
-      subtitle: "Worship that meets you midweek, not just on Sunday.",
+      title: "Find Rhythm & Stillness",
+      subtitle: "Create space for God in your daily rhythm and quiet your soul. Follow our structured plan for deeper renewal.",
       icon: Music,
       content: (
         <>
@@ -120,19 +120,19 @@ export default function SiteFeatures() {
                           value="daily-devotional"
                           className="bg-transparent transform-[scale(0.9)] font-normal data-[state=active]:font-medium focus-visible:ring-0 focus-visible:shadow-none focus-visible:border-none text-lg"
                         >
-                          Daily Devotional
+                          Mission
                         </TabsTrigger>
                         <TabsTrigger
                           value="community"
                           className="bg-transparent transform-[scale(0.9)] font-normal data-[state=active]:font-medium focus-visible:ring-0 focus-visible:shadow-none focus-visible:border-none text-lg"
                         >
-                          Community
+                          Our Offer
                         </TabsTrigger>
                         <TabsTrigger
                           value="guided-prayer"
                           className="bg-transparent transform-[scale(0.9)] font-normal data-[state=active]:font-medium focus-visible:ring-0 focus-visible:shadow-none focus-visible:border-none text-lg"
                         >
-                          Guided Prayer
+                          Guded Prayer
                         </TabsTrigger>
                       </div>
                     </TabsList>
@@ -140,18 +140,21 @@ export default function SiteFeatures() {
 
                   <div className="rounded-2xl p-4 text-lg">
                     <TabsContents>
+
+
+                      {/* Text content changed as well as titles */}
                       {[
                         {
                           name: "daily-devotional",
                           paragraph:
-                            "A growing relationship with God thrives on consistent, daily connection. Each month, thousands of readers use our daily reflections to pause, center their hearts on Scripture, and discover God in a deeper, more personal way. It's more than just reading; it's about a life-changing encounter with the Word that carries you through your day.",
-                          btnText: "Explore Our Feed",
+                            "Experience God Everyday. We provide resources and community to transform your daily walk. In the midst of a busy life, we help you find practical ways to hear His voice and feel His presence.",
+                          btnText: "Explore",
                           href: "/feed",
                         },
                         {
                           name: "community",
                           paragraph:
-                            "Join a vibrant, global family of believers where you can share your journey, find encouragement, and grow alongside others. Through our discussion groups and shared stories, you’ll find a safe space to ask questions, offer support, and experience the strength that comes from walking together in Christ. Faith was never meant to be lived alone.",
+                            "A growing relationship with God that thrives on consistent, daily connection. Every Day, Dozens join us to pause, center their hearts on Scripture, and encounter the Word in a deeper, more personal way. You should join us too.",
                           btnText: "Join Our Community",
                           href: "/",
                         },
@@ -213,7 +216,7 @@ export default function SiteFeatures() {
         <div className="space-y-4 text-wrap">
           <Accordion
             type={"single"}
-            collapsible={false}
+            collapsible={true}
             className="w-full max-w-2xl ml-auto"
           >
             {accordionItems.map((_, index) => {

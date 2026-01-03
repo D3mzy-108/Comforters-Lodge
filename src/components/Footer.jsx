@@ -1,8 +1,41 @@
 import React from "react";
-
+import { Link } from "react-router";
+import { Button } from "@/components/animate-ui/components/buttons/button";
+const navLinks = [
+    {
+      to: "/",
+      label: "Home",
+    },
+    {
+      to: "/feed",
+      label: "Devotionals",
+    },
+    {
+      to: "/feed",
+      label: "Hymns",
+    },
+    {
+      to: "/feed",
+      label: "Scripture",
+    },
+    {
+      to: "/feed",
+      label: "Prayer",
+    },
+  ];
 const Footer = () => {
   return (
     <footer className="footer sm:footer-horizontal text-wrap text-beta p-10 h-fit border-t border-gray-400 mt-8">
+      <nav>
+        <h6 className="footer-title">Services</h6>
+          {navLinks.map((link, index) => (
+            <a key={index}>
+              <Link to={link.to}>
+                  {link.label}
+              </Link>
+            </a>
+          ))}
+        </nav>
       <nav>
         <h6 className="footer-title">Services</h6>
         <a className="link link-hover">Branding</a>
@@ -14,8 +47,7 @@ const Footer = () => {
         <h6 className="footer-title">Company</h6>
         <a className="link link-hover">About us</a>
         <a className="link link-hover">Contact</a>
-        <a className="link link-hover">Jobs</a>
-        <a className="link link-hover">Press kit</a>
+        <a className="link link-hover">Donate</a>
       </nav>
       <nav>
         <h6 className="footer-title">Legal</h6>

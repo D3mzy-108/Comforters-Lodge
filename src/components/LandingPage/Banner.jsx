@@ -18,31 +18,37 @@ export default function HeroBanner() {
         className={`absolute inset-0 z-200 px-6 bg-linear-to-b text-alpha text-wrap py-40 h-screen flex justify-center items-center`}
       >
         <div className="w-full md:w-5/6">
-          <div className="w-full max-w-[700px] flex flex-col items-start gap-2">
-            <h1 className="text-3xl md:text-6xl font-roboto font-bold">
-              Build your Relationship with God
+          <div className="w-full max-w-[700px] flex flex-col items-start gap-2 space-y-2">
+            <h3 className="text-lg text-(--primary)">
+              {"Abiding Grace, Peace & Love."}
+            </h3>
+            <h1 className="text-3xl md:text-4xl">
+              {"Begin your day grounded in God's Word"}
             </h1>
-            <p className="py-6 text-lg text-white/60 md:text-2xl">
-              The five minutes that can reset your whole mind: let God speak
-              first and shape the rest of your day.
+            <p className="text-lg text-white/60 my-2">
+              <span>
+                {`Take a few minutes to pause, reflect, and listen. Our daily
+                devotionals help you centre your heart on Scripture, attend to
+                the Spirit, and carry peace into the rest of your day.`}
+              </span>
+              <br />
+              <br />
+              <span>
+                {`Each devotional is short, focused, and designed to fit naturally
+                into your morning or evening routine. Start today's devotional`}
+              </span>
             </p>
-            <div className="w-fit flex max-md:flex-col gap-1 max-md:gap-3">
+
+            <div className="w-fit mt-4">
               <Link to={`/feed`}>
                 <Button
                   variant={"default"}
                   size={"sm"}
-                  className={`text-lg rounded-full px-5 py-6 text-black bg-(--primary) border-2 border-(--primary) hover:bg-(--secondary)`}
+                  className={`font-normal text-lg flex rounded-full px-5 py-6 text-black bg-(--primary)`}
                 >
-                  {"Today's Devotional >>"}
+                  {"Start Today's Devotional >>"}
                 </Button>
               </Link>
-              <Button
-                variant={"link"}
-                size={"sm"}
-                className={`font-normal text-lg rounded-xl px-5 py-6 text-white underline`}
-              >
-                {"Check out our communities >>"}
-              </Button>
             </div>
           </div>
         </div>
