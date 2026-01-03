@@ -41,7 +41,7 @@ const FeedPost = () => {
   async function handleShare() {
     if (!lesson || lesson == null) return;
     const shareData = {
-      heading:  lesson,
+      heading: lesson,
       title: lesson.opening_hook,
       text: `${lesson.reflection}\n\nKeep reading on Comforters Lodge - https://www.clm.org.ng/lesson?date=${lesson.date_posted}&id=${lesson.id}`,
       // Note to self. I need a url
@@ -87,7 +87,7 @@ const FeedPost = () => {
   return (
     <>
       <NavBar />
-      <div className="w-full h-[350px] py-16 lg:py-4 bg-linear-90 from-beta to-(--textHighlight) flex items-end justify-center text-wrap">
+      <div className="w-full h-[400px] py-16 lg:py-4 bg-linear-90 from-beta to-(--textHighlight) flex items-end justify-center text-wrap">
         <div className="w-full max-w-4xl p-12">
           <div className="text-white">
             <p className="text-base opacity-80">

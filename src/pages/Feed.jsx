@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   BookOpenIcon,
+  ChevronLeft,
   ChevronRight,
   SearchIcon,
   SortAsc,
@@ -45,6 +46,11 @@ function Feed() {
   const [sort, setSort] = useState("newest");
   const [lessons, setLessons] = useState([]);
   const [devotionals, setDevotionals] = useState([]);
+
+  const [lessonPaginator, setLessonPaginator] = useState({
+    page: 1,
+    ttl_pages: 1,
+  });
 
   const [selectedDev, setSelectedDev] = useState(null);
   const [devDialogOpen, setDevDialogOpen] = useState(false);
@@ -96,10 +102,14 @@ function Feed() {
   // LOAD PAGE DATA
   // ==============================
 
-  const refreshPosts = async () => {
+  const refreshPosts = async (page = lessonPaginator.page) => {
     try {
-      const data = await api("/posts");
-      setLessons(data);
+      const data = await api(`/posts?page=${page}`);
+      setLessons(data.posts);
+      setLessonPaginator({
+        page: data.page,
+        ttl_pages: data.total_pages,
+      });
     } catch (e) {
       console.log(e.message);
       setLessons(lessons);
@@ -118,6 +128,10 @@ function Feed() {
 
   const refreshAll = async () => {
     await Promise.all([refreshPosts(), refreshDevotions()]);
+  };
+
+  const onPageChange = async (page) => {
+    await refreshPosts(page);
   };
 
   useEffect(() => {
@@ -177,7 +191,8 @@ function Feed() {
         <div className="grid gap-4 lg:grid-cols-[1.4fr_.6fr]">
           {/* Feed */}
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
+            <div className="flex max-sm:flex-col sm:items-center sm:justify-between gap-4">
+              {/* SECTION TITLE */}
               <div className="flex items-center gap-2">
                 <div className="inline-flex h-9 w-9 items-center justify-center rounded-2xl border bg-background">
                   <BookOpenIcon className="h-5 w-5" />
@@ -189,8 +204,30 @@ function Feed() {
                   </div>
                 </div>
               </div>
-              <div className="text-xs text-muted-foreground">
-                Showing {filtered.length}
+
+              {/* PAGINATION */}
+              <div className="w-fit flex justify-center gap-3 items-center ml-auto">
+                <Button
+                  variant={"default"}
+                  size={"sm"}
+                  className="rounded-lg hover:bg-(--primary) bg-transparent border-2 border-(--primary) text-(--textHighlight)"
+                  onClick={() => onPageChange(lessonPaginator.page - 1)}
+                  disabled={lessonPaginator.page === 1}
+                >
+                  <ChevronLeft />
+                </Button>
+                <span className="text-base">
+                  {lessonPaginator.page} of {lessonPaginator.ttl_pages}
+                </span>
+                <Button
+                  variant={"default"}
+                  size={"sm"}
+                  className="rounded-lg hover:bg-(--primary) bg-transparent border-2 border-(--primary) text-(--textHighlight)"
+                  onClick={() => onPageChange(lessonPaginator.page + 1)}
+                  disabled={lessonPaginator.page === lessonPaginator.ttl_pages}
+                >
+                  <ChevronRight />
+                </Button>
               </div>
             </div>
 

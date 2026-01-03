@@ -58,8 +58,6 @@ const NavBar = () => {
       : "bg-transparent text-[#C4C5C6]"
   }`;
 
-
-
   // Home, Hymns, scripture & prayer added to list, Communties -> About, Feed-> Devotionals
 
   const navLinks = [
@@ -108,7 +106,7 @@ const NavBar = () => {
           </span>
         </div>
         {/* ************NAVLIST**************** */}
-        <ul className="hidden lg:flex justify-start flex-1 text-xl items-center">
+        <ul className="hidden min-[1330px]:flex justify-start flex-1 text-xl items-center">
           {navLinks.map((link, index) => (
             <li key={index}>
               <Link to={link.to}>
@@ -126,12 +124,12 @@ const NavBar = () => {
           ))}
         </ul>
 
-        <div className="w-fit hidden lg:block">
+        <div className="w-fit hidden min-[1330px]:block">
           <AuthTriggerBtns />
         </div>
 
         {/* MOBILE NAVBAR DROPDOWN MENU */}
-        <div className="w-fit block lg:hidden ml-auto px-3">
+        <div className="w-fit block min-[1330px]:hidden ml-auto px-3">
           <DropdownMenu>
             <DropdownMenuTrigger className="bg-(--secondary) rounded-full p-3 border-none outline-none">
               <MenuIcon className="text-xl text-black" />
