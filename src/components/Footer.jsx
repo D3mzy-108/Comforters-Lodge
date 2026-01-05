@@ -2,48 +2,62 @@ import React from "react";
 import { Link } from "react-router";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 const navLinks = [
-    {
-      to: "/",
-      label: "Home",
-    },
-    {
-      to: "/feed",
-      label: "Devotionals",
-    },
-    {
-      to: "/feed",
-      label: "Hymns",
-    },
-    {
-      to: "/feed",
-      label: "Scripture",
-    },
-    {
-      to: "/feed",
-      label: "Prayer",
-    },
-  ];
+  {
+    to: "/",
+    label: "Home",
+  },
+  {
+    to: "/feed",
+    label: "Devotionals",
+  },
+  {
+    to: "/feed",
+    label: "Hymns",
+  },
+  {
+    to: "/feed",
+    label: "Scripture",
+  },
+  {
+    to: "/feed",
+    label: "Prayer",
+  },
+  {
+    to: "/feed",
+    label: "Contact",
+  },
+  // {
+  //   to: "/feed",
+  //   label: "Prayer",
+  // },
+  // {
+  //   to: "/feed",
+  //   label: "Prayer",
+  // },
+];
 const Footer = () => {
   return (
-    <footer className="footer sm:footer-horizontal text-wrap text-beta p-10 h-fit border-t border-gray-400 mt-8">
-      <nav>
-        <h6 className="footer-title">Services</h6>
-          {navLinks.map((link, index) => (
-            <a key={index}>
-              <Link to={link.to}>
-                  {link.label}
-              </Link>
-            </a>
-          ))}
-        </nav>
-      <nav>
-        <h6 className="footer-title">Services</h6>
-        <a className="link link-hover">Branding</a>
-        <a className="link link-hover">Design</a>
-        <a className="link link-hover">Marketing</a>
-        <a className="link link-hover">Advertisement</a>
+    <footer className="flex flex-col justify-between  gap-8 text-wrap text-beta p-10 h-fit border-t border-gray-400 mt-8">
+      
+      <nav className="grid grid-cols-4 gap-4 w-3xl text-xl">
+        {navLinks.map((link, index) => (
+          <a key={index} className="row-span-1">
+            <Link to={link.to}>{link.label}</Link>
+          </a>
+        ))}
       </nav>
-      <nav>
+      <div className="text-[#7a6651] text-semibold flex justify-between text-xl">
+        <p>
+          Comforter's Lodge Ministries <br />
+          <span className="text-lg">
+            An outreach of the Cherubim & Seraphim Church.
+          </span> 
+        </p>
+          <p className="text-sm">
+            Copyright 2026 Comforter's Lodge
+          </p>
+      </div>
+      {/* <nav>
         <h6 className="footer-title">Company</h6>
         <a className="link link-hover">About us</a>
         <a className="link link-hover">Contact</a>
@@ -68,7 +82,7 @@ const Footer = () => {
             <button className="btn btn-primary join-item">Subscribe</button>
           </div>
         </fieldset>
-      </form>
+      </form> */}
     </footer>
   );
 };

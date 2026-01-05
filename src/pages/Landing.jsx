@@ -8,19 +8,24 @@ import Demo2 from "@/assets/Demo2.jpg";
 import Demo3 from "@/assets/Demo3.jpg";
 import HeroBanner from "@/components/LandingPage/Banner";
 import SiteFeatures from "@/components/LandingPage/Features";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/animate-ui/components/buttons/button";
+import Floater from "../components/LandingPage/Floater";
 
 const Landing = () => {
   const books = [
-    { src: Demo1, title: "· FLEE: How Strategic Flight Fuels Eternal Purpose." },
+    {
+      src: Demo1,
+      title: "· FLEE: How Strategic Flight Fuels Eternal Purpose.",
+    },
     { src: Demo2, title: "STAND: When Conviction Refuses To Bow" },
     { src: Demo3, title: "Follow Me: A 60-Day Walk with Jesus" },
     { src: Demo2, title: "Read Ask Go" },
   ];
 
   return (
-    <div className="w-full space-y-12 relative">
+    <>
+    <div className="w-full bg-white space-y-12 relative">
+      
+      {/* Bug here idk what to do */}
       <NavBar />
 
       {/* **************************Hero************************** */}
@@ -51,28 +56,20 @@ const Landing = () => {
             Comforter's Lodge Store
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Shop Our Resources
+            Browse Our Resources
           </h2>
           <p className="text-gray-600 leading-relaxed mb-6">
             The Comforter's Lodge store includes 12 monthly devotionals, topical
             devotionals, resources for kids, and featured resources from Denison
             Ministries partner brands.
           </p>
-          <BtnStyle1 Btn1text={"Shop the Store"} />
+          <BtnStyle1 Btn1text={"Browse our inventory"} />
         </div>
       </section>
       <Footer />
-        {/* Bug here idk what to do */}
-            <Link to={'/feed'}><div className="fixed p-8 w-fit  rounded-xl right-16 text-white bottom-16">
-              <Button
-                variant={"default"}
-                size={"default"}
-                className={`fixed p-8 w-fit bg-[#7a6651] right-16 bottom-16`}
-              >
-                {"Devotionals >>"}
-              </Button></div>
-            </Link>
     </div>
+    <Floater/>
+    </>
   );
 };
 
