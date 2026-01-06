@@ -15,7 +15,7 @@ export default function HeroBanner() {
     >
       <div className="absolute inset-0 p-5 bg-linear-to-br lg:bg-linear-to-r from-black/80 to-black/40 from-50% z-100"></div>
       <div
-        className={`absolute inset-0 z-200 px-6 bg-linear-to-b text-alpha text-wrap py-40 h-screen flex justify-center items-center`}
+        className={`absolute inset-0 z-200 px-6 bg-linear-to-b text-alpha text-wrap py-40 mt-12 md:mt-0 h-screen flex justify-center items-center`}
       >
         <div className="w-full md:w-5/6">
           <div className="w-full max-w-[700px] flex flex-col items-start gap-2 space-y-2">

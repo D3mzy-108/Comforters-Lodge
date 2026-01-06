@@ -63,8 +63,8 @@ export default function SiteFeatures() {
     },
     {
       id: "meditation",
-      title: "Guided Meditation",
-      subtitle: "Step out of anxiety and into stillness.",
+      title: "Prayers",
+      subtitle: "Step out of anxiety with faith, and into the comfort of His abiding presence.",
       icon: Leaf,
       content: (
         <>
@@ -74,7 +74,7 @@ export default function SiteFeatures() {
           </p>
           <div className="flex flex-wrap gap-2 mb-4">
             <span className="px-3 py-2 text-sm rounded-full border border-(--primary)">
-              Deep Reflection
+              Prayer Requests
             </span>
             <span className="px-3 py-2 text-sm rounded-full border border-(--primary)">
               Structured Spiritual Focus
@@ -98,7 +98,7 @@ export default function SiteFeatures() {
                   <span className="text-(--textHighlight)">
                     {"Experience God"}
                   </span>
-                  <span className="text-black/90">{" in a Different Way"}</span>
+                  <span className="text-black/90">{" Differently"}</span>
                 </legend>
                 <p className="text-black/60 text-xl font-normal italic">
                   {

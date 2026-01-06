@@ -4,7 +4,7 @@ import { Button } from "@/components/animate-ui/components/buttons/button";
 
 function Floater() {
   return (
-    <div className="sticky p-0 w-fit z-500 rounded-xl text-white">
+    <div className="sticky p-0 w-fit hidden md:block z-500 rounded-xl text-white">
         <Link to={"/lesson"}>
           <Button
             variant={"default"}
