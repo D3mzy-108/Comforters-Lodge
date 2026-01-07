@@ -40,11 +40,18 @@ const FeedPost = () => {
 
   async function handleShare() {
     if (!lesson || lesson == null) return;
+    const sharedTxt = `${
+      lesson.personal_question?.trim().endsWith("?")
+        ? lesson.personal_question
+        : lesson.opening_hook
+    }\n\nhttps://www.clm.org.ng/lesson?date=${lesson.date_posted}&id=${
+      lesson.id
+    }`;
+
     const shareData = {
       heading: lesson,
-      title: lesson.opening_hook,
-      text: `${lesson.reflection}\n\nKeep reading on Comforters Lodge - https://www.clm.org.ng/lesson?date=${lesson.date_posted}&id=${lesson.id}`,
-      // Note to self. I need a url
+      title: `${lesson.series_title}`,
+      text: `${sharedTxt}`,
     };
     if (navigator.share) {
       try {
@@ -56,10 +63,8 @@ const FeedPost = () => {
     } else {
       // fallback: copy to clipboard
       try {
-        await navigator.clipboard.writeText(
-          `${lesson.opening_hook}\n\n${lesson.personal_question}\n\n${lesson.story}\n\nKeep reading on Comforters Lodge - https://www.clm.org.ng/lesson?date=${lesson.date_posted}&id=${lesson.id}`
-        );
-        alert("Devotional copied to clipboard (share not supported).");
+        await navigator.clipboard.writeText(`${sharedTxt}`);
+        alert("Devotional copied to clipboard.");
       } catch {
         alert("Share is not supported in this browser.");
       }

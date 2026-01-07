@@ -136,8 +136,6 @@ const NavBar = () => {
             </DropdownMenuTrigger>
 
             <DropdownMenuContent className="bg-[#F5F5F5] z-5000 border-none outline-none">
-              <DropdownMenuLabel className="underline">Menu</DropdownMenuLabel>
-
               <DropdownMenuGroup>
                 {navLinks.map((link, index) => (
                   <DropdownMenuItem key={index}>
