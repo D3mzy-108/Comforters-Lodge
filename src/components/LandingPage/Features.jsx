@@ -20,7 +20,8 @@ export default function SiteFeatures() {
     {
       id: "truth",
       title: "Focus on Truth",
-      subtitle: "Center your heart on what never changes with foundational studies.",
+      subtitle:
+        "Center your heart on what never changes with foundational studies.",
       icon: BookOpen,
       content: (
         <>
@@ -42,7 +43,8 @@ export default function SiteFeatures() {
     {
       id: "worship",
       title: "Find Rhythm & Stillness",
-      subtitle: "Create space for God in your daily rhythm and quiet your soul. Follow our structured plan for deeper renewal.",
+      subtitle:
+        "Create space for God in your daily rhythm and quiet your soul. Follow our structured plan for deeper renewal.",
       icon: Music,
       content: (
         <>
@@ -64,7 +66,8 @@ export default function SiteFeatures() {
     {
       id: "meditation",
       title: "Prayers",
-      subtitle: "Step out of anxiety with faith, and into the comfort of His abiding presence.",
+      subtitle:
+        "Step out of anxiety with faith, and into the comfort of His abiding presence.",
       icon: Leaf,
       content: (
         <>
@@ -140,8 +143,6 @@ export default function SiteFeatures() {
 
                   <div className="rounded-2xl p-4 text-lg">
                     <TabsContents>
-
-
                       {/* Text content changed as well as titles */}
                       {[
                         {
@@ -149,7 +150,7 @@ export default function SiteFeatures() {
                           paragraph:
                             "Experience God Everyday. We provide resources and community to transform your daily walk. In the midst of a busy life, we help you find practical ways to hear His voice and feel His presence.",
                           btnText: "Explore",
-                          href: "/feed",
+                          href: "/scripture",
                         },
                         {
                           name: "community",

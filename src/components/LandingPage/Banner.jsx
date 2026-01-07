@@ -19,9 +19,6 @@ export default function HeroBanner() {
       >
         <div className="w-full md:w-5/6">
           <div className="w-full max-w-[700px] flex flex-col items-start gap-2 space-y-2">
-            <h3 className="text-lg text-(--primary)">
-              {"Abiding Grace, Peace & Love."}
-            </h3>
             <h1 className="text-3xl md:text-4xl">
               {"Begin your day grounded in God's Word"}
             </h1>
@@ -40,7 +37,7 @@ export default function HeroBanner() {
             </p>
 
             <div className="w-fit mt-4">
-              <Link to={`/feed`}>
+              <Link to={`/scripture`}>
                 <Button
                   variant={"default"}
                   size={"sm"}

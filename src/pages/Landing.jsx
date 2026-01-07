@@ -1,7 +1,5 @@
 import NavBar from "@/components/Navbar";
 import BtnStyle1 from "@/components/BtnStyle1";
-import BtnStyle2 from "@/components/BtnStyle2";
-import ClickChange from "@/components/ClickChange";
 import Footer from "@/components/Footer";
 import Demo1 from "@/assets/Demo1.jpg";
 import Demo2 from "@/assets/Demo2.jpg";
@@ -53,15 +51,15 @@ const Landing = () => {
           {/* Right side - text */}
           <div className="mt-10 md:mt-0 md:ml-12 md:w-1/2 text-center md:text-left">
             <p className="uppercase tracking-wide text-sm text-gray-500 font-semibold mb-2">
-              Comforter's Lodge Store
+              {"Comforter's Lodge Store"}
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Browse Our Resources
             </h2>
             <p className="text-gray-600 leading-relaxed mb-6">
-              The Comforter's Lodge store includes 12 monthly devotionals,
+              {`The Comforter's Lodge store includes 12 monthly devotionals,
               topical devotionals, resources for kids, and featured resources
-              from Denison Ministries partner brands.
+              from Denison Ministries partner brands.`}
             </p>
             <BtnStyle1 Btn1text={"Browse our Resources"} />
           </div>

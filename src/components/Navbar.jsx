@@ -7,35 +7,10 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/animate-ui/components/radix/dropdown-menu";
-
-const AuthTriggerBtns = () => {
-  return (
-    <div className="w-fit flex gap-4">
-      <Link to={"/"}>
-        <Button
-          variant={"default"}
-          size={"default"}
-          className={`font-medium rounded-full px-6 py-5 text-black hover:bg-(--primary) text-base border-2 border-(--primary) bg-(--secondary)`}
-        >
-          {"Login"}
-        </Button>
-      </Link>
-      <Link to={"/"}>
-        <Button
-          variant={"default"}
-          size={"default"}
-          className={`font-medium rounded-full px-6 py-5 text-black bg-(--primary) text-base border-2 border-(--primary) hover:text-black hover:bg-(--secondary)`}
-        >
-          {"Join Us"}
-        </Button>
-      </Link>
-    </div>
-  );
-};
+import logo from "@/assets/Logo1.png";
 
 const NavBar = () => {
   // const [isCatOpen, isCatClosed] = useState(false);
@@ -70,19 +45,19 @@ const NavBar = () => {
       label: "About",
     },
     {
-      to: "/feed",
+      to: "/lesson",
       label: "Devotionals",
     },
     {
-      to: "/feed",
+      to: "/",
       label: "Hymns",
     },
     {
-      to: "/feed",
+      to: "/scripture",
       label: "Scripture",
     },
     {
-      to: "/feed",
+      to: "/",
       label: "Prayer",
     },
     {
@@ -93,18 +68,23 @@ const NavBar = () => {
 
   return (
     <div className={navStateClasses}>
-      <div className="flex w-full px-4 py-3 lg:px-0 items-center gap-3">
+      <div className="flex w-full py-2 px-0 items-center gap-3">
         {/* ***************LOGO******************* */}
-        <div className="flex items-center lg:px-4 px-2 justify-between">
-          <span className="lg:pl-6 lg:pr-4 py-2 border-r-2 border-(--primary)">
-            <Link to="/">
-              <legend className="text-xl lg:text-2xl flex mr-5 w-fit">
+        <Link to="/">
+          <div className="flex items-center lg:pl-4 pr-10 pl-2 justify-between border-r-2 border-(--primary)">
+            <img src={logo} alt="Logo" className="h-20 w-20" />
+
+            <div className="w-fit ml-2">
+              <legend className="text-xl">
                 {""}
-                Comforter's Lodge
+                {"Comforter's Lodge"}
               </legend>
-            </Link>
-          </span>
-        </div>
+              <span className="text-sm text-(--primary)">
+                {"Abiding Grace, Peace & Love."}
+              </span>
+            </div>
+          </div>
+        </Link>
         {/* ************NAVLIST**************** */}
         <ul className="hidden min-[1330px]:flex justify-start flex-1 text-xl items-center">
           {navLinks.map((link, index) => (
@@ -124,10 +104,6 @@ const NavBar = () => {
           ))}
         </ul>
 
-        <div className="w-fit hidden min-[1330px]:block">
-          <AuthTriggerBtns />
-        </div>
-
         {/* MOBILE NAVBAR DROPDOWN MENU */}
         <div className="w-fit block min-[1330px]:hidden ml-auto px-3">
           <DropdownMenu>
@@ -138,62 +114,21 @@ const NavBar = () => {
             <DropdownMenuContent className="bg-[#F5F5F5] z-5000 border-none outline-none">
               <DropdownMenuGroup>
                 {navLinks.map((link, index) => (
-                  <DropdownMenuItem key={index}>
-                    <Link to={link.to}>
-                      <span>{link.label}</span>
-                    </Link>
-                  </DropdownMenuItem>
+                  <div key={index}>
+                    <DropdownMenuItem>
+                      <Link to={link.to}>
+                        <span>{link.label}</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator className="bg-(--primary) my-3" />
+                  </div>
                 ))}
-              </DropdownMenuGroup>
-
-              <DropdownMenuSeparator className="bg-(--primary) my-3" />
-
-              <DropdownMenuGroup>
-                <DropdownMenuItem>
-                  <AuthTriggerBtns />
-                </DropdownMenuItem>
               </DropdownMenuGroup>
 
               <DropdownMenuSeparator />
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-        {/* <div className="relative block lg:hidden">
-          <FaBars
-            color="gray"
-            onClick={() => {
-              isCatClosed(!isCatOpen);
-            }}
-            className={isCatOpen ? "hidden" : "block"}
-          />
-          <FaTimes
-            onClick={() => {
-              isCatClosed(!isCatOpen);
-            }}
-            className={isCatOpen ? "block" : "hidden"}
-          />
-          <ul
-            className={`
-              ${
-                isCatOpen
-                  ? `flex flex-col ${window.addEventListener(
-                      "scroll",
-                      closeOnScroll
-                    )} absolute right-10 lg:right-50 bg-[#f7f5f34b] backdrop-blur-3xl p-8 gap-10 text-xl  text-gray-800 items-center`
-                  : "hidden"
-              } `}
-          >
-            <li className="border-b-2 w-full border-orange-200">Category</li>
-            <li className="border-b-2 w-full border-orange-200">Blogs</li>
-            <li className="border-b-2 w-full border-orange-200">Go Deeper</li>
-            <Link to="/pages/Today">
-              <BtnStyle2
-                Btn2text={"Today's Devotional"}
-                destination={"/Today.jsx"}
-              />
-            </Link>
-          </ul>
-        </div> */}
       </div>
     </div>
   );
