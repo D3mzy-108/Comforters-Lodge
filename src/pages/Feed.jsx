@@ -311,7 +311,7 @@ function Feed() {
           <div>© {new Date().getFullYear()} Bible Fellowship</div>
           <div className="flex items-center gap-2">
             <span className="rounded-full border bg-background px-3 py-1">
-              Built for: feed + devotionals
+              Built for: scripture + devotionals
             </span>
             <span className="rounded-full border bg-background px-3 py-1">
               Cards: minimal, magazine, sermon
