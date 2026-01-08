@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import NavBar from "../components/Navbar";
+import NavBar from "../../components/Navbar";
 import {
   ChevronLeft,
   ChevronRight,
@@ -32,7 +32,7 @@ import logo from "@/assets/Logo1.png";
 //   });
 // }
 
-const FeedPost = () => {
+const LessonPage = () => {
   // eslint-disable-next-line no-unused-vars
   const [searchParams, setSearchParams] = useSearchParams();
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -216,7 +216,7 @@ const FeedPost = () => {
 
           {/* NAVIGATION */}
           {lessons.length > 1 && (
-            <div className="w-full absolute bottom-3 left-0">
+            <div className="w-full absolute bottom-3 left-0 px-4">
               <div className="w-full max-w-4xl mx-auto overflow-auto">
                 <ul className="w-fit flex flex-row-reverse gap-2">
                   {lessons.map((lesson, index) => {
@@ -438,4 +438,4 @@ const FeedPost = () => {
     </>
   );
 };
-export default FeedPost;
+export default LessonPage;
