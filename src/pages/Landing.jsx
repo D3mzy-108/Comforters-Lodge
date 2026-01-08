@@ -7,7 +7,6 @@ import Demo3 from "@/assets/Demo3.jpg";
 import Demo4 from "@/assets/Demo4.jpg";
 import HeroBanner from "@/components/LandingPage/Banner";
 import SiteFeatures from "@/components/LandingPage/Features";
-import Floater from "../components/LandingPage/Floater";
 
 const Landing = () => {
   const books = [
@@ -21,7 +20,7 @@ const Landing = () => {
   ];
 
   return (
-    <div className="min-h-100 relative">
+    <div className="min-h-100 max-w-screen overflow-hidden relative">
       <div className="w-full bg-white space-y-12 relative">
         {/* Bug here idk what to do */}
         <NavBar />
@@ -66,7 +65,6 @@ const Landing = () => {
         </section>
         <Footer />
       </div>
-      <Floater />
     </div>
   );
 };

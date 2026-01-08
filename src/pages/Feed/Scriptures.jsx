@@ -1,11 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   BookOpenIcon,
-  ChevronLeft,
   ChevronRight,
+  HomeIcon,
   SearchIcon,
-  SortAsc,
-  SparklesIcon,
+  SortDesc,
 } from "lucide-react";
 import { api } from "@/utils/api/api_connection";
 import { Button } from "@/components/animate-ui/components/buttons/button.tsx";
@@ -18,12 +17,13 @@ import {
   CardTitle,
 } from "@/components/ui/card.tsx";
 import { Input } from "@/components/ui/input.tsx";
-import { Separator } from "@/components/ui/separator.tsx";
 import {
   DevotionalDialog,
   DevotionalRail,
 } from "@/components/Feed/DevotionalRail";
 import LessonCard from "@/components/Feed/LessonCardComponents";
+import { Link } from "react-router";
+import Footer from "@/components/Footer";
 
 function Section({ icon, title, children }) {
   return (
@@ -41,7 +41,7 @@ function Section({ icon, title, children }) {
   );
 }
 
-function Feed() {
+function ScripturesPage() {
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("newest");
   const [lessons, setLessons] = useState([]);
@@ -104,7 +104,7 @@ function Feed() {
 
   const refreshPosts = async (page = lessonPaginator.page) => {
     try {
-      const data = await api(`/posts?page=${page}`);
+      const data = await api(`/posts/daily-lessons?page=${page}`);
       setLessons(data.posts);
       setLessonPaginator({
         page: data.page,
@@ -130,10 +130,6 @@ function Feed() {
     await Promise.all([refreshPosts(), refreshDevotions()]);
   };
 
-  const onPageChange = async (page) => {
-    await refreshPosts(page);
-  };
-
   useEffect(() => {
     // Initial load
     refreshAll();
@@ -146,11 +142,13 @@ function Feed() {
       <div className="sticky top-0 z-30 bg-(--secondary)/20 backdrop-blur supports-backdrop-filter:bg-background/60">
         <div className="mx-auto px-4 md:px-8 py-6">
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <div className="flex items-center gap-3">
-              <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border bg-background shadow-sm">
-                <SparklesIcon className="h-5 w-5" />
-              </div>
-              <div>
+            <div className="flex items-center gap-3 max-sm:-ml-2 max-sm:mb-2">
+              <Link to="/">
+                <div className="inline-flex size-11 items-center justify-center rounded-2xl border bg-background shadow-sm">
+                  <HomeIcon className="h-5 w-5" />
+                </div>
+              </Link>
+              <div className="flex-1">
                 <div className="text-lg font-semibold">Fellowship Feed</div>
                 <div className="text-sm text-muted-foreground">
                   Daily devotionals and lessons for a shared walk with Jesus.
@@ -171,13 +169,13 @@ function Feed() {
 
               <Button
                 variant="secondary"
-                className="h-11 rounded-2xl gap-2 bg-(--primary) text-black"
+                className="h-11 rounded-2xl gap-2 bg-(--primary) hover:bg-(--primary) text-black capitalize"
                 onClick={() =>
                   setSort((s) => (s === "newest" ? "oldest" : "newest"))
                 }
               >
-                <SortAsc className="h-4 w-4" />
-                Sort
+                <SortDesc className="h-4 w-4" />
+                {sort}
               </Button>
             </div>
           </div>
@@ -185,7 +183,7 @@ function Feed() {
       </div>
 
       {/* Body */}
-      <main className="mx-auto px-4 md:px-12 py-6 md:py-8 space-y-6">
+      <main className="mx-auto px-4 md:px-12 py-6 md:py-8 space-y-8">
         <DevotionalRail devotionals={devotionals} onOpen={openDev} />
 
         <div className="grid gap-4 lg:grid-cols-[1.4fr_.6fr]">
@@ -194,40 +192,17 @@ function Feed() {
             <div className="flex max-sm:flex-col sm:items-center sm:justify-between gap-4">
               {/* SECTION TITLE */}
               <div className="flex items-center gap-2">
-                <div className="inline-flex h-9 w-9 items-center justify-center rounded-2xl border bg-background">
+                <div className="inline-flex size-11 items-center justify-center rounded-xl border bg-background">
                   <BookOpenIcon className="h-5 w-5" />
                 </div>
                 <div>
-                  <div className="text-sm font-semibold">Lessons</div>
-                  <div className="text-xs text-muted-foreground">
-                    Short highlights now, full details later.
+                  <div className="text-lg font-semibold">
+                    Lessons for the Week
+                  </div>
+                  <div className="text-base text-muted-foreground">
+                    Moments of truth and guidance from recent days.
                   </div>
                 </div>
-              </div>
-
-              {/* PAGINATION */}
-              <div className="w-fit flex justify-center gap-3 items-center ml-auto">
-                <Button
-                  variant={"default"}
-                  size={"sm"}
-                  className="rounded-lg hover:bg-(--primary) bg-transparent border-2 border-(--primary) text-(--textHighlight)"
-                  onClick={() => onPageChange(lessonPaginator.page - 1)}
-                  disabled={lessonPaginator.page === 1}
-                >
-                  <ChevronLeft />
-                </Button>
-                <span className="text-base">
-                  {lessonPaginator.page} of {lessonPaginator.ttl_pages}
-                </span>
-                <Button
-                  variant={"default"}
-                  size={"sm"}
-                  className="rounded-lg hover:bg-(--primary) bg-transparent border-2 border-(--primary) text-(--textHighlight)"
-                  onClick={() => onPageChange(lessonPaginator.page + 1)}
-                  disabled={lessonPaginator.page === lessonPaginator.ttl_pages}
-                >
-                  <ChevronRight />
-                </Button>
               </div>
             </div>
 
@@ -305,22 +280,9 @@ function Feed() {
         containerBG={devDialogBg}
       />
 
-      <footer className="mx-auto max-w-6xl px-4 pb-10 pt-2 text-xs text-muted-foreground">
-        <Separator className="mb-4" />
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <div>© {new Date().getFullYear()} Bible Fellowship</div>
-          <div className="flex items-center gap-2">
-            <span className="rounded-full border bg-background px-3 py-1">
-              Built for: scripture + devotionals
-            </span>
-            <span className="rounded-full border bg-background px-3 py-1">
-              Cards: minimal, magazine, sermon
-            </span>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
 
-export default Feed;
+export default ScripturesPage;

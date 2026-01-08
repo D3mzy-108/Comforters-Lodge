@@ -27,7 +27,7 @@ const NavBar = () => {
   }, []);
 
   // NAVBAR STYLES
-  const navStateClasses = ` lg:px-10 py-4 ease-in-out transition-all duration-500 fixed w-full flex items-center justify-between z-5000 ${
+  const navStateClasses = `max-w-screen lg:px-10 py-4 ease-in-out transition-all duration-500 fixed w-full flex items-center justify-between z-5000 ${
     scrolled
       ? "backdrop-blur-lg bg-[#F5F5F5] text-slate-800"
       : "bg-transparent text-[#C4C5C6]"
@@ -72,7 +72,7 @@ const NavBar = () => {
         {/* ***************LOGO******************* */}
         <Link to="/">
           <div className="flex items-center lg:pl-4 pr-10 pl-2 justify-between border-r-2 border-(--primary)">
-            <img src={logo} alt="Logo" className="w-16 sm:w-20 aspect-square" />
+            <img src={logo} alt="Logo" className="size-20" />
 
             <div className="w-fit ml-2">
               <legend className="text-lg sm:text-xl">
@@ -111,16 +111,20 @@ const NavBar = () => {
               <MenuIcon className="text-xl text-black" />
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent className="bg-[#F5F5F5] z-5000 border-none outline-none">
+            <DropdownMenuContent className="bg-white/50 backdrop-blur-md z-5000 border-none outline-none w-60 p-3">
               <DropdownMenuGroup>
                 {navLinks.map((link, index) => (
                   <div key={index}>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem className="hover:bg-transparent">
                       <Link to={link.to}>
                         <span>{link.label}</span>
                       </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuSeparator className="bg-(--primary) my-3" />
+                    {index === navLinks.length - 1 ? (
+                      <></>
+                    ) : (
+                      <DropdownMenuSeparator className="bg-(--primary) my-3" />
+                    )}
                   </div>
                 ))}
               </DropdownMenuGroup>

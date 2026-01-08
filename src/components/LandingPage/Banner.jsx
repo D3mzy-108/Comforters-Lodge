@@ -37,7 +37,7 @@ export default function HeroBanner() {
             </p>
 
             <div className="w-fit mt-4">
-              <Link to={`/scripture`}>
+              <Link to={`/lesson`}>
                 <Button
                   variant={"default"}
                   size={"sm"}

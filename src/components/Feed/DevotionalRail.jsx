@@ -76,6 +76,8 @@ export function DevotionalDialog({
   devotional,
   containerBG,
 }) {
+  const shareDevotional = () => {};
+
   if (!devotional) return null;
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -117,17 +119,11 @@ export function DevotionalDialog({
               <div className="flex items-center gap-2">
                 <Button
                   variant="secondary"
+                  onClick={() => shareDevotional()}
                   className="rounded-full bg-white/15 text-white hover:bg-white/20"
                 >
                   <Share2Icon className="mr-2 h-4 w-4" />
                   Share
-                </Button>
-                <Button
-                  variant="secondary"
-                  className="rounded-full bg-white/15 text-white hover:bg-white/20"
-                >
-                  <BookmarkIcon className="mr-2 h-4 w-4" />
-                  Save
                 </Button>
               </div>
             </div>

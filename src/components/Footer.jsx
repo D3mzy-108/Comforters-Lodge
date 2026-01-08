@@ -1,138 +1,144 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router";
 import { FaInstagram, FaWhatsapp } from "react-icons/fa6";
 import { BsTwitterX } from "react-icons/bs";
+
 import logo1 from "@/assets/Logo1.png";
-const navLinks = [
+
+// Keep data stable and easy to maintain.
+// Use ids as keys (avoid array index), and group links once.
+const NAV_LINKS = [
+  { id: "about", to: "/", category: "CLM", label: "About" },
+  { id: "donate", to: "/", category: "CLM", label: "Donate" },
+  { id: "store", to: "/", category: "CLM", label: "Store" },
   {
-    to: "/",
-    category: "CLM",
-    label: "About",
-  },
-  {
-    to: "/",
-    category: "CLM",
-    label: "Donate",
-  },
-  {
-    to: "/",
-    category: "CLM",
-    label: "Store",
-  },
-  {
+    id: "devotionals",
     to: "/lesson",
     category: "Explore",
     label: "Devotionals",
   },
+  { id: "hymns", to: "/", category: "Explore", label: "Hymns" },
   {
-    to: "/",
-    category: "Explore",
-    label: "Hymns",
-  },
-  {
+    id: "scripture",
     to: "/scripture",
     category: "Explore",
     label: "Scripture",
   },
-  {
-    to: "/",
-    category: "Explore",
-    label: "Prayer",
-  },
-  {
-    to: "/",
-    category: "CLM",
-    label: "Contact",
-  },
-  {
-    to: "/",
-    category: "",
-    label:
-      "Contact Address: 17304 Preston Rd Suite 1060 Dallas, TX 75252 Phone: 214-705-3710 Email: contact@first15.org To donate by check, mail to: PO Box 226903 Dallas, TX 75222-6903",
-  },
+  { id: "prayer", to: "/", category: "Explore", label: "Prayer" },
+  { id: "contact", to: "/", category: "CLM", label: "Contact" },
 ];
-const Footer = () => {
+
+// If you need to display contact details, keep them separate from nav items.
+const CONTACT_TEXT = [
+  "Contact Address: 17304 Preston Rd Suite 1060 Dallas, TX 75252.",
+  "Phone: 214-705-3710",
+  "Email: contact@first15.org",
+];
+
+const groupedLinks = NAV_LINKS.reduce((acc, link) => {
+  (acc[link.category] ??= []).push(link);
+  return acc;
+}, /** @type {Record<string, Array<{id:string;to:string;category:string;label:string}>>} */ ({}));
+
+function LinkList({ title, links }) {
   return (
-    <footer className="flex flex-col md:flex-row min-h-screen lg:items-center gap-8 text-wrap text-beta py-16 px-4 md:px-20 border-t border-gray-400 mt-8 flex-wrap">
-      <div className="flex gap-4 flex-wrap w-fit">
-        <nav className="flex flex-col gap-4 w-md text-xl">
-          <h1 className="font-serif text-2xl md:text-3xl my-4 lg:mt-0 lg:mb-0">
-            {"Comforter's Lodge"}
-          </h1>
-          {navLinks.map((link, index) =>
-            link.category == "CLM" ? (
-              <span key={index} className="row-span-1">
-                <Link to={link.to}>{link.label}</Link>
-              </span>
-            ) : (
-              ""
-            )
-          )}
-        </nav>
-        <nav className="flex flex-col gap-4 w-lg text-xl">
-          <h1 className="font-serif text-2xl md:text-3xl mt-12 lg:mt-0 lg:mb-0 mb-2 mr-auto">
-            Explore
-          </h1>
-          {navLinks.map((link, index) =>
-            link.category == "Explore" ? (
-              <span key={index} className="row-span-1">
-                <Link to={link.to}>{link.label}</Link>
-              </span>
-            ) : (
-              ""
-            )
-          )}
-        </nav>
-        <div className="text-[#7a6651] w-fit text-semibold flex flex-col gap-4 mt-8 lg:mt-0 flex-wrap justify-between text-xl">
-          <div className="flex  flex-col">
-            <div className={` w-full  bg-cover bg-center`}>
-              <img src={logo1} alt="Logo" className="h-40 w-40" />
+    <nav className="flex flex-col gap-4 text-xl">
+      <h2 className="font-serif text-2xl md:text-3xl my-4 lg:my-0">{title}</h2>
+      <ul className="flex flex-col gap-4">
+        {links?.map((l) => (
+          <li key={l.id}>
+            <Link
+              to={l.to}
+              className="hover:text-(--primary) transition-colors"
+            >
+              {l.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
+function SocialIcon({ href, label, children }) {
+  return (
+    <a
+      href={href}
+      aria-label={label}
+      target="_blank"
+      rel="noreferrer"
+      className="inline-flex"
+    >
+      {children}
+    </a>
+  );
+}
+
+const Footer = memo(function Footer() {
+  return (
+    <footer className="w-full border-t border-gray-400 mt-8 py-16 px-4 md:px-20 text-beta">
+      <div className="flex flex-col md:flex-row gap-10 flex-wrap">
+        {/* LINKS */}
+        <div className="w-full md:flex-1">
+          <LinkList title="Comforter's Lodge" links={groupedLinks.CLM} />
+        </div>
+        <div className="w-full md:flex-1">
+          <LinkList title="Explore" links={groupedLinks.Explore} />
+        </div>
+
+        {/* Branding */}
+        <div className="w-full md:flex-1 text-wrap">
+          <div className="text-[#7a6651] font-semibold flex flex-col gap-6 text-xl max-w-sm">
+            <div className="flex flex-col gap-2">
+              <img
+                src={logo1}
+                alt="Comforter's Lodge logo"
+                className="size-32 -ml-4"
+              />
+              <div>
+                Comforter's Lodge Ministries
+                <div className="text-lg font-normal">
+                  An outreach of the{" "}
+                  <span className="whitespace-nowrap">
+                    Cherubim &amp; Seraphim
+                  </span>{" "}
+                  Church.
+                </div>
+              </div>
             </div>
-            {"Comforter's Lodge Ministries"} <br />
-            <span className="text-lg text-wrap!">
-              An outreach of the <br className="md:hidden" /> Cherubim &
-              Seraphim Church.
-            </span>
+
+            {/* Optional: show contact details as real content, not a nav link */}
+            <ul className="flex flex-col gap-1">
+              {CONTACT_TEXT.map((_, index) => (
+                <li key={index} className="text-sm text-pretty leading-relaxed">
+                  {_}
+                </li>
+              ))}
+            </ul>
+
+            <p className="text-sm">
+              © 2026 Comforter's Lodge Ministries. All Rights Reserved.
+            </p>
+
+            {/* Socials */}
+            <div className="w-fit flex gap-6 mt-2">
+              <SocialIcon href="#" label="Instagram">
+                <FaInstagram className="w-6 h-6 hover:text-(--primary) transition-colors" />
+              </SocialIcon>
+
+              <SocialIcon href="#" label="WhatsApp">
+                <FaWhatsapp className="w-6 h-6 hover:text-(--primary) transition-colors" />
+              </SocialIcon>
+
+              <SocialIcon href="#" label="X (Twitter)">
+                <BsTwitterX className="w-6 h-6 hover:text-(--primary) transition-colors" />
+              </SocialIcon>
+            </div>
           </div>
-          <p className="text-sm">
-            {"© 2026 Comforter's Lodge Ministries. All Rights Reserved."}
-          </p>
         </div>
       </div>
-      <div className="flex flex-row gap-4">
-        <FaInstagram className="w-6 h-6 hover:text-(--primary) transition-colors cursor-pointer" />
-        <FaWhatsapp className="w-6 h-6 hover:text-(--primary) transition-colors cursor-pointer" />
-
-        <BsTwitterX className="w-6 h-6 hover:text-(--primary) transition-colors cursor-pointer" />
-      </div>
-      {/* <nav>
-        <h6 className="footer-title">Company</h6>
-        <a className="link link-hover">About us</a>
-        <a className="link link-hover">Contact</a>
-        <a className="link link-hover">Donate</a>
-      </nav>
-      <nav>
-        <h6 className="footer-title">Legal</h6>
-        <a className="link link-hover">Terms of use</a>
-        <a className="link link-hover">Privacy policy</a>
-        <a className="link link-hover">Cookie policy</a>
-      </nav>
-      <form>
-        <h6 className="footer-title">Newsletter</h6>
-        <fieldset className="w-80">
-          <label>Enter your email address</label>
-          <div className="join">
-            <input
-              type="text"
-              placeholder="username@site.com"
-              className="input input-bordered join-item"
-            />
-            <button className="btn btn-primary join-item">Subscribe</button>
-          </div>
-        </fieldset>
-      </form> */}
     </footer>
   );
-};
+});
 
 export default Footer;
