@@ -1,49 +1,111 @@
 import React from "react";
 import { Link } from "react-router";
-import { Button } from "@/components/animate-ui/components/buttons/button";
+import { FaInstagram, FaWhatsapp } from "react-icons/fa6";
+import { BsTwitterX } from "react-icons/bs";
+import logo1 from "@/assets/Logo1.png";
 const navLinks = [
-    {
-      to: "/",
-      label: "Home",
-    },
-    {
-      to: "/feed",
-      label: "Devotionals",
-    },
-    {
-      to: "/feed",
-      label: "Hymns",
-    },
-    {
-      to: "/feed",
-      label: "Scripture",
-    },
-    {
-      to: "/feed",
-      label: "Prayer",
-    },
-  ];
+  {
+    to: "/",
+    category: "CLM",
+    label: "About",
+  },
+  {
+    to: "/",
+    category: "CLM",
+    label: "Donate",
+  },
+  {
+    to: "/",
+    category: "CLM",
+    label: "Store",
+  },
+  {
+    to: "/lesson",
+    category: "Explore",
+    label: "Devotionals",
+  },
+  {
+    to: "/",
+    category: "Explore",
+    label: "Hymns",
+  },
+  {
+    to: "/scripture",
+    category: "Explore",
+    label: "Scripture",
+  },
+  {
+    to: "/",
+    category: "Explore",
+    label: "Prayer",
+  },
+  {
+    to: "/",
+    category: "CLM",
+    label: "Contact",
+  },
+  {
+    to: "/",
+    category: "",
+    label:
+      "Contact Address: 17304 Preston Rd Suite 1060 Dallas, TX 75252 Phone: 214-705-3710 Email: contact@first15.org To donate by check, mail to: PO Box 226903 Dallas, TX 75222-6903",
+  },
+];
 const Footer = () => {
   return (
-    <footer className="footer sm:footer-horizontal text-wrap text-beta p-10 h-fit border-t border-gray-400 mt-8">
-      <nav>
-        <h6 className="footer-title">Services</h6>
-          {navLinks.map((link, index) => (
-            <a key={index}>
-              <Link to={link.to}>
-                  {link.label}
-              </Link>
-            </a>
-          ))}
+    <footer className="flex flex-col md:flex-row min-h-screen lg:items-center gap-8 text-wrap text-beta py-16 px-4 md:px-20 border-t border-gray-400 mt-8 flex-wrap">
+      <div className="flex gap-4 flex-wrap w-fit">
+        <nav className="flex flex-col gap-4 w-md text-xl">
+          <h1 className="font-serif text-2xl md:text-3xl my-4 lg:mt-0 lg:mb-0">
+            {"Comforter's Lodge"}
+          </h1>
+          {navLinks.map((link, index) =>
+            link.category == "CLM" ? (
+              <span key={index} className="row-span-1">
+                <Link to={link.to}>{link.label}</Link>
+              </span>
+            ) : (
+              ""
+            )
+          )}
         </nav>
-      <nav>
-        <h6 className="footer-title">Services</h6>
-        <a className="link link-hover">Branding</a>
-        <a className="link link-hover">Design</a>
-        <a className="link link-hover">Marketing</a>
-        <a className="link link-hover">Advertisement</a>
-      </nav>
-      <nav>
+        <nav className="flex flex-col gap-4 w-lg text-xl">
+          <h1 className="font-serif text-2xl md:text-3xl mt-12 lg:mt-0 lg:mb-0 mb-2 mr-auto">
+            Explore
+          </h1>
+          {navLinks.map((link, index) =>
+            link.category == "Explore" ? (
+              <span key={index} className="row-span-1">
+                <Link to={link.to}>{link.label}</Link>
+              </span>
+            ) : (
+              ""
+            )
+          )}
+        </nav>
+        <div className="text-[#7a6651] w-fit text-semibold flex flex-col gap-4 mt-8 lg:mt-0 flex-wrap justify-between text-xl">
+          <div className="flex  flex-col">
+            <div className={` w-full  bg-cover bg-center`}>
+              <img src={logo1} alt="Logo" className="h-40 w-40" />
+            </div>
+            {"Comforter's Lodge Ministries"} <br />
+            <span className="text-lg text-wrap!">
+              An outreach of the <br className="md:hidden" /> Cherubim &
+              Seraphim Church.
+            </span>
+          </div>
+          <p className="text-sm">
+            {"© 2026 Comforter's Lodge Ministries. All Rights Reserved."}
+          </p>
+        </div>
+      </div>
+      <div className="flex flex-row gap-4">
+        <FaInstagram className="w-6 h-6 hover:text-(--primary) transition-colors cursor-pointer" />
+        <FaWhatsapp className="w-6 h-6 hover:text-(--primary) transition-colors cursor-pointer" />
+
+        <BsTwitterX className="w-6 h-6 hover:text-(--primary) transition-colors cursor-pointer" />
+      </div>
+      {/* <nav>
         <h6 className="footer-title">Company</h6>
         <a className="link link-hover">About us</a>
         <a className="link link-hover">Contact</a>
@@ -68,7 +130,7 @@ const Footer = () => {
             <button className="btn btn-primary join-item">Subscribe</button>
           </div>
         </fieldset>
-      </form>
+      </form> */}
     </footer>
   );
 };
