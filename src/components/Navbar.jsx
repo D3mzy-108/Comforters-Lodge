@@ -72,14 +72,14 @@ const NavBar = () => {
         {/* ***************LOGO******************* */}
         <Link to="/">
           <div className="flex items-center lg:pl-4 pr-10 pl-2 justify-between border-r-2 border-(--primary)">
-            <img src={logo} alt="Logo" className="h-20 w-20" />
+            <img src={logo} alt="Logo" className="w-16 sm:w-20 aspect-square" />
 
             <div className="w-fit ml-2">
-              <legend className="text-xl">
+              <legend className="text-lg sm:text-xl">
                 {""}
                 {"Comforter's Lodge"}
               </legend>
-              <span className="text-sm text-(--primary)">
+              <span className="text-xs sm:text-sm text-(--primary)">
                 {"Abiding Grace, Peace & Love."}
               </span>
             </div>
