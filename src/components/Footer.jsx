@@ -1,7 +1,11 @@
-import React, { memo } from "react";
+import { memo } from "react";
 import { Link } from "react-router";
-import { FaInstagram, FaWhatsapp } from "react-icons/fa6";
-import { BsTwitterX } from "react-icons/bs";
+import {
+  FaInstagram,
+  FaThreads,
+  FaWhatsapp,
+  FaRegEnvelope,
+} from "react-icons/fa6";
 
 import logo1 from "@/assets/Logo1.png";
 
@@ -29,11 +33,8 @@ const NAV_LINKS = [
 ];
 
 // If you need to display contact details, keep them separate from nav items.
-const CONTACT_TEXT = [
-  "Contact Address: 17304 Preston Rd Suite 1060 Dallas, TX 75252.",
-  "Phone: 214-705-3710",
-  "Email: contact@first15.org",
-];
+const CONTACT_EMAIL = "info@clm.org.ng";
+const CONTACT_TEXT = [`Email: ${CONTACT_EMAIL}`];
 
 const groupedLinks = NAV_LINKS.reduce((acc, link) => {
   (acc[link.category] ??= []).push(link);
@@ -122,16 +123,29 @@ const Footer = memo(function Footer() {
 
             {/* Socials */}
             <div className="w-fit flex gap-6 mt-2">
-              <SocialIcon href="#" label="Instagram">
-                <FaInstagram className="w-6 h-6 hover:text-(--primary) transition-colors" />
+              <SocialIcon href={`mailto:${CONTACT_EMAIL}`} label="Instagram">
+                <FaRegEnvelope className="size-6 hover:text-(--primary) transition-colors" />
               </SocialIcon>
-
-              <SocialIcon href="#" label="WhatsApp">
-                <FaWhatsapp className="w-6 h-6 hover:text-(--primary) transition-colors" />
+              <SocialIcon
+                href="https://instagram.com/comforterslodge/"
+                label="Instagram"
+              >
+                <FaInstagram className="size-6 hover:text-(--primary) transition-colors" />
               </SocialIcon>
-
-              <SocialIcon href="#" label="X (Twitter)">
-                <BsTwitterX className="w-6 h-6 hover:text-(--primary) transition-colors" />
+              <SocialIcon
+                href="https://www.threads.com/@comfortersLodge"
+                label="Threads"
+              >
+                <FaThreads className="size-6 hover:text-(--primary) transition-colors" />
+              </SocialIcon>
+              {/* <SocialIcon
+                href="https://facebook.com/@comfortersLodge"
+                label="Facebook"
+              >
+                <FaFacebook className="size-6 hover:text-(--primary) transition-colors" />
+              </SocialIcon> */}
+              <SocialIcon href="https://wa.me/+2348098090555" label="WhatsApp">
+                <FaWhatsapp className="size-6 hover:text-(--primary) transition-colors" />
               </SocialIcon>
             </div>
           </div>

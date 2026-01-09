@@ -23,7 +23,6 @@ import {
 } from "@/components/Feed/DevotionalRail";
 import LessonCard from "@/components/Feed/LessonCardComponents";
 import { Link } from "react-router";
-import Footer from "@/components/Footer";
 
 function Section({ icon, title, children }) {
   return (
@@ -279,8 +278,6 @@ function ScripturesPage() {
         devotional={selectedDev}
         containerBG={devDialogBg}
       />
-
-      <Footer />
     </div>
   );
 }
