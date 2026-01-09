@@ -1,6 +1,5 @@
 import NavBar from "@/components/Navbar";
 import BtnStyle1 from "@/components/BtnStyle1";
-import Footer from "@/components/Footer";
 import Demo1 from "@/assets/Demo1.jpg";
 import Demo2 from "@/assets/Demo2.jpg";
 import Demo3 from "@/assets/Demo3.jpg";
@@ -63,7 +62,6 @@ const Landing = () => {
             <BtnStyle1 Btn1text={"Browse our Resources"} />
           </div>
         </section>
-        <Footer />
       </div>
     </div>
   );
