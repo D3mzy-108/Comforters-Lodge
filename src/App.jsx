@@ -3,6 +3,7 @@ import Landing from "./pages/Landing";
 import LessonPage from "./pages/Feed/Lesson";
 import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
+import Footer from "@/components/Footer";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="/scripture" element={<ScripturesPage />}></Route>
         <Route path="/lesson" element={<LessonPage />}></Route>
       </Routes>
+      <Footer />
     </>
   );
 };
