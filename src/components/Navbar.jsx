@@ -41,7 +41,7 @@ const NavBar = () => {
       label: "Home",
     },
     {
-      to: "/",
+      to: "/about",
       label: "About",
     },
     {
@@ -62,7 +62,7 @@ const NavBar = () => {
     },
     {
       to: "/",
-      label: "Donate",
+      label: "Support ClM",
     },
   ];
 
