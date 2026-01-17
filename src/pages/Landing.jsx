@@ -52,11 +52,10 @@ const Landing = () => {
               Browse Our Resources
             </h2>
             <p className="text-gray-600 leading-relaxed mb-6">
-              {`The Comforter's Lodge store includes 12 monthly devotionals,
-              topical devotionals, resources for kids, and featured resources
-              from Denison Ministries partner brands.`}
+              {`The Comforter's Lodge store includes daily devotionals, topical devotionals, resources for married couples, guides for kids, and featured resources from Comforter's Lodge Ministries' partners.`}
             </p>
             <BtnStyle1 Btn1text={"Browse our Resources"} />
+            
           </div>
         </section>
       </div>

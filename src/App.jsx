@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import NavBar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import About from "./pages/About/About";
+import Declaration from "./pages/About/Declaration";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -29,6 +31,8 @@ const App = () => {
         <Route path="/" element={<Landing />} />
         <Route path="/scripture" element={<ScripturesPage />}></Route>
         <Route path="/lesson" element={<LessonPage />}></Route>
+        <Route path="/about" element={<About />}></Route>
+        <Route path="/declaration" element={<Declaration />}></Route>
       </Routes>
       <Footer />
     </>

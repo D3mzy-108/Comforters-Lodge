@@ -41,7 +41,7 @@ const NavBar = () => {
       label: "Home",
     },
     {
-      to: "/",
+      to: "/about",
       label: "About",
     },
     {
