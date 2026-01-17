@@ -1,5 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { BookOpenIcon, HomeIcon, SearchIcon, SortDesc } from "lucide-react";
+import {
+  BookOpenIcon,
+  HomeIcon,
+  RefreshCcwDotIcon,
+  SearchIcon,
+  SortDesc,
+} from "lucide-react";
 import { api } from "@/utils/api/api_connection";
 import { Button } from "@/components/shadcn/animate-ui/components/buttons/button.tsx";
 // eslint-disable-next-line no-unused-vars
@@ -21,14 +27,10 @@ function ScripturesPage() {
   const [lessons, setLessons] = useState([]);
   const [devotionals, setDevotionals] = useState([]);
 
-  const [lessonPaginator, setLessonPaginator] = useState({
-    page: 1,
-    ttl_pages: 1,
-  });
-
   const [selectedDev, setSelectedDev] = useState(null);
   const [devDialogOpen, setDevDialogOpen] = useState(false);
   const [devDialogBg, setDevDialogBg] = useState(false);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const filtered = useMemo(() => {
     let arr = lessons;
@@ -76,16 +78,15 @@ function ScripturesPage() {
   // LOAD PAGE DATA
   // ==============================
 
-  const refreshPosts = async (page = lessonPaginator.page) => {
+  const refreshPosts = async (page = pageNumber) => {
     try {
       const data = await api(`/posts/daily-lessons?page=${page}`);
-      setLessons(data.posts);
-      setLessonPaginator({
-        page: data.page,
-        ttl_pages: data.total_pages,
-      });
+      if (!lessons.includes(data.posts)) {
+        setLessons([...lessons, ...data.posts]);
+      }
+      setPageNumber(data.page);
     } catch (e) {
-      console.log(e.message);
+      console.error(e.message);
       setLessons(lessons);
     }
   };
@@ -171,7 +172,7 @@ function ScripturesPage() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.18 }}
+                transition={{ duration: 0.3 }}
                 className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
               >
                 {filtered.map((lesson) => (
@@ -192,6 +193,17 @@ function ScripturesPage() {
                 </CardContent>
               </Card>
             )}
+
+            <div className="w-full text-center">
+              <button
+                type="button"
+                onClick={() => refreshPosts(pageNumber + 1)}
+                className="bg-transparent border border-gray-400 text-black text-base flex gap-2 items-center px-4 py-2 rounded-full mx-auto cursor-pointer"
+              >
+                <RefreshCcwDotIcon className="size-5" />
+                Show More
+              </button>
+            </div>
           </div>
         </div>
       </main>

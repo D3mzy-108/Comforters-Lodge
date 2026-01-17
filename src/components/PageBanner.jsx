@@ -16,7 +16,7 @@ export default function PageBanner({ title = "" }) {
         <div className="text-alpha">
           <div className="w-full md:w-5/6 mx-auto">
             <div className="w-full max-w-[700px] flex flex-col items-start gap-2 space-y-2">
-              <h1 className="text-7xl font-bold font-sans break-all">
+              <h1 className="text-6xl lg:text-7xl font-bold font-sans">
                 {title}
               </h1>
             </div>

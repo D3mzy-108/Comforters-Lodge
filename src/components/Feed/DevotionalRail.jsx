@@ -17,9 +17,9 @@ export function DevotionalRail({ devotionals, onOpen }) {
   return (
     <>
       {/* ========== */}
-      <div className="p-6 flex max-md:flex-col gap-6 lg:gap-24 items-center">
+      <div className="p-4 md:p-6 flex max-md:flex-col gap-6 lg:gap-24 items-center">
         <div className="w-full max-lg:max-w-[350px] lg:w-fit flex flex-col gap-4">
-          <legend className="section-title">
+          <legend className="section-title" style={{ fontSize: "3.5rem" }}>
             <span className="text-(--textHighlight)">{"Daily"}</span>
             <span className="text-black/90">{" Devotions"}</span>
           </legend>

@@ -12,7 +12,7 @@ import {
   HoverCardTrigger,
   HoverCardContent,
 } from "@/components/shadcn/animate-ui/components/radix/hover-card";
-import { useSearchParams } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { api } from "@/utils/api/api_connection";
 import { Button } from "@/components/shadcn/animate-ui/components/buttons/button.tsx";
 import { formatDate, formatWeekDate } from "@/utils/formatters";
@@ -320,7 +320,24 @@ const LessonPage = () => {
                 <section className="border-t-2 border-t-(--primary)">
                   <div className="w-full flex justify-between items-center mt-8 gap-4">
                     {lessons.indexOf(currentLesson) === lessons.length - 1 ? (
-                      <></>
+                      <>
+                        <div className="w-full flex flex-col items-center text-center">
+                          <p className="text-lg text-black">
+                            <span>
+                              {`If you found this message helpful, make sure to
+                              spread the word with family and friends.`}
+                              <br />
+                              {"You can also "}
+                            </span>
+                            <Link to={"/scripture"}>
+                              <span className="text-lg text-blue-700 underline">
+                                {"explore"}
+                              </span>
+                            </Link>
+                            <span>{" other interesting topics!"}</span>
+                          </p>
+                        </div>
+                      </>
                     ) : (
                       <Button
                         variant="outline"
