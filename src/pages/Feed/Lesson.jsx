@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import NavBar from "../../components/Navbar";
 import {
   ChevronLeft,
   ChevronRight,
@@ -12,25 +11,12 @@ import {
   HoverCard,
   HoverCardTrigger,
   HoverCardContent,
-} from "@/components/animate-ui/components/radix/hover-card";
+} from "@/components/shadcn/animate-ui/components/radix/hover-card";
 import { useSearchParams } from "react-router";
 import { api } from "@/utils/api/api_connection";
-import { Button } from "@/components/animate-ui/components/buttons/button.tsx";
+import { Button } from "@/components/shadcn/animate-ui/components/buttons/button.tsx";
 import { formatDate, formatWeekDate } from "@/utils/formatters";
 import logo from "@/assets/Logo1.png";
-
-/* -------------------------
-   Utilities
-   ------------------------- */
-// function formatDateIso(isoDate) {
-//   const d = new Date(isoDate);
-//   return d.toLocaleDateString(undefined, {
-//     weekday: "long",
-//     year: "numeric",
-//     month: "long",
-//     day: "numeric",
-//   });
-// }
 
 const LessonPage = () => {
   // eslint-disable-next-line no-unused-vars
@@ -170,7 +156,6 @@ const LessonPage = () => {
 
   return (
     <>
-      <NavBar />
       {/* HERO BANNER */}
       <div className="w-full min-h-[40vh] pt-24 pb-8 bg-linear-90 from-beta to-(--textHighlight) flex items-end justify-center text-wrap relative">
         <div className="w-full max-w-4xl p-12 max-md:px-6">

@@ -3,6 +3,7 @@ import Landing from "./pages/Landing";
 import LessonPage from "./pages/Feed/Lesson";
 import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
+import NavBar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 function ScrollToTop() {
@@ -23,6 +24,7 @@ const App = () => {
   return (
     <>
       <ScrollToTop />
+      <NavBar />
       <Routes path="/pages">
         <Route path="/" element={<Landing />} />
         <Route path="/scripture" element={<ScripturesPage />}></Route>

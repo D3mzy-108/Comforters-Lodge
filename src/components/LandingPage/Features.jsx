@@ -4,14 +4,14 @@ import {
   TabsContents,
   TabsList,
   TabsTrigger,
-} from "@/components/animate-ui/components/radix/tabs";
+} from "@/components/shadcn/animate-ui/components/radix/tabs";
 import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from "@/components/animate-ui/components/radix/accordion";
-import { Button } from "@/components/animate-ui/components/buttons/button";
+} from "@/components/shadcn/animate-ui/components/radix/accordion";
+import { Button } from "@/components/shadcn/animate-ui/components/buttons/button";
 import { BookOpen, Leaf, Music } from "lucide-react";
 import { Link } from "react-router";
 

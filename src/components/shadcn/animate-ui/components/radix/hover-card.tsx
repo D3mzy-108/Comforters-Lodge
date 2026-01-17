@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 import {
   HoverCard as HoverCardPrimitive,
@@ -8,8 +8,8 @@ import {
   type HoverCardProps as HoverCardPrimitiveProps,
   type HoverCardTriggerProps as HoverCardTriggerPrimitiveProps,
   type HoverCardContentProps as HoverCardContentPrimitiveProps,
-} from '@/components/animate-ui/primitives/radix/hover-card';
-import { cn } from '@/lib/utils';
+} from "@/components/shadcn/animate-ui/primitives/radix/hover-card";
+import { cn } from "@/lib/utils";
 
 type HoverCardProps = HoverCardPrimitiveProps;
 
@@ -27,7 +27,7 @@ type HoverCardContentProps = HoverCardContentPrimitiveProps;
 
 function HoverCardContent({
   className,
-  align = 'center',
+  align = "center",
   sideOffset = 4,
   ...props
 }: HoverCardContentProps) {
@@ -37,8 +37,8 @@ function HoverCardContent({
         align={align}
         sideOffset={sideOffset}
         className={cn(
-          'bg-popover text-popover-foreground z-50 w-64 origin-(--radix-hover-card-content-transform-origin) rounded-md border p-4 shadow-md outline-hidden',
-          className,
+          "bg-popover text-popover-foreground z-50 w-64 origin-(--radix-hover-card-content-transform-origin) rounded-md border p-4 shadow-md outline-hidden",
+          className
         )}
         {...props}
       />

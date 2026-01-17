@@ -1,4 +1,3 @@
-import NavBar from "@/components/Navbar";
 import BtnStyle1 from "@/components/BtnStyle1";
 import Demo1 from "@/assets/Demo1.jpg";
 import Demo2 from "@/assets/Demo2.jpg";
@@ -21,14 +20,12 @@ const Landing = () => {
   return (
     <div className="min-h-100 max-w-screen overflow-hidden relative">
       <div className="w-full bg-white space-y-12 relative">
-        {/* Bug here idk what to do */}
-        <NavBar />
-
-        {/* **************************Hero************************** */}
         <HeroBanner />
-
         <SiteFeatures />
 
+        {/* ==================================== */}
+        {/* BOOKS */}
+        {/* ==================================== */}
         <section className="flex flex-col-reverse md:flex-row text-wrap items-center justify-between bg-[#f9fafb] gap-4 px-6 md:px-16 py-16 rounded-lg">
           {/* Left side - books */}
           <div className="grid grid-cols-2 gap-6 md:w-1/2">

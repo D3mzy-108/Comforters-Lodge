@@ -5,9 +5,9 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card.tsx";
-import { Badge } from "@/components/ui/badge.tsx";
-import { Button } from "@/components/animate-ui/components/buttons/button.tsx";
+} from "@/components/shadcn/ui/card.tsx";
+import { Badge } from "@/components/shadcn/ui/badge.tsx";
+import { Button } from "@/components/shadcn/animate-ui/components/buttons/button.tsx";
 import { BookOpenIcon, ChevronRight } from "lucide-react";
 import { Link } from "react-router";
 
