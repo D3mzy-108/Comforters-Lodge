@@ -29,10 +29,10 @@ const App = () => {
       <NavBar />
       <Routes path="/pages">
         <Route path="/" element={<Landing />} />
-        <Route path="/scripture" element={<ScripturesPage />}></Route>
-        <Route path="/lesson" element={<LessonPage />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/declaration" element={<Declaration />}></Route>
+        <Route path="/lesson" element={<LessonPage />}></Route>
+        <Route path="/scripture" element={<ScripturesPage />}></Route>
       </Routes>
       <Footer />
     </>

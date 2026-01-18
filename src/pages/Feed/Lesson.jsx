@@ -31,7 +31,7 @@ const LessonPage = () => {
       const id = searchParams.get("id");
       if (!id || id == null || id == "") {
         const p = await api(`/posts/daily-lessons`);
-        setLessons(p.posts);
+        setLessons(p.posts.slice(0, 7));
         setUpNext(p.up_next);
         setCurrentLesson(p.posts[0]);
       } else {
