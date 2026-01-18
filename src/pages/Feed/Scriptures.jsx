@@ -79,9 +79,15 @@ function ScripturesPage() {
   // ==============================
 
   const refreshPosts = async (page = pageNumber) => {
+    function isSublist(a, b) {
+      return a.some((_, i) =>
+        a.slice(i, i + b.length).every((val, j) => val === b[j])
+      );
+    }
+
     try {
       const data = await api(`/posts/daily-lessons?page=${page}`);
-      if (!lessons.includes(data.posts)) {
+      if (!isSublist(lessons, data.posts)) {
         setLessons([...lessons, ...data.posts]);
       }
       setPageNumber(data.page);
@@ -93,8 +99,8 @@ function ScripturesPage() {
 
   const refreshDevotions = async () => {
     try {
-      const data = await api("/devotions");
-      setDevotionals(data);
+      const data = await api("/daily-devotions");
+      setDevotionals(data.devotionals);
     } catch (e) {
       console.log(e.message);
       setDevotionals(devotionals);

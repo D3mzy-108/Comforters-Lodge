@@ -30,7 +30,7 @@ export function DevotionalRail({ devotionals, onOpen }) {
 
         <div className="w-full flex-1 overflow-auto p-2 max-sm:mt-2 lg:p-4 rounded-4xl bg-(--secondary)/30 border-2 border-(--primary)/50">
           <div className="mt-2 px-2 md:px-4 flex gap-3 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {devotionals.slice(0, 20).map((d) => {
+            {devotionals.map((d) => {
               const idx = devotionals.reverse().indexOf(d);
               const containerBG = devotionBgList[idx % devotionBgList.length];
               return (
