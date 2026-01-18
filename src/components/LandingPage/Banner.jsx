@@ -19,20 +19,19 @@ export default function HeroBanner() {
       >
         <div className="w-full md:w-5/6">
           <div className="w-full max-w-[700px] flex flex-col items-start gap-2 space-y-2">
-            <h1 className="text-3xl md:text-4xl">
-              {"Begin your day grounded in God's Word"}
-            </h1>
-            <p className="text-lg text-white/60 my-2">
-              <span>
-                {`Take a few minutes to pause, reflect, and listen. Our daily
-                devotionals help you centre your heart on Scripture, attend to
-                the Spirit, and carry peace into the rest of your day.`}
+            <h1
+              className="text-[3.25rem] font-bold"
+              style={{ lineHeight: 1.2 }}
+            >
+              <span className="text-(--secondary)">
+                <span>{"Begin your day grounded in "}</span>
               </span>
               <br />
-              <br />
+              <span className="text-(--primary)">{"God's Word"}</span>
+            </h1>
+            <p className="text-xl text-white/80 my-2 italic">
               <span>
-                {`Each devotional is short, focused, and designed to fit naturally
-                into your morning or evening routine. Start today's devotional`}
+                {`Still your heart. Attend to the Spirit. Carry peace into your day.`}
               </span>
             </p>
 
