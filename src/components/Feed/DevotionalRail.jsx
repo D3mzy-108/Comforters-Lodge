@@ -1,9 +1,9 @@
 import { formatDate } from "@/utils/formatters";
-import { Button } from "@/components/animate-ui/components/buttons/button.tsx";
+import { Button } from "@/components/shadcn/animate-ui/components/buttons/button.tsx";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "motion/react";
-import { Dialog, DialogContent } from "@/components/ui/dialog.tsx";
-import { BookmarkIcon, Share2Icon, XIcon } from "lucide-react";
+import { Dialog, DialogContent } from "@/components/shadcn/ui/dialog.tsx";
+import { Share2Icon, XIcon } from "lucide-react";
 
 const devotionBgList = [
   "linear-gradient(135deg, rgba(17, 94, 89, .95), rgba(20, 184, 166, .55))",
@@ -15,58 +15,82 @@ const devotionBgList = [
 
 export function DevotionalRail({ devotionals, onOpen }) {
   return (
-    <div className="bg-(--secondary)/30 rounded-3xl border-2 border-(--primary) p-4 md:p-6">
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <div>
-            <div className="text-xl font-semibold">Daily Devotionals</div>
-            <div className="text-base text-muted-foreground">
-              Like status updates, but for the soul.
-            </div>
+    <>
+      {/* ========== */}
+      <div className="p-4 md:p-6 flex max-md:flex-col gap-6 lg:gap-24 items-center">
+        <div className="w-full max-lg:max-w-[350px] lg:w-fit flex flex-col gap-4">
+          <legend className="section-title" style={{ fontSize: "3.5rem" }}>
+            <span className="text-(--textHighlight)">{"Daily"}</span>
+            <span className="text-black/90">{" Devotions"}</span>
+          </legend>
+          <p className="text-black/60 text-xl font-normal italic">
+            {"Status updates, but for the soul."}
+          </p>
+        </div>
+
+        <div className="w-full flex-1 overflow-auto p-2 max-sm:mt-2 lg:p-4 rounded-4xl bg-(--secondary)/30 border-2 border-(--primary)/50">
+          <div className="mt-2 px-2 md:px-4 flex gap-3 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {devotionals.slice(0, 20).map((d) => {
+              const idx = devotionals.reverse().indexOf(d);
+              const containerBG = devotionBgList[idx % devotionBgList.length];
+              return (
+                <DevotionalCard
+                  key={d.id}
+                  devotion={d}
+                  onOpen={onOpen}
+                  properties={{ idx: idx, containerBG: containerBG }}
+                />
+              );
+            })}
           </div>
         </div>
       </div>
+    </>
+  );
+}
 
-      <div className="mt-4 md:mt-6 px-2 md:px-4 flex gap-3 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        {devotionals.map((d, idx) => {
-          const containerBG = devotionBgList[idx % devotionBgList.length];
-          return (
-            <motion.button
-              key={d.id}
-              onClick={() => onOpen(d, containerBG)}
-              className="group relative w-32 md:w-48 aspect-4/5 shrink-0 overflow-hidden rounded-2xl shadow bg-background text-left text-wrap"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.04 }}
-            >
-              <div
-                className="absolute inset-0"
-                style={{
-                  background: containerBG,
-                }}
-              />
-              <div className="absolute inset-0 bg-linear-to-t from-black/55 via-black/10 to-black/0" />
-              <div className="relative flex h-full flex-col justify-between p-3">
-                <div className="flex items-center justify-between">
-                  <div className="rounded-full bg-white/15 px-2 py-1 text-xs md:text-sm font-medium text-white/90 backdrop-blur">
-                    {formatDate(d.date_posted)}
-                  </div>
-                  <div className="h-2 w-2 rounded-full bg-white/70 opacity-0 transition group-hover:opacity-100" />
-                </div>
-                <div>
-                  <div className="text-sm md:text-base font-semibold text-white line-clamp-3">
-                    {d.verse_content}
-                  </div>
-                  <div className="mt-0.5 text-xs md:text-sm text-white/85">
-                    {d.citation}
-                  </div>
-                </div>
-              </div>
-            </motion.button>
-          );
-        })}
+function DevotionalCard({ devotion, onOpen, properties }) {
+  /*
+  devotion: Contains the devotion object being rendered.
+  onOpen: Function defining what action should occur when the card is clicked.
+  properties: Takes a JS object that informs the card of special properties it should include in its render.
+      properties: {
+        idx: number,
+        containerBG: string, // background color or gradient of the card
+      }
+   */
+  return (
+    <motion.button
+      onClick={() => onOpen(devotion, properties.containerBG)}
+      className="group relative w-48 aspect-4/5 shrink-0 overflow-hidden rounded-3xl shadow bg-background text-left text-wrap"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: properties.idx * 0.04 }}
+    >
+      <div
+        className="absolute inset-0"
+        style={{
+          background: properties.containerBG,
+        }}
+      />
+      <div className="absolute inset-0 bg-linear-to-t from-black/55 via-black/10 to-black/0" />
+      <div className="relative flex h-full flex-col justify-between px-3 py-4">
+        <div className="flex items-center justify-between">
+          <div className="rounded-full bg-white/15 px-2 py-1 text-sm font-medium text-white/90 backdrop-blur">
+            {formatDate(devotion.date_posted)}
+          </div>
+          <div className="h-2 w-2 rounded-full bg-white/70 opacity-0 transition group-hover:opacity-100" />
+        </div>
+        <div>
+          <div className="text-base font-semibold text-white line-clamp-3">
+            {devotion.verse_content}
+          </div>
+          <div className="mt-0.5 text-sm text-white/85">
+            {devotion.citation}
+          </div>
+        </div>
       </div>
-    </div>
+    </motion.button>
   );
 }
 
@@ -87,7 +111,7 @@ export function DevotionalDialog({
       >
         <div className="relative">
           <div
-            className="h-[420px] w-full"
+            className="h-[420px] w-full backdrop-blur-lg"
             style={{ background: containerBG }}
           />
           <div className="absolute inset-0 bg-linear-to-t from-black/65 via-black/15 to-black/0" />

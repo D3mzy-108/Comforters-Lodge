@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/animate-ui/components/buttons/button";
+import { Button } from "@/components/shadcn/animate-ui/components/buttons/button";
 import { MenuIcon } from "lucide-react";
 import {
   DropdownMenu,
@@ -9,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/animate-ui/components/radix/dropdown-menu";
+} from "@/components/shadcn/animate-ui/components/radix/dropdown-menu";
 import logo from "@/assets/Logo1.png";
 
 const NavBar = () => {
@@ -41,7 +41,7 @@ const NavBar = () => {
       label: "Home",
     },
     {
-      to: "/",
+      to: "/about",
       label: "About",
     },
     {
@@ -62,7 +62,7 @@ const NavBar = () => {
     },
     {
       to: "/",
-      label: "Donate",
+      label: "Support Us",
     },
   ];
 

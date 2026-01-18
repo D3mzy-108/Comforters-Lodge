@@ -1,44 +1,25 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   BookOpenIcon,
-  ChevronRight,
   HomeIcon,
+  RefreshCcwDotIcon,
   SearchIcon,
   SortDesc,
 } from "lucide-react";
 import { api } from "@/utils/api/api_connection";
-import { Button } from "@/components/animate-ui/components/buttons/button.tsx";
+import { Button } from "@/components/shadcn/animate-ui/components/buttons/button.tsx";
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "motion/react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card.tsx";
-import { Input } from "@/components/ui/input.tsx";
+import { Card, CardContent } from "@/components/shadcn/ui/card.tsx";
+import { Input } from "@/components/shadcn/ui/input.tsx";
 import {
   DevotionalDialog,
   DevotionalRail,
 } from "@/components/Feed/DevotionalRail";
 import LessonCard from "@/components/Feed/LessonCardComponents";
 import { Link } from "react-router";
-
-function Section({ icon, title, children }) {
-  return (
-    <div className="rounded-3xl border bg-background/70 p-4">
-      <div className="flex items-center gap-2">
-        <div className="inline-flex h-9 w-9 items-center justify-center rounded-2xl border bg-background">
-          {icon}
-        </div>
-        <div className="text-sm font-semibold">{title}</div>
-      </div>
-      <div className="mt-3 text-sm leading-relaxed text-foreground/90">
-        {children}
-      </div>
-    </div>
-  );
-}
+import { formatDate } from "@/utils/formatters";
+import PageBanner from "@/components/PageBanner";
 
 function ScripturesPage() {
   const [query, setQuery] = useState("");
@@ -46,14 +27,10 @@ function ScripturesPage() {
   const [lessons, setLessons] = useState([]);
   const [devotionals, setDevotionals] = useState([]);
 
-  const [lessonPaginator, setLessonPaginator] = useState({
-    page: 1,
-    ttl_pages: 1,
-  });
-
   const [selectedDev, setSelectedDev] = useState(null);
   const [devDialogOpen, setDevDialogOpen] = useState(false);
   const [devDialogBg, setDevDialogBg] = useState(false);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const filtered = useMemo(() => {
     let arr = lessons;
@@ -69,7 +46,7 @@ function ScripturesPage() {
           l.story,
           l.prayer,
           l.activity_guide,
-          l.date_posted,
+          formatDate(l.date_posted),
         ]
           .join(" ")
           .toLowerCase();
@@ -101,16 +78,15 @@ function ScripturesPage() {
   // LOAD PAGE DATA
   // ==============================
 
-  const refreshPosts = async (page = lessonPaginator.page) => {
+  const refreshPosts = async (page = pageNumber) => {
     try {
       const data = await api(`/posts/daily-lessons?page=${page}`);
-      setLessons(data.posts);
-      setLessonPaginator({
-        page: data.page,
-        ttl_pages: data.total_pages,
-      });
+      if (!lessons.includes(data.posts)) {
+        setLessons([...lessons, ...data.posts]);
+      }
+      setPageNumber(data.page);
     } catch (e) {
-      console.log(e.message);
+      console.error(e.message);
       setLessons(lessons);
     }
   };
@@ -137,58 +113,19 @@ function ScripturesPage() {
 
   return (
     <div className="min-h-screen text-wrap bg-linear-to-b from-muted/40 via-background to-background">
-      {/* Top bar */}
-      <div className="sticky top-0 z-30 bg-(--secondary)/20 backdrop-blur supports-backdrop-filter:bg-background/60">
-        <div className="mx-auto px-4 md:px-8 py-6">
-          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <div className="flex items-center gap-3 max-sm:-ml-2 max-sm:mb-2">
-              <Link to="/">
-                <div className="inline-flex size-11 items-center justify-center rounded-2xl border bg-background shadow-sm">
-                  <HomeIcon className="h-5 w-5" />
-                </div>
-              </Link>
-              <div className="flex-1">
-                <div className="text-lg font-semibold">Fellowship Feed</div>
-                <div className="text-sm text-muted-foreground">
-                  Daily devotionals and lessons for a shared walk with Jesus.
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-              <div className="relative w-full sm:w-80">
-                <SearchIcon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <Input
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search lessons, series, tags..."
-                  className="h-11 rounded-2xl pl-9"
-                />
-              </div>
-
-              <Button
-                variant="secondary"
-                className="h-11 rounded-2xl gap-2 bg-(--primary) hover:bg-(--primary) text-black capitalize"
-                onClick={() =>
-                  setSort((s) => (s === "newest" ? "oldest" : "newest"))
-                }
-              >
-                <SortDesc className="h-4 w-4" />
-                {sort}
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <PageBanner title="Scriptures" />
 
       {/* Body */}
-      <main className="mx-auto px-4 md:px-12 py-6 md:py-8 space-y-8">
-        <DevotionalRail devotionals={devotionals} onOpen={openDev} />
+      <main className="mx-auto px-2 md:px-6 py-2 md:py-4 space-y-8">
+        {/* DAILY DEVOTIONS */}
+        <div className="w-full pt-4 md:pt-6">
+          <DevotionalRail devotionals={devotionals} onOpen={openDev} />
+        </div>
 
-        <div className="grid gap-4 lg:grid-cols-[1.4fr_.6fr]">
-          {/* Feed */}
-          <div className="space-y-4">
-            <div className="flex max-sm:flex-col sm:items-center sm:justify-between gap-4">
+        {/* LESSONS */}
+        <div className="w-full p-4 md:p-6">
+          <div className="space-y-10">
+            <div className="flex max-lg:flex-col sm:items-center sm:justify-between gap-4">
               {/* SECTION TITLE */}
               <div className="flex items-center gap-2">
                 <div className="inline-flex size-11 items-center justify-center rounded-xl border bg-background">
@@ -203,6 +140,30 @@ function ScripturesPage() {
                   </div>
                 </div>
               </div>
+
+              {/* SEARCH */}
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
+                <div className="relative w-full sm:w-80">
+                  <SearchIcon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search lessons, series, tags..."
+                    className="h-11 rounded-2xl pl-9"
+                  />
+                </div>
+
+                <Button
+                  variant="secondary"
+                  className="h-11 rounded-2xl gap-2 bg-(--primary) hover:bg-(--primary) text-black capitalize"
+                  onClick={() =>
+                    setSort((s) => (s === "newest" ? "oldest" : "newest"))
+                  }
+                >
+                  <SortDesc className="h-4 w-4" />
+                  {sort}
+                </Button>
+              </div>
             </div>
 
             <AnimatePresence mode="popLayout">
@@ -211,8 +172,8 @@ function ScripturesPage() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.18 }}
-                className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+                transition={{ duration: 0.3 }}
+                className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
               >
                 {filtered.map((lesson) => (
                   <LessonCard
@@ -232,43 +193,18 @@ function ScripturesPage() {
                 </CardContent>
               </Card>
             )}
-          </div>
 
-          {/* Sidebar */}
-          <aside className="space-y-4 lg:border-l lg:border-l-gray-200">
-            <div className="flex flex-col gap-4 divide p-4">
-              <Card className="rounded-3xl bg-(--secondary)/20 border border-b-2 border-(--primary) shadow">
-                <CardHeader>
-                  <CardTitle className="text-lg font-medium text-(--textHighlight)">
-                    Quick Actions
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="grid gap-2">
-                  <Button
-                    variant="secondary"
-                    className="rounded-lg p-6 shadow-sm justify-between bg-(--secondary)/40"
-                  >
-                    Request prayer
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    className="rounded-lg p-6 shadow-sm justify-between bg-(--secondary)/40"
-                  >
-                    Join small group
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    className="rounded-lg p-6 shadow-sm justify-between bg-(--secondary)/40"
-                  >
-                    See announcements
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
-                </CardContent>
-              </Card>
+            <div className="w-full text-center">
+              <button
+                type="button"
+                onClick={() => refreshPosts(pageNumber + 1)}
+                className="bg-transparent border border-gray-400 text-black text-base flex gap-2 items-center px-4 py-2 rounded-full mx-auto cursor-pointer"
+              >
+                <RefreshCcwDotIcon className="size-5" />
+                Show More
+              </button>
             </div>
-          </aside>
+          </div>
         </div>
       </main>
 
