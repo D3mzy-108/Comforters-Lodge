@@ -31,15 +31,22 @@ export function DevotionalRail({ devotionals, onOpen }) {
         <div className="w-full flex-1 overflow-auto p-2 max-sm:mt-2 lg:p-4 rounded-4xl bg-(--secondary)/30 border-2 border-(--primary)/50">
           <div className="mt-2 px-2 md:px-4 flex gap-3 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {devotionals.map((d) => {
-              const idx = devotionals.reverse().indexOf(d);
+              const idx = devotionals.slice(0).reverse().indexOf(d);
               const containerBG = devotionBgList[idx % devotionBgList.length];
               return (
-                <DevotionalCard
+                <motion.button
                   key={d.id}
-                  devotion={d}
-                  onOpen={onOpen}
-                  properties={{ idx: idx, containerBG: containerBG }}
-                />
+                  onClick={() => onOpen(d, containerBG)}
+                  className="group relative w-48 aspect-4/5 shrink-0 overflow-hidden rounded-3xl shadow bg-background text-left text-wrap"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.04 }}
+                >
+                  <DevotionalCard
+                    devotion={d}
+                    properties={{ idx: idx, containerBG: containerBG }}
+                  />
+                </motion.button>
               );
             })}
           </div>
@@ -49,7 +56,7 @@ export function DevotionalRail({ devotionals, onOpen }) {
   );
 }
 
-function DevotionalCard({ devotion, onOpen, properties }) {
+function DevotionalCard({ devotion, properties }) {
   /*
   devotion: Contains the devotion object being rendered.
   onOpen: Function defining what action should occur when the card is clicked.
@@ -60,13 +67,7 @@ function DevotionalCard({ devotion, onOpen, properties }) {
       }
    */
   return (
-    <motion.button
-      onClick={() => onOpen(devotion, properties.containerBG)}
-      className="group relative w-48 aspect-4/5 shrink-0 overflow-hidden rounded-3xl shadow bg-background text-left text-wrap"
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: properties.idx * 0.04 }}
-    >
+    <>
       <div
         className="absolute inset-0"
         style={{
@@ -82,15 +83,18 @@ function DevotionalCard({ devotion, onOpen, properties }) {
           <div className="h-2 w-2 rounded-full bg-white/70 opacity-0 transition group-hover:opacity-100" />
         </div>
         <div>
-          <div className="text-base font-semibold text-white line-clamp-3">
+          <div
+            className="text-lg font-semibold text-white/90 line-clamp-3"
+            style={{ fontFamily: "var(--comic-sans)" }}
+          >
             {devotion.verse_content}
           </div>
-          <div className="mt-0.5 text-sm text-white/85">
+          <div className="mt-0.5 text-sm text-white/75">
             {devotion.citation}
           </div>
         </div>
       </div>
-    </motion.button>
+    </>
   );
 }
 
@@ -132,8 +136,11 @@ export function DevotionalDialog({
 
           <div className="absolute bottom-0 left-0 right-0 p-5">
             <div className="flex items-center justify-between gap-4">
-              <div>
-                <div className="text-xl font-semibold text-white">
+              <div className="flex-1">
+                <div
+                  className="text-2xl font-semibold text-white w-full h-fit max-h-[100px] scroll-style"
+                  style={{ fontFamily: "var(--comic-sans)" }}
+                >
                   {devotional.verse_content}
                 </div>
                 <div className="text-base text-white/85">

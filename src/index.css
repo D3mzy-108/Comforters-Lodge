@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&display=swap');
 @import "tailwindcss";
 @plugin "daisyui";
 
@@ -23,6 +24,17 @@
   --primary: #cebda6;
   --secondary: #f9ede0;
   --textHighlight: #7a6651;
+  --comic-sans: "Comic Relief", system-ui;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+legend {
+  font-family: var(--comic-sans) !important;
 }
 
 section {
@@ -47,4 +59,59 @@ section {
   bottom: -30px;
   left: 0;
   background-color: var(--textHighlight);
+}
+
+/* Firefox (limited) */
+.scroll-style {
+  scrollbar-width: thin;
+  scrollbar-color: #cfcfd689 transparent;
+  /* thumb, track */
+  overflow: auto;
+}
+
+/* Chrome / Edge / Safari */
+.scroll-style::-webkit-scrollbar {
+  width: 14px;
+}
+
+.scroll-style::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-style::-webkit-scrollbar-thumb {
+  background: #cfcfd689;
+  border-radius: 999px;
+  border: 6px solid #5b1f4b;
+  /* creates the purple “gap” around the thumb */
+}
+
+/* Optional: on hover */
+.scroll-style::-webkit-scrollbar-thumb:hover {
+  background: #cfcfd6d0;
+}
+
+/* Arrow buttons */
+.scroll-style::-webkit-scrollbar-button {
+  height: 16px;
+  background: #5b1f4b;
+}
+
+/* Up arrow */
+.scroll-style::-webkit-scrollbar-button:single-button:vertical:decrement {
+  background:
+    linear-gradient(135deg, transparent 55%, #cfcfd689 56%) left,
+    linear-gradient(225deg, transparent 55%, #cfcfd689 56%) right;
+  background-size: 50% 100%;
+  background-repeat: no-repeat;
+  background-color: transparent;
+}
+
+/* Down arrow */
+.scroll-style::-webkit-scrollbar-button:single-button:vertical:increment {
+  background:
+    linear-gradient(315deg, transparent 55%, #cfcfd689 56%) left,
+    linear-gradient(45deg, transparent 55%, #cfcfd689 56%) right;
+  background-size: 50% 100%;
+  background-repeat: no-repeat;
+  background-color: transparent;
 }
