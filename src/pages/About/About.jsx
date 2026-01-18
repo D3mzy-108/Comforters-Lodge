@@ -4,7 +4,7 @@ import PageBanner from "@/components/PageBanner";
 
 const About = () => {
   return (
-    <div className="min-h-screen text-wrap">
+    <div className="min-h-screen text-wrap bg-[#e7e9eb]">
       <PageBanner title="About Us" />
       <div className="px-4 md:px-20 text-center">
         <div className="py-8">

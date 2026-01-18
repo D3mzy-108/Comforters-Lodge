@@ -27,16 +27,6 @@
   --comic-sans: "Comic Relief", system-ui;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-legend {
-  font-family: var(--comic-sans) !important;
-}
-
 section {
   @apply w-full px-8 md:px-24 py-28;
 }

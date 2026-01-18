@@ -18,7 +18,7 @@ export default function HeroBanner() {
         className={`absolute inset-0 z-200 px-6 bg-linear-to-b text-alpha text-wrap py-40 mt-12 md:mt-0 h-screen flex justify-center items-center`}
       >
         <div className="w-full md:w-5/6">
-          <div className="w-full max-w-[700px] flex flex-col items-start gap-2 space-y-2">
+          <div className="w-full max-w-[400px] lg:max-w-[700px] flex flex-col items-start gap-2 space-y-2">
             <h1
               className="text-[3.25rem] font-bold"
               style={{ lineHeight: 1.2 }}
