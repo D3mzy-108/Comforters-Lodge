@@ -1,5 +1,5 @@
 import HeroBg from "@/assets/images/banner/landing-page-hero-banner.png";
-import { Button } from "@/components/animate-ui/components/buttons/button";
+import { Button } from "@/components/shadcn/animate-ui/components/buttons/button";
 import { Link } from "react-router-dom";
 
 export default function HeroBanner() {

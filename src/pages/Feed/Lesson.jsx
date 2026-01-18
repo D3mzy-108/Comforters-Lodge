@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import NavBar from "../../components/Navbar";
 import {
   ChevronLeft,
   ChevronRight,
@@ -12,25 +11,12 @@ import {
   HoverCard,
   HoverCardTrigger,
   HoverCardContent,
-} from "@/components/animate-ui/components/radix/hover-card";
-import { useSearchParams } from "react-router";
+} from "@/components/shadcn/animate-ui/components/radix/hover-card";
+import { Link, useSearchParams } from "react-router";
 import { api } from "@/utils/api/api_connection";
-import { Button } from "@/components/animate-ui/components/buttons/button.tsx";
+import { Button } from "@/components/shadcn/animate-ui/components/buttons/button.tsx";
 import { formatDate, formatWeekDate } from "@/utils/formatters";
 import logo from "@/assets/Logo1.png";
-
-/* -------------------------
-   Utilities
-   ------------------------- */
-// function formatDateIso(isoDate) {
-//   const d = new Date(isoDate);
-//   return d.toLocaleDateString(undefined, {
-//     weekday: "long",
-//     year: "numeric",
-//     month: "long",
-//     day: "numeric",
-//   });
-// }
 
 const LessonPage = () => {
   // eslint-disable-next-line no-unused-vars
@@ -170,7 +156,6 @@ const LessonPage = () => {
 
   return (
     <>
-      <NavBar />
       {/* HERO BANNER */}
       <div className="w-full min-h-[40vh] pt-24 pb-8 bg-linear-90 from-beta to-(--textHighlight) flex items-end justify-center text-wrap relative">
         <div className="w-full max-w-4xl p-12 max-md:px-6">
@@ -335,7 +320,24 @@ const LessonPage = () => {
                 <section className="border-t-2 border-t-(--primary)">
                   <div className="w-full flex justify-between items-center mt-8 gap-4">
                     {lessons.indexOf(currentLesson) === lessons.length - 1 ? (
-                      <></>
+                      <>
+                        <div className="w-full flex flex-col items-center text-center">
+                          <p className="text-lg text-black">
+                            <span>
+                              {`If you found this message helpful, make sure to
+                              spread the word with family and friends.`}
+                              <br />
+                              {"You can also "}
+                            </span>
+                            <Link to={"/scripture"}>
+                              <span className="text-lg text-blue-700 underline">
+                                {"explore"}
+                              </span>
+                            </Link>
+                            <span>{" other interesting topics!"}</span>
+                          </p>
+                        </div>
+                      </>
                     ) : (
                       <Button
                         variant="outline"
