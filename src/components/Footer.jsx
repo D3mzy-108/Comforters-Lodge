@@ -12,9 +12,9 @@ import logo1 from "@/assets/Logo1.png";
 // Keep data stable and easy to maintain.
 // Use ids as keys (avoid array index), and group links once.
 const NAV_LINKS = [
-  { id: "about", to: "/", category: "CLM", label: "About" },
-  { id: "donate", to: "/", category: "CLM", label: "Donate" },
+  { id: "about", to: "/about", category: "CLM", label: "About" },
   { id: "store", to: "/", category: "CLM", label: "Store" },
+  { id: "donate", to: "/", category: "CLM", label: "Support Us" },
   {
     id: "devotionals",
     to: "/lesson",
@@ -22,14 +22,13 @@ const NAV_LINKS = [
     label: "Devotionals",
   },
   { id: "hymns", to: "/", category: "Explore", label: "Hymns" },
+  { id: "prayer", to: "/", category: "Explore", label: "Prayer" },
   {
     id: "scripture",
     to: "/scripture",
     category: "Explore",
     label: "Scripture",
   },
-  { id: "prayer", to: "/", category: "Explore", label: "Prayer" },
-  { id: "contact", to: "/", category: "CLM", label: "Contact" },
 ];
 
 // If you need to display contact details, keep them separate from nav items.
