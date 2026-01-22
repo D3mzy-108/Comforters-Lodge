@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router";
 
 import {
@@ -7,7 +7,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/shadcn/animate-ui/components/radix/accordion.tsx";
-import { Badge } from "@/components/shadcn/ui/badge";
 
 import {
   DropdownMenu,
@@ -24,89 +23,134 @@ import HymnRow from "@/components/Hymns/HymnRow";
 import { HymnGroup } from "@/utils/schemas";
 import { api } from "@/utils/api/api_connection";
 
+const buildSearchHaystack = (h) =>
+  [
+    String(h.hymn_number ?? ""),
+    h.hymn_title,
+    h.classification,
+    h.tune_ref,
+    h.cross_ref,
+    h.scripture,
+    h.chorus_title,
+    h.chorus,
+    ...(h.verses ?? []),
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+
 export default function HymnsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [query, setQuery] = useState("");
+
+  // Read from URL instead of mirroring into local state
+  const q = searchParams.get("hymn") ?? "";
+  const normalizedQuery = useMemo(() => q.trim().toLowerCase(), [q]);
+
   const [openItems, setOpenItems] = useState([]);
   const [groups, setGroups] = useState([]);
 
-  const normalizedQuery = query.trim().toLowerCase();
+  const setSearchParamsSafe = useCallback(
+    (next) => {
+      const params = new URLSearchParams(searchParams);
+      if (next.hymn !== undefined) params.set("hymn", next.hymn);
+      if (next.id !== undefined) {
+        if (next.id) params.set("id", next.id);
+        else params.delete("id");
+      }
+      // keep URL tidy
+      if (!params.get("hymn")) params.delete("hymn");
+      setSearchParams(params);
+    },
+    [searchParams, setSearchParams],
+  );
 
-  const setSearch = (hymn, id) => {
-    setSearchParams({ hymn: hymn, id: id });
-  };
+  const expandAll = useCallback(() => {
+    setOpenItems(groups.map((g) => g.group));
+  }, [groups]);
 
-  const filtered = useMemo(() => {
-    if (!normalizedQuery) return groups;
-
-    const match = (h) => {
-      const haystack = [
-        String(h.hymn_number),
-        h.hymn_title,
-        h.classification,
-        h.tune_ref,
-        h.cross_ref,
-        h.scripture,
-        h.chorus_title,
-        h.chorus,
-        ...(h.verses ?? []),
-      ]
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase();
-
-      return haystack.includes(normalizedQuery);
-    };
-
-    return groups
-      .map((g) => ({ ...g, hymns: g.hymns.filter(match) }))
-      .filter((g) => g.hymns.length > 0);
-  }, [groups, normalizedQuery]);
+  const collapseAll = useCallback(() => setOpenItems([]), []);
 
   useEffect(() => {
     document.title = "Hymns | Comforters Lodge";
 
-    const fetchHymns = async () => {
+    let cancelled = false;
+
+    (async () => {
       const response = await api("/hymns/grouped");
       const hymnGroups = response.map((g) => new HymnGroup().fromJson(g));
-      setGroups(hymnGroups);
+
+      // Precompute _search once per hymn (big performance win on repeated searches)
+      const withSearch = hymnGroups.map((g) => ({
+        ...g,
+        hymns: g.hymns.map((h) => ({
+          ...h,
+          _search: buildSearchHaystack(h),
+        })),
+      }));
+
+      if (!cancelled) setGroups(withSearch);
+    })();
+
+    return () => {
+      cancelled = true;
     };
-    fetchHymns();
   }, []);
 
-  useEffect(() => {
-    setQuery(searchParams.get("hymn") ?? "");
-  }, [searchParams]);
-  // Auto-open matching groups while searching.
+  const filtered = useMemo(() => {
+    if (!normalizedQuery) return groups;
+
+    return groups
+      .map((g) => ({
+        ...g,
+        hymns: g.hymns.filter((h) => h._search.includes(normalizedQuery)),
+      }))
+      .filter((g) => g.hymns.length > 0);
+  }, [groups, normalizedQuery]);
+
+  // Auto-open groups only while searching, and avoid resetting state unnecessarily
   useEffect(() => {
     if (!normalizedQuery) return;
-    setOpenItems(filtered.map((g) => g.group));
+
+    const next = filtered.map((g) => g.group);
+    setOpenItems((prev) => {
+      if (prev.length === next.length && prev.every((v, i) => v === next[i])) {
+        return prev;
+      }
+      return next;
+    });
   }, [normalizedQuery, filtered]);
+
+  const onSubmitSearch = useCallback(
+    (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.currentTarget);
+      const value = String(formData.get("q") ?? "");
+      setSearchParamsSafe({ hymn: value, id: "" });
+    },
+    [setSearchParamsSafe],
+  );
 
   return (
     <div className="w-full">
-      <PageBanner title="Hymns" />
+      <PageBanner title="C&S Hymnal" />
 
       <div className="w-full max-w-7xl mx-auto px-6 py-12 flex flex-col gap-6">
         {/* SEARCH BOX */}
         <div className="w-full flex max-md:flex-col items-start md:items-center gap-2">
-          <legend
-            className="flex-1 text-2xl font-bold text-(--textHighlight)"
-            style={{ fontFamily: "var(--comic-sans)" }}
-          >
-            {"K&S Hymnal"}
-          </legend>
-          <div className="w-full flex justify-end items-center gap-2">
-            <div className="relative w-full max-w-sm ml-auto my-2">
+          <div className="w-full flex justify-center items-center gap-2">
+            <form
+              onSubmit={onSubmitSearch}
+              className="relative w-full max-w-3xl my-2"
+            >
               <Search className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-muted-foreground" />
               <input
                 type="search"
-                value={searchParams.get("hymn") ?? ""}
-                onChange={(e) => setSearch(e.target.value, "")}
-                placeholder="Search by number, title, scripture, words in verses..."
+                name="q"
+                defaultValue={q}
+                placeholder="Search any detail you remember in the hymn and press Enter."
                 className="w-full rounded-full bg-transparent pl-12 pr-8 py-3 border-2 border-(--primary) placeholder:text-(--primary) text-lg"
               />
-            </div>
+            </form>
 
             <DropdownMenu>
               <DropdownMenuTrigger className="bg-(--secondary)/40 rounded-full p-2 border-none outline-none">
@@ -118,21 +162,21 @@ export default function HymnsPage() {
                   <DropdownMenuItem
                     variant="destructive"
                     className="hover:bg-transparent"
-                    onClick={() => setOpenItems(groups.map((g) => g.group))}
+                    onClick={expandAll}
                   >
                     <span>Expand All</span>
                   </DropdownMenuItem>
+
                   <DropdownMenuSeparator className="bg-(--primary) my-3" />
+
                   <DropdownMenuItem
                     variant="destructive"
                     className="hover:bg-transparent"
-                    onClick={() => setOpenItems([])}
+                    onClick={collapseAll}
                   >
                     <span>Collapse All</span>
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
-
-                <DropdownMenuSeparator />
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -158,7 +202,6 @@ export default function HymnsPage() {
                 <AccordionTrigger
                   className={[
                     "py-6 text-left",
-                    // animate-ui friendly: subtle motion when toggling
                     "data-[state=open]:[&>svg]:rotate-180",
                   ].join(" ")}
                 >
@@ -180,8 +223,9 @@ export default function HymnsPage() {
                       <HymnRow
                         key={h.id}
                         hymn={h}
-                        onOpen={(hymn) => {
-                          console.log(hymn);
+                        onOpen={() => {
+                          // Example: reflect selection in URL if you want
+                          // setSearchParamsSafe({ hymn: h.hymn_title ?? "", id: h.id });
                         }}
                       />
                     ))}
