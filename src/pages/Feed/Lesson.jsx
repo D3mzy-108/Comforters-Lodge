@@ -98,6 +98,7 @@ const LessonPage = () => {
   };
 
   useEffect(() => {
+    document.title = "Lesson | Comforters Lodge";
     loadLesson();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

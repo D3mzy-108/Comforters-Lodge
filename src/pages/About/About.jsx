@@ -1,8 +1,13 @@
 import { Link } from "react-router";
 import flowLogo from "@/assets/flowLogo.mp4";
 import PageBanner from "@/components/PageBanner";
+import { useEffect } from "react";
 
 const About = () => {
+  useEffect(() => {
+    document.title = "About Us | Comforters Lodge";
+  }, []);
+
   return (
     <div className="min-h-screen text-wrap bg-[#e7e9eb]">
       <PageBanner title="About Us" />
