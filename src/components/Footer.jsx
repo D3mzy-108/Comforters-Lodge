@@ -21,7 +21,7 @@ const NAV_LINKS = [
     category: "Explore",
     label: "Devotionals",
   },
-  { id: "hymns", to: "/", category: "Explore", label: "Hymns" },
+  { id: "hymns", to: "/hymns", category: "Explore", label: "Hymns" },
   { id: "prayer", to: "/", category: "Explore", label: "Prayer" },
   {
     id: "scripture",

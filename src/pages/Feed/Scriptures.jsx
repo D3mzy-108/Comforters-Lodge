@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   BookOpenIcon,
-  HomeIcon,
   RefreshCcwDotIcon,
   SearchIcon,
   SortDesc,
@@ -17,7 +16,6 @@ import {
   DevotionalRail,
 } from "@/components/Feed/DevotionalRail";
 import LessonCard from "@/components/Feed/LessonCardComponents";
-import { Link } from "react-router";
 import { formatDate } from "@/utils/formatters";
 import PageBanner from "@/components/PageBanner";
 
@@ -81,7 +79,7 @@ function ScripturesPage() {
   const refreshPosts = async (page = pageNumber) => {
     function isSublist(a, b) {
       return a.some((_, i) =>
-        a.slice(i, i + b.length).every((val, j) => val === b[j])
+        a.slice(i, i + b.length).every((val, j) => val === b[j]),
       );
     }
 
@@ -112,6 +110,7 @@ function ScripturesPage() {
   };
 
   useEffect(() => {
+    document.title = "Scriptures | Comforters Lodge";
     // Initial load
     refreshAll();
     // eslint-disable-next-line react-hooks/exhaustive-deps
