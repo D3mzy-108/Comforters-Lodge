@@ -50,7 +50,7 @@ const NavBar = () => {
       label: "Devotionals",
     },
     {
-      to: "/",
+      to: "/hymns",
       label: "Hymns",
     },
     {

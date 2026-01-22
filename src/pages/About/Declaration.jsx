@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import declare1 from "../../assets/declare1.jpg";
 import declare2 from "../../assets/declare2.jpg";
 import declare3 from "../../assets/declare3.jpg";
@@ -38,6 +39,10 @@ function Declaration() {
       ],
     },
   ];
+
+  useEffect(() => {
+    document.title = "Declaration of Faith | Comforters Lodge";
+  }, []);
 
   return (
     <div className="text-wrap">

@@ -5,6 +5,7 @@ import Demo3 from "@/assets/Demo3.jpg";
 import Demo4 from "@/assets/Demo4.jpg";
 import HeroBanner from "@/components/LandingPage/Banner";
 import SiteFeatures from "@/components/LandingPage/Features";
+import { useEffect } from "react";
 
 const Landing = () => {
   const books = [
@@ -16,6 +17,10 @@ const Landing = () => {
     { src: Demo3, title: "Follow Me: A 60-Day Walk with Jesus" },
     { src: Demo4, title: "Read Ask Go" },
   ];
+
+  useEffect(() => {
+    document.title = "Comforters Lodge Ministries";
+  }, []);
 
   return (
     <div className="min-h-100 max-w-screen overflow-hidden relative">
@@ -55,7 +60,6 @@ const Landing = () => {
               {`The Comforter's Lodge store includes daily devotionals, topical devotionals, resources for married couples, guides for kids, and featured resources from Comforter's Lodge Ministries' partners.`}
             </p>
             <BtnStyle1 Btn1text={"Browse our Resources"} />
-            
           </div>
         </section>
       </div>
