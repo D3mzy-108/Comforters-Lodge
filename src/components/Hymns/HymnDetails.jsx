@@ -38,7 +38,7 @@ export function HymnDetailsVerses({ hymn }) {
   return (
     <>
       <div className="w-full text-wrap">
-        <div className="max-h-[65vh] overflow-auto scroll-style">
+        <div className="max-h-[55vh] overflow-auto scroll-style">
           {/* VERSES */}
           <div className="space-y-10">
             {(hymn.verses ?? []).length === 0 ? (
@@ -53,13 +53,15 @@ export function HymnDetailsVerses({ hymn }) {
                       Verse {idx + 1}
                     </div>
                   </div>
-                  <div className="rounded-lg py-2 text-base leading-relaxed">
-                    {v}
+                  <div className="whitespace-pre-wrap rounded-lg py-2 text-base leading-relaxed">
+                    <p>{v}</p>
                   </div>
 
-                  <div className="rounded-lg border border-(--primary) bg-(--secondary)/40 p-3 text-base leading-relaxed">
-                    {hymn.chorus}
-                  </div>
+                  {hymn.chorus && hymn.chorus.replace("\t", "") !== "-" ? (
+                    <div className="whitespace-pre-wrap rounded-lg border border-(--primary) bg-(--secondary)/40 p-3 text-base leading-relaxed">
+                      <p>{hymn.chorus}</p>
+                    </div>
+                  ) : null}
                 </div>
               ))
             )}
