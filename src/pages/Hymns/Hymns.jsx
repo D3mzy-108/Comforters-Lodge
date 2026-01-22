@@ -180,7 +180,9 @@ export default function HymnsPage() {
                       <HymnRow
                         key={h.id}
                         hymn={h}
-                        onOpen={(hymn) => setSearch(hymn.hymn_title, hymn.id)}
+                        onOpen={(hymn) => {
+                          console.log(hymn);
+                        }}
                       />
                     ))}
                   </div>
