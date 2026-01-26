@@ -47,7 +47,7 @@ const NavBar = () => {
     },
     {
       to: "/lesson",
-      label: "Devotionals",
+      label: "Daily Lessons",
     },
     {
       to: "/hymns",
