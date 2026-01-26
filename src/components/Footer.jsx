@@ -19,7 +19,7 @@ const NAV_LINKS = [
     id: "devotionals",
     to: "/lesson",
     category: "Explore",
-    label: "Devotionals",
+    label: "Daily Lessons",
   },
   { id: "hymns", to: "/hymns", category: "Explore", label: "Hymns" },
   { id: "prayer", to: "/", category: "Explore", label: "Prayer" },

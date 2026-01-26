@@ -10,7 +10,12 @@ const About = () => {
 
   return (
     <div className="min-h-screen text-wrap bg-[#e7e9eb]">
-      <PageBanner title="About Us" />
+      <PageBanner
+        title="Welcome to Comforter's Lodge Ministries"
+        highlightedTitleText="Comforter's Lodge Ministries"
+        subtitle="We are a Spirit-led outreach of the Cherubim & Seraphim Church."
+      />
+
       <div className="px-4 md:px-20 text-center">
         <div className="py-8">
           <div className="flex flex-col lg:flex-row-! justify-center items-center gap-4">

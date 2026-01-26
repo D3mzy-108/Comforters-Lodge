@@ -132,7 +132,11 @@ export default function HymnsPage() {
 
   return (
     <div className="w-full">
-      <PageBanner title="C&S Hymnal" />
+      <PageBanner
+        title="Immerse Yourself in the Timeless C&S Hymns"
+        highlightedTitleText="Timeless C&S Hymns"
+        subtitle="Sing with the saints of old, and let the Spirit breathe fresh life into your worship."
+      />
 
       <div className="w-full max-w-7xl mx-auto px-6 py-12 flex flex-col gap-6">
         {/* SEARCH BOX */}
