@@ -1,6 +1,25 @@
 import HeroBg from "@/assets/images/banner/landing-page-hero-banner.png";
 
-export default function PageBanner({ title = "" }) {
+export default function PageBanner({
+  title = "",
+  highlightedTitleText = "",
+  subtitle = "",
+}) {
+  const parseTitle = () => {
+    if (!highlightedTitleText) return title;
+
+    const simpleTitleTexts = title.split(highlightedTitleText);
+    if (simpleTitleTexts.length > 2) return title;
+
+    return (
+      <span>
+        {simpleTitleTexts[0]}
+        <span className="text-(--primary)">{highlightedTitleText}</span>
+        {simpleTitleTexts[1]}
+      </span>
+    );
+  };
+
   return (
     <section
       className="relative h-fit"
@@ -16,9 +35,13 @@ export default function PageBanner({ title = "" }) {
         <div className="text-alpha">
           <div className="w-full md:w-5/6 mx-auto">
             <div className="w-full max-w-[700px] flex flex-col items-start gap-2 space-y-2">
-              <h1 className="text-6xl lg:text-7xl font-bold font-sans">
-                {title}
+              <h1
+                className="text-[3.25rem] font-bold font-sans text-wrap"
+                style={{ lineHeight: 1.2 }}
+              >
+                {parseTitle()}
               </h1>
+              <p className="text-lg">{subtitle}</p>
             </div>
           </div>
         </div>

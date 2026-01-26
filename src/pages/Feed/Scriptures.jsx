@@ -118,7 +118,11 @@ function ScripturesPage() {
 
   return (
     <div className="min-h-screen text-wrap bg-linear-to-b from-muted/40 via-background to-background">
-      <PageBanner title="Scriptures" />
+      <PageBanner
+        title="Encounter God Through His Living Word"
+        highlightedTitleText="Living Word"
+        subtitle="Discover truths that renew your Mind, strengthen your Faith, and reveal His Presence."
+      />
 
       {/* Body */}
       <main className="mx-auto px-2 md:px-6 py-2 md:py-4 space-y-8">
