@@ -34,9 +34,9 @@ export default function PageBanner({
       <div className="pt-48 lg:pt-60 pb-24 px-3 bg-linear-to-br lg:bg-linear-to-r from-black/80 to-black/40 from-50%">
         <div className="text-alpha">
           <div className="w-full md:w-5/6 mx-auto">
-            <div className="w-full max-w-[700px] flex flex-col items-start gap-2 space-y-2">
+            <div className="w-full max-w-[700px] flex flex-col items-start gap-2 space-y-2 text-wrap">
               <h1
-                className="text-[3.25rem] font-bold font-sans text-wrap"
+                className="text-[3.25rem] font-bold font-sans"
                 style={{ lineHeight: 1.2 }}
               >
                 {parseTitle()}
