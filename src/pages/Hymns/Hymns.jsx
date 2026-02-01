@@ -54,7 +54,10 @@ export default function HymnsPage() {
   // Read from URL instead of mirroring into local state
   const q = searchParams.get("hymn") ?? "";
   const c = searchParams.get("category") ?? "";
-  const normalizedQuery = useMemo(() => q.trim().toLowerCase(), [q]);
+  const normalizedQuery = useMemo(
+    () => convertSpecialCharactersToPlainTxt(q.trim().toLowerCase()),
+    [q],
+  );
 
   const [openItems, setOpenItems] = useState([]);
   const [groups, setGroups] = useState([]);
