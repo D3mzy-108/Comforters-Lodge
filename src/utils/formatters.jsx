@@ -34,3 +34,25 @@ export function formatWeekDate(iso) {
 export function cx(...parts) {
   return parts.filter(Boolean).join(" ");
 }
+
+export const SPECIAL_CHARACTERS = [
+  { keys: ["á", "à", "a"], value: "a" },
+  { keys: ["é", "è", "e", "ẹ́", "ẹ̀", "ẹ"], value: "e" },
+  { keys: ["í", "ì", "i"], value: "i" },
+  { keys: ["ó", "ò", "o", "ọ́", "ọ̀", "ọ"], value: "o" },
+  { keys: ["ú", "ù", "u"], value: "u" },
+  { keys: ["ṣ", "s"], value: "s" },
+  { keys: ["ń", "ǹ", "n"], value: "n" },
+  { keys: ["ḿ", "m̀", "m"], value: "m" },
+];
+
+const CHAR_MAP = SPECIAL_CHARACTERS.reduce((map, entry) => {
+  entry.keys.forEach((k) => {
+    map[k] = entry.value;
+  });
+  return map;
+}, {});
+
+export function convertSpecialCharactersToPlainTxt(stringValue) {
+  return [...stringValue].map((char) => CHAR_MAP[char] ?? char).join("");
+}
