@@ -331,12 +331,21 @@ const LessonPage = () => {
                               {"You can also "}
                             </span>
                             <Link to={"/scripture"}>
-                              <span className="text-lg text-blue-700 underline">
+                              <span className="text-blue-700 underline">
                                 {"explore"}
                               </span>
                             </Link>
                             <span>{" other interesting topics!"}</span>
                           </p>
+                          <Button
+                            variant="default"
+                            size="lg"
+                            className="mt-4 bg-(--primary) text-black rounded-xl px-6 py-6 flex items-center gap-3 text-lg shadow-lg"
+                            onClick={handleShare}
+                          >
+                            <Share2Icon />
+                            Share
+                          </Button>
                         </div>
                       </>
                     ) : (

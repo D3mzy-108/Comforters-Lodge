@@ -182,7 +182,7 @@ function ScripturesPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.3 }}
-                className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+                className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
               >
                 {filtered.map((lesson) => (
                   <LessonCard
