@@ -53,6 +53,23 @@ const CHAR_MAP = SPECIAL_CHARACTERS.reduce((map, entry) => {
   return map;
 }, {});
 
-export function convertSpecialCharactersToPlainTxt(stringValue) {
-  return [...stringValue].map((char) => CHAR_MAP[char] ?? char).join("");
+/* 
+{
+  stringValue: string;
+  withSpecialCharacters: boolean;
+}
+
+This function converts special yoruba characters in a string into plain english alphabets.
+After normalizing the text, it would remove all special characters (@#$%*) if withSpecialCharacters is set to false
+ */
+export function convertSpecialCharactersToPlainTxt({
+  stringValue,
+  withSpecialCharacters,
+}) {
+  let normalizedTxt = [...stringValue]
+    .map((char) => CHAR_MAP[char] ?? char)
+    .join("");
+  // REMOVE ALL SPECIAL CHARACTERS AND RETURN THE STRING
+  if (withSpecialCharacters == true) return normalizedTxt;
+  else return normalizedTxt.replace(/[^a-zA-Z0-9]/g, "");
 }
