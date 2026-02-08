@@ -31,8 +31,8 @@ import { api } from "@/utils/api/api_connection";
 import { convertSpecialCharactersToPlainTxt } from "@/utils/formatters";
 
 const buildSearchHaystack = (h) =>
-  convertSpecialCharactersToPlainTxt(
-    [
+  convertSpecialCharactersToPlainTxt({
+    stringValue: [
       String(h.hymn_number ?? ""),
       h.hymn_title,
       h.classification,
@@ -46,7 +46,8 @@ const buildSearchHaystack = (h) =>
       .filter(Boolean)
       .join(" ")
       .toLowerCase(),
-  );
+    withSpecialCharacters: false,
+  });
 
 export default function HymnsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -55,7 +56,11 @@ export default function HymnsPage() {
   const q = searchParams.get("hymn") ?? "";
   const c = searchParams.get("category") ?? "";
   const normalizedQuery = useMemo(
-    () => convertSpecialCharactersToPlainTxt(q.trim().toLowerCase()),
+    () =>
+      convertSpecialCharactersToPlainTxt({
+        stringValue: q.trim().toLowerCase(),
+        withSpecialCharacters: false,
+      }),
     [q],
   );
 
