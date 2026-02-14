@@ -47,15 +47,19 @@ const NavBar = () => {
     },
     {
       to: "/lesson",
-      label: "Daily Lessons",
+      label: "Daily Devotionals",
     },
     {
       to: "/hymns",
-      label: "Hymns",
+      label: "Hymnnal",
     },
     {
       to: "/scripture",
       label: "Scripture",
+    },
+    {
+      to: "/scripture",
+      label: "Faith Anchor",
     },
     {
       to: "/",
