@@ -33,7 +33,7 @@ export default function LessonCard({ lesson, onOpen }) {
     <Link to={`/lesson?date=${lesson.date_posted}&id=${lesson.id}`}>
       <Card
         className={cx(
-          "group cursor-pointer rounded-3xl border border-(--primary) bg-background/70 shadow-md transition hover:shadow-lg text-wrap",
+          "group cursor-pointer rounded-2xl border border-(--primary) bg-background/70 shadow-none inset-shadow-sm transition text-wrap",
         )}
         onClick={() => onOpen(lesson)}
       >
@@ -56,8 +56,8 @@ export default function LessonCard({ lesson, onOpen }) {
           </div>
         </CardHeader>
         <CardContent className="pt-0">
-          <div className="space-y-3 border border-(--primary) rounded-2xl">
-            <div className="rounded-2xl p-3 border-b border-b-(--primary) bg-(--secondary)/40">
+          <div className="space-y-3 rounded-2xl">
+            <div className="rounded-2xl p-3 bg-(--secondary)/40">
               <div className="text-sm font-semibold text-muted-foreground">
                 Reflection
               </div>
@@ -65,14 +65,14 @@ export default function LessonCard({ lesson, onOpen }) {
                 {lesson.reflection}
               </div>
             </div>
-            <div className="rounded-2xl p-3">
+            {/* <div className="rounded-2xl p-3">
               <div className="text-sm font-semibold text-muted-foreground">
                 Activity guide
               </div>
               <div className="mt-1 line-clamp-2 text-base">
                 {lesson.activity_guide}
               </div>
-            </div>
+            </div> */}
           </div>
         </CardContent>
       </Card>
