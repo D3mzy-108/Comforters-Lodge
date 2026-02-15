@@ -2,8 +2,15 @@ import { formatDate } from "@/utils/formatters";
 import { Button } from "@/components/shadcn/animate-ui/components/buttons/button.tsx";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "motion/react";
-import { Dialog, DialogContent } from "@/components/shadcn/ui/dialog.tsx";
-import { Share2Icon, XIcon } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogOverlay,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/shadcn/ui/dialog.tsx";
+import DevotionalDetailsView from "./DevotionalDetailsView";
+import { XIcon } from "lucide-react";
 
 const devotionBgList = [
   "linear-gradient(135deg, rgba(17, 94, 89, .95), rgba(20, 184, 166, .55))",
@@ -36,7 +43,7 @@ export function DevotionalRail({ devotionals, onOpen }) {
               return (
                 <motion.button
                   key={d.id}
-                  onClick={() => onOpen(d, containerBG)}
+                  onClick={() => onOpen(d)}
                   className="group relative w-48 aspect-4/5 shrink-0 overflow-hidden rounded-3xl shadow bg-background text-left text-wrap"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -57,15 +64,6 @@ export function DevotionalRail({ devotionals, onOpen }) {
 }
 
 function DevotionalCard({ devotion, properties }) {
-  /*
-  devotion: Contains the devotion object being rendered.
-  onOpen: Function defining what action should occur when the card is clicked.
-  properties: Takes a JS object that informs the card of special properties it should include in its render.
-      properties: {
-        idx: number,
-        containerBG: string, // background color or gradient of the card
-      }
-   */
   return (
     <>
       <div
@@ -98,71 +96,34 @@ function DevotionalCard({ devotion, properties }) {
   );
 }
 
-export function DevotionalDialog({
-  open,
-  onOpenChange,
-  devotional,
-  containerBG,
-}) {
-  const shareDevotional = () => {};
-
+export function DevotionalDialog({ open, onOpenChange, devotional }) {
   if (!devotional) return null;
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogOverlay className="z-99999999" />
       <DialogContent
         showCloseButton={false}
-        className="max-w-xl overflow-hidden rounded-3xl p-0 border-0 text-wrap"
+        className="max-w-xl overflow-hidden rounded-3xl p-0 border-0 text-wrap z-99999999 bg-(--secondary)/30 backdrop-blur-2xl"
       >
-        <div className="relative">
-          <div
-            className="h-[420px] w-full backdrop-blur-lg"
-            style={{ background: containerBG }}
-          />
-          <div className="absolute inset-0 bg-linear-to-t from-black/65 via-black/15 to-black/0" />
-
-          <div className="absolute left-4 right-4 top-4 flex items-center justify-between">
-            <div className="rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur">
+        <DialogTitle className="hidden">Devotion</DialogTitle>
+        <DialogDescription className="hidden">
+          Reflection verse of the day
+        </DialogDescription>
+        <div className="w-full relative">
+          <div className="flex items-center justify-between">
+            <div className="rounded-none rounded-br-full bg-(--secondary)/30 px-4 py-2 text-xs font-medium text-white/90 backdrop-blur">
               {formatDate(devotional.date_posted)}
             </div>
             <Button
               variant="secondary"
-              size="icon"
-              className="rounded-full bg-white/15 text-white hover:bg-white/20"
+              size="icon-lg"
+              className="px-6 rounded-none rounded-bl-full bg-(--secondary)/50 text-white hover:bg-(--secondary)/30"
               onClick={() => onOpenChange(false)}
             >
-              <XIcon className="h-4 w-4" />
+              <XIcon className="size-6" />
             </Button>
           </div>
-
-          <div className="absolute bottom-0 left-0 right-0 p-5">
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex-1">
-                <div
-                  className="text-2xl font-semibold text-white w-full h-fit max-h-[100px] scroll-style"
-                  style={{ fontFamily: "var(--comic-sans)" }}
-                >
-                  {devotional.verse_content}
-                </div>
-                <div className="text-base text-white/85">
-                  {devotional.citation}
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="secondary"
-                  onClick={() => shareDevotional()}
-                  className="rounded-full bg-white/15 text-white hover:bg-white/20"
-                >
-                  <Share2Icon className="mr-2 h-4 w-4" />
-                  Share
-                </Button>
-              </div>
-            </div>
-
-            <div className="mt-4 rounded-2xl bg-white/10 p-4 text-white/95 backdrop-blur">
-              Tip: Use this as a breath prayer throughout the day.
-            </div>
-          </div>
+          <DevotionalDetailsView devotional={devotional} />
         </div>
       </DialogContent>
     </Dialog>

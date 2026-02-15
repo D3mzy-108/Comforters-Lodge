@@ -27,7 +27,6 @@ function ScripturesPage() {
 
   const [selectedDev, setSelectedDev] = useState(null);
   const [devDialogOpen, setDevDialogOpen] = useState(false);
-  const [devDialogBg, setDevDialogBg] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
 
   const filtered = useMemo(() => {
@@ -66,10 +65,9 @@ function ScripturesPage() {
     // TODO: OPEN LESSON PAGE
   }
 
-  function openDev(d, containerBg) {
+  function openDev(d) {
     setSelectedDev(d);
     setDevDialogOpen(true);
-    setDevDialogBg(containerBg);
   }
 
   // ==============================
@@ -221,7 +219,6 @@ function ScripturesPage() {
         open={devDialogOpen}
         onOpenChange={setDevDialogOpen}
         devotional={selectedDev}
-        containerBG={devDialogBg}
       />
     </div>
   );

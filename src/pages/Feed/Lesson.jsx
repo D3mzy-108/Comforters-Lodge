@@ -405,7 +405,7 @@ const LessonPage = () => {
                                     </div>
                                     <div className="flex gap-4">
                                       <div className="text-sm bg-black/10 w-fit px-3 py-2 rounded-full text-black/80">
-                                        {formatDate(currentLesson?.date_posted)}
+                                        {formatDate(upNext?.date_posted)}
                                       </div>
                                     </div>
                                   </div>
