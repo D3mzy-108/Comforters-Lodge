@@ -6,6 +6,12 @@ import { ScrollArea } from "@/components/shadcn/ui/scroll-area.tsx";
 import logo from "@/assets/Logo1.png";
 import { toBlob } from "html-to-image";
 
+const CTA = `If this stirred your spirit, stay connected for more daily faith anchors from God's Word.
+
+Follow @comforterslodge on Instagram, Threads, and X (Twitter), or visit our website at www.clm.org.ng
+
+Comforter's Lodge, abiding grace, peace and love!`;
+
 export default function DevotionalDetailsView({ devotional }) {
   const imgRef = useRef(null);
   const backgroundImage = _pickDailyBackground(devotional.date_posted);
@@ -36,7 +42,7 @@ export default function DevotionalDetailsView({ devotional }) {
       const fileName = `daily-verse-${devotional.date_posted ?? "today"}.png`;
       const file = new File([blob], fileName, { type: "image/png" });
 
-      const shareText = `📖 ${devotional.citation}\n“${devotional.verse_content}”\n\n🙏 Prayer:\n${prayerText}`;
+      const shareText = `🙏 Prayer:\n${prayerText}\n\n${CTA}`;
 
       // Check support for file sharing
       const canShareFiles =
