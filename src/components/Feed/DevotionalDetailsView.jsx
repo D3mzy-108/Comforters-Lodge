@@ -6,9 +6,7 @@ import { ScrollArea } from "@/components/shadcn/ui/scroll-area.tsx";
 import logo from "@/assets/Logo1.png";
 import { toBlob } from "html-to-image";
 
-const CTA = `If this stirred your spirit, stay connected for more daily faith anchors from God's Word.
-
-Follow @comforterslodge on Instagram, Threads, and X (Twitter), or visit our website at www.clm.org.ng
+const CTA = `Follow @comforterslodge on Instagram, Threads, and X (Twitter), or visit our website at www.clm.org.ng
 
 Comforter's Lodge, abiding grace, peace and love!`;
 
