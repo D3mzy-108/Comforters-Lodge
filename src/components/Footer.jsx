@@ -17,18 +17,12 @@ const NAV_LINKS = [
   { id: "donate", to: "/", category: "CLM", label: "Support Us" },
   {
     id: "devotionals",
-    to: "/lesson",
+    to: "/devotionals",
     category: "Explore",
-    label: "Daily Lessons",
+    label: "Devotionals",
   },
   { id: "hymns", to: "/hymns", category: "Explore", label: "Hymns" },
-  { id: "prayer", to: "/", category: "Explore", label: "Prayer" },
-  {
-    id: "scripture",
-    to: "/scripture",
-    category: "Explore",
-    label: "Scripture",
-  },
+  { id: "prayer", to: "/prayer", category: "Explore", label: "Prayer" },
 ];
 
 // If you need to display contact details, keep them separate from nav items.

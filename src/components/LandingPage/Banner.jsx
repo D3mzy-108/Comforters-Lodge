@@ -36,11 +36,11 @@ export default function HeroBanner() {
             </p>
 
             <div className="w-fit mt-4">
-              <Link to={`/lesson`}>
+              <Link to={`/devotionals`}>
                 <Button
                   variant={"default"}
                   size={"sm"}
-                  className={`font-normal text-lg flex rounded-full px-5 py-6 text-black bg-(--primary)`}
+                  className={`font-normal text-lg flex rounded-full px-6 py-6 text-black bg-(--primary)`}
                 >
                   {"Start Today's Devotional >>"}
                 </Button>

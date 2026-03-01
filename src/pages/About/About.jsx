@@ -39,17 +39,28 @@ const About = () => {
               Christ through prayer, grounded biblical teaching, and intentional
               discipleship. Our name captures our calling: a safe LODGE for the
               weary, where the COMFORTER, the Holy Spirit, brings healing,
-              guidance, strength, and transformation. Our Vision To see a
-              generation of Christians walking in deep fellowship with
+              guidance, strength, and transformation.`}
+            </h1>
+          </div>
+        </div>
+      </div>
+      <div className="py-16 flex px-4 md:px-20 flex-col items-center">
+        <h1 className="md:text-4xl text-2xl font-bold text-(--textHighlight) font">
+          Our Vision
+        </h1>
+        <div className="flex gap-4">
+          <h1 className="text-2xl max-w-4xl text-center mt-8 text-beta">
+            {" "}
+            {`To see a generation of Christians walking in deep fellowship with
               God—renewed in mind, restored in heart, and released into
               purposeful, fruitful mission. Our Mission - Teach Scripture in
               ways that speak to everyday life - Cultivate prophetic prayer and
               heartfelt worship - Provide practical resources for personal
               growth, inner healing, and disciple-making - Equip the Body of
               Christ to live holy, Spirit-empowered lives that bear eternal
-              fruit`}
-            </h1>
-          </div>
+              fruit`}{" "}
+            <br />
+          </h1>
         </div>
       </div>
       <div className="py-16 flex px-4 md:px-20 flex-col items-center">

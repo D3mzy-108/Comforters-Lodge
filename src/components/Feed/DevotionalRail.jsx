@@ -11,6 +11,7 @@ import {
 } from "@/components/shadcn/ui/dialog.tsx";
 import DevotionalDetailsView from "./DevotionalDetailsView";
 import { XIcon } from "lucide-react";
+import { DialogPortal } from "@radix-ui/react-dialog";
 
 const devotionBgList = [
   "linear-gradient(135deg, rgba(17, 94, 89, .95), rgba(20, 184, 166, .55))",
@@ -27,8 +28,8 @@ export function DevotionalRail({ devotionals, onOpen }) {
       <div className="p-4 md:p-6 flex max-md:flex-col gap-6 lg:gap-24 items-center">
         <div className="w-full max-lg:max-w-[350px] lg:w-fit flex flex-col gap-4">
           <legend className="section-title" style={{ fontSize: "3.5rem" }}>
-            <span className="text-(--textHighlight)">{"Daily"}</span>
-            <span className="text-black/90">{" Devotions"}</span>
+            <span className="text-(--textHighlight)">{"Faith"}</span>{" "}
+            <span className="text-black/90">{"Anchors"}</span>
           </legend>
           <p className="text-black/60 text-xl font-normal italic">
             {"Status updates, but for the soul."}
@@ -100,32 +101,36 @@ export function DevotionalDialog({ open, onOpenChange, devotional }) {
   if (!devotional) return null;
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogOverlay className="z-99999999" />
-      <DialogContent
-        showCloseButton={false}
-        className="max-w-xl overflow-hidden rounded-3xl p-0 border-0 text-wrap z-99999999 bg-(--secondary)/30 backdrop-blur-2xl"
-      >
-        <DialogTitle className="hidden">Devotion</DialogTitle>
-        <DialogDescription className="hidden">
-          Reflection verse of the day
-        </DialogDescription>
-        <div className="w-full relative">
-          <div className="flex items-center justify-between">
-            <div className="rounded-none rounded-br-full bg-(--secondary)/30 px-4 py-2 text-xs font-medium text-white/90 backdrop-blur">
-              {formatDate(devotional.date_posted)}
+      <DialogPortal>
+        <DialogOverlay className="z-99999999" />
+        <DialogContent
+          showCloseButton={false}
+          className="w-full min-w-full p-6 z-99999999"
+        >
+          <div className="w-full max-w-7xl mx-auto overflow-hidden rounded-3xl p-0 border-0 text-wrap bg-(--secondary)/30 backdrop-blur-2xl">
+            <DialogTitle className="hidden">Devotion</DialogTitle>
+            <DialogDescription className="hidden">
+              Reflection verse of the day
+            </DialogDescription>
+            <div className="w-full relative">
+              <div className="flex items-center justify-between">
+                <div className="rounded-none rounded-br-full bg-(--secondary)/30 px-4 py-2 text-xs font-medium text-white/90 backdrop-blur">
+                  {formatDate(devotional.date_posted)}
+                </div>
+                <Button
+                  variant="secondary"
+                  size="icon-lg"
+                  className="px-6 rounded-none rounded-bl-full bg-(--secondary)/50 text-white hover:bg-(--secondary)/30"
+                  onClick={() => onOpenChange(false)}
+                >
+                  <XIcon className="size-6" />
+                </Button>
+              </div>
+              <DevotionalDetailsView devotional={devotional} />
             </div>
-            <Button
-              variant="secondary"
-              size="icon-lg"
-              className="px-6 rounded-none rounded-bl-full bg-(--secondary)/50 text-white hover:bg-(--secondary)/30"
-              onClick={() => onOpenChange(false)}
-            >
-              <XIcon className="size-6" />
-            </Button>
           </div>
-          <DevotionalDetailsView devotional={devotional} />
-        </div>
-      </DialogContent>
+        </DialogContent>
+      </DialogPortal>
     </Dialog>
   );
 }

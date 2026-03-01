@@ -105,13 +105,18 @@ const LessonPage = () => {
 
   async function handleShare() {
     if (!currentLesson || currentLesson == null) return;
-    const sharedTxt = `${
+    const sharedContent = [
       currentLesson.personal_question?.trim().endsWith("?")
         ? currentLesson.personal_question
-        : currentLesson.opening_hook
-    }\n\nhttps://www.clm.org.ng/lesson?date=${currentLesson.date_posted}&id=${
-      currentLesson.id
-    }`;
+        : currentLesson.opening_hook,
+      currentLesson.reflection,
+      `Read Full Devotional - https://www.clm.org.ng/devotionals?date=${currentLesson.date_posted}&id=${
+        currentLesson.id
+      }`,
+      // TODO: CHANGE LINK TO CUSTOM PRAYER AND FAITH ANCHOR LINKS
+      "Continue the journey with:\n🙏 Today's Prayer - https://www.clm.org.ng/prayer?date=${currentLesson.date_posted}\n",
+    ];
+    const sharedTxt = sharedContent.join("\n\n");
 
     const shareData = {
       // heading: currentLesson,
@@ -307,47 +312,93 @@ const LessonPage = () => {
                     >
                       Print
                     </button>
-
-                    <a
-                      href={`#comments`}
-                      className="text-sm px-3 py-2 rounded-md border border-slate-200"
-                    >
-                      Comments
-                    </a>
                   </div>
                 </section>
 
-                {/* Comments stub */}
-                <section className="border-t-2 border-t-(--primary)">
+                <section className="border-t-2 border-t-(--primary) space-y-12">
+                  {/* SHARE */}
+                  <div className="w-full max-w-lg mx-auto flex flex-col items-center text-center space-y-8">
+                    <p className="text-lg text-black">
+                      <span>
+                        {`If you found this message helpful, make sure to
+                              spread the word with family and friends.`}
+                        <br />
+                        {/* <span>{"You can also "}</span>
+                        <Link to={"/scripture"}>
+                          <span className="text-blue-700 underline">
+                            {"explore"}
+                          </span>
+                        </Link>
+                        <span>{" other interesting topics!"}</span> */}
+                      </span>
+                    </p>
+                    <Button
+                      variant="default"
+                      size="lg"
+                      className="bg-(--primary) text-black rounded-full px-8 py-6 flex items-center gap-3 text-lg shadow-lg"
+                      onClick={handleShare}
+                    >
+                      <Share2Icon />
+                      Share
+                    </Button>
+                  </div>
+
+                  {/* UP NEXT */}
+                  {upNext !== null && (
+                    <div className="flex-1 flex justify-center">
+                      <HoverCard followCursor={false}>
+                        <HoverCardTrigger asChild>
+                          <button
+                            type="button"
+                            onClick={(e) => e.preventDefault()}
+                            className="w-full max-w-xl rounded-xl border border-(--primary) p-3 text-start"
+                          >
+                            <legend className="text-base font-semibold text-(--textHighlight)">
+                              Next Upload:
+                            </legend>
+                            <div className="text-lg px-2">
+                              <p className="line-clamp-1">
+                                {upNext?.personal_question}
+                              </p>
+                              <span className="text-base text-black/60">
+                                {formatDate(upNext?.date_posted)}
+                              </span>
+                            </div>
+                          </button>
+                        </HoverCardTrigger>
+                        <HoverCardContent className="w-full max-w-sm bg-white border-(--primary) rounded-2xl p-6 max-lg:translate-y-2/6 max-lg:-translate-x-2">
+                          <div className="flex flex-col gap-4 text-wrap">
+                            <img
+                              className="size-20 rounded-full overflow-hidden -ml-2 -mb-2"
+                              src={logo}
+                              alt="Logo"
+                            />
+                            <div className="flex flex-col gap-4">
+                              <div>
+                                <div className="font-bold">Coming Soon:</div>
+                                <div className="text-sm text-(--textHighlight) italic">
+                                  @{upNext?.theme}
+                                </div>
+                              </div>
+                              <div className="text-base text-black">
+                                {upNext?.personal_question}
+                              </div>
+                              <div className="flex gap-4">
+                                <div className="text-sm bg-black/10 w-fit px-3 py-2 rounded-full text-black/80">
+                                  {formatDate(upNext?.date_posted)}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </HoverCardContent>
+                      </HoverCard>
+                    </div>
+                  )}
+
+                  {/* PREV & NEXT NAVIGATION */}
                   <div className="w-full flex justify-between items-center mt-8 gap-4">
                     {lessons.indexOf(currentLesson) === lessons.length - 1 ? (
-                      <>
-                        <div className="w-full flex flex-col items-center text-center">
-                          <p className="text-lg text-black">
-                            <span>
-                              {`If you found this message helpful, make sure to
-                              spread the word with family and friends.`}
-                              <br />
-                              {"You can also "}
-                            </span>
-                            <Link to={"/scripture"}>
-                              <span className="text-blue-700 underline">
-                                {"explore"}
-                              </span>
-                            </Link>
-                            <span>{" other interesting topics!"}</span>
-                          </p>
-                          <Button
-                            variant="default"
-                            size="lg"
-                            className="mt-4 bg-(--primary) text-black rounded-xl px-6 py-6 flex items-center gap-3 text-lg shadow-lg"
-                            onClick={handleShare}
-                          >
-                            <Share2Icon />
-                            Share
-                          </Button>
-                        </div>
-                      </>
+                      <></>
                     ) : (
                       <Button
                         variant="outline"
@@ -361,62 +412,7 @@ const LessonPage = () => {
                     )}
 
                     {lessons.indexOf(currentLesson) === 0 ? (
-                      <>
-                        {upNext !== null ? (
-                          <div className="flex-1 flex justify-end">
-                            <HoverCard followCursor={false}>
-                              <HoverCardTrigger asChild>
-                                <button
-                                  type="button"
-                                  onClick={(e) => e.preventDefault()}
-                                  className="w-full max-w-[200px] md:max-w-xs rounded-xl border border-(--primary) p-3 text-start"
-                                >
-                                  <legend className="text-base font-semibold text-(--textHighlight)">
-                                    Next Upload:
-                                  </legend>
-                                  <div className="text-lg px-2">
-                                    <p className="line-clamp-1">
-                                      {upNext?.personal_question}
-                                    </p>
-                                    <span className="text-base text-black/60">
-                                      {formatDate(upNext?.date_posted)}
-                                    </span>
-                                  </div>
-                                </button>
-                              </HoverCardTrigger>
-                              <HoverCardContent className="w-full max-w-sm bg-white border-(--primary) rounded-2xl p-6 max-lg:translate-y-2/6 max-lg:-translate-x-2">
-                                <div className="flex flex-col gap-4 text-wrap">
-                                  <img
-                                    className="size-20 rounded-full overflow-hidden -ml-2 -mb-2"
-                                    src={logo}
-                                    alt="Logo"
-                                  />
-                                  <div className="flex flex-col gap-4">
-                                    <div>
-                                      <div className="font-bold">
-                                        Coming Soon:
-                                      </div>
-                                      <div className="text-sm text-(--textHighlight) italic">
-                                        @{upNext?.theme}
-                                      </div>
-                                    </div>
-                                    <div className="text-base text-black">
-                                      {upNext?.personal_question}
-                                    </div>
-                                    <div className="flex gap-4">
-                                      <div className="text-sm bg-black/10 w-fit px-3 py-2 rounded-full text-black/80">
-                                        {formatDate(upNext?.date_posted)}
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </HoverCardContent>
-                            </HoverCard>
-                          </div>
-                        ) : (
-                          <></>
-                        )}
-                      </>
+                      <></>
                     ) : (
                       <Button
                         variant="outline"

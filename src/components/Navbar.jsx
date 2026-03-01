@@ -46,30 +46,22 @@ const NavBar = () => {
       label: "About",
     },
     {
-      to: "/lesson",
-      label: "Daily Lessons",
+      to: "/devotionals",
+      label: "Devotionals",
     },
     {
       to: "/hymns",
       label: "Hymns",
     },
     {
-      to: "/scripture",
-      label: "Scripture",
-    },
-    {
-      to: "/",
+      to: "/prayer",
       label: "Prayer",
-    },
-    {
-      to: "/",
-      label: "Support Us",
     },
   ];
 
   return (
     <div className={navStateClasses}>
-      <div className="flex w-full py-2 px-0 items-center gap-3">
+      <div className="flex w-full py-2 px-0 items-center gap-8">
         {/* ***************LOGO******************* */}
         <Link to="/">
           <div className="flex items-center lg:pl-4 pr-10 pl-2 justify-between border-r-2 border-(--primary)">
@@ -87,14 +79,14 @@ const NavBar = () => {
           </div>
         </Link>
         {/* ************NAVLIST**************** */}
-        <ul className="hidden min-[1200px]:flex justify-start flex-1 text-xl items-center">
+        <ul className="hidden min-[1200px]:flex justify-start flex-1 items-center">
           {navLinks.map((link, index) => (
             <li key={index}>
               <Link to={link.to}>
                 <Button
                   variant={"link"}
                   size={"lg"}
-                  className={`font-normal text-lg cursor-pointer ${
+                  className={`font-normal text-xl cursor-pointer ${
                     scrolled ? "text-slate-800" : "text-white/70"
                   }`}
                 >
@@ -104,6 +96,16 @@ const NavBar = () => {
             </li>
           ))}
         </ul>
+
+        <div className="hidden min-[1200px]:flex w-fit">
+          <Button
+            variant={"default"}
+            size={"lg"}
+            className=" rounded-full bg-(--primary) hover:bg-(--primary) px-6 py-6 text-lg font-normal text-black"
+          >
+            Support Us
+          </Button>
+        </div>
 
         {/* MOBILE NAVBAR DROPDOWN MENU */}
         <div className="w-fit block min-[1200px]:hidden ml-auto px-3">

@@ -80,66 +80,68 @@ export default function DevotionalDetailsView({ devotional }) {
   return (
     <>
       <ScrollArea className="w-full p-4 h-[90vh]">
-        <div className="flex flex-col gap-4 items-center">
-          {/* VERSE CONTENT */}
-          <div
-            ref={imgRef}
-            className="relative w-full max-w-xs aspect-2/3 overflow-hidden"
-          >
-            {/* Background image layer (blurred) */}
-            <img
-              src={backgroundImage}
-              alt=""
-              className="absolute inset-0 h-full w-full object-fill scale-110"
-              style={{ filter: "blur(4px)" }}
-            />
-
-            {/* Foreground content */}
-            <div className="relative h-full grid place-items-center px-6 py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+          <div className="w-full flex flex-col gap-6 items-center">
+            {/* VERSE CONTENT */}
+            <div
+              ref={imgRef}
+              className="relative w-full max-w-xs aspect-2/3 overflow-hidden"
+            >
+              {/* Background image layer (blurred) */}
               <img
-                src={logo}
-                alt="logo"
-                className="size-24 absolute -top-1 -left-1"
+                src={backgroundImage}
+                alt=""
+                className="absolute inset-0 h-full w-full object-fill scale-110"
+                style={{ filter: "blur(4px)" }}
               />
 
-              <p
-                className="text-2xl text-center italic"
-                style={{ fontFamily: "serif" }}
-              >
-                "{devotional.verse_content}"
-                <br />
-                <span> - {devotional.citation}</span>
-              </p>
+              {/* Foreground content */}
+              <div className="relative h-full grid place-items-center px-6 py-24">
+                <img
+                  src={logo}
+                  alt="logo"
+                  className="size-24 absolute -top-1 -left-1"
+                />
 
-              <div
-                className="w-full absolute bottom-0 right-0 left-0 text-end py-1 px-2 text-(--textHighlight) text-[11px]"
-                style={{ lineHeight: "1.2" }}
-              >
-                <span className="font-medium">
-                  Comforter's Lodge Ministries
-                </span>
-                <br />
-                <span className="font-light text-[10px]">
-                  An outreach of the Cherubim & Seraphim Church
-                </span>
-                <br />
-                <span className="font-light">www.clm.org | info@clm.org</span>
+                <p
+                  className="text-2xl text-center italic"
+                  style={{ fontFamily: "serif" }}
+                >
+                  "{devotional.verse_content}"
+                  <br />
+                  <span> - {devotional.citation}</span>
+                </p>
+
+                <div
+                  className="w-full absolute bottom-0 right-0 left-0 text-end py-1 px-2 text-(--textHighlight) text-[11px]"
+                  style={{ lineHeight: "1.2" }}
+                >
+                  <span className="font-medium">
+                    Comforter's Lodge Ministries
+                  </span>
+                  <br />
+                  <span className="font-light text-[10px]">
+                    An outreach of the Cherubim & Seraphim Church
+                  </span>
+                  <br />
+                  <span className="font-light">www.clm.org | info@clm.org</span>
+                </div>
               </div>
             </div>
+
+            {/* SHARE */}
+            <Button
+              variant="secondary"
+              onClick={shareDevotional}
+              className="rounded-full bg-(--primary)"
+            >
+              <Share2Icon className="mr-2 h-4 w-4" />
+              Share
+            </Button>
           </div>
 
-          {/* SHARE */}
-          <Button
-            variant="secondary"
-            onClick={shareDevotional}
-            className="rounded-full bg-(--primary)"
-          >
-            <Share2Icon className="mr-2 h-4 w-4" />
-            Share
-          </Button>
-
           {/* PRAYER */}
-          <div className="w-full p-4 rounded-2xl bg-white/70">
+          <div className="w-full p-4 rounded-2xl bg-white/70 lg:col-span-2">
             <legend className="text-(--textHighlight) font-bold">
               Prayer:
             </legend>

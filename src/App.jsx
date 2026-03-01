@@ -28,8 +28,8 @@ const App = () => {
     { path: "/", element: <Landing /> },
     { path: "/about", element: <About /> },
     { path: "/declaration", element: <Declaration /> },
-    { path: "/lesson", element: <LessonPage /> },
-    { path: "/scripture", element: <ScripturesPage /> },
+    { path: "/devotionals", element: <LessonPage /> },
+    { path: "/prayer", element: <ScripturesPage /> },
     { path: "/hymns", element: <HymnsPage /> },
   ];
   return (

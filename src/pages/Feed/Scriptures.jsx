@@ -1,69 +1,50 @@
-import { useEffect, useMemo, useState } from "react";
-import {
-  BookOpenIcon,
-  RefreshCcwDotIcon,
-  SearchIcon,
-  SortDesc,
-} from "lucide-react";
+import { useEffect, useState } from "react";
 import { api } from "@/utils/api/api_connection";
-import { Button } from "@/components/shadcn/animate-ui/components/buttons/button.tsx";
-// eslint-disable-next-line no-unused-vars
-import { motion, AnimatePresence } from "motion/react";
-import { Card, CardContent } from "@/components/shadcn/ui/card.tsx";
-import { Input } from "@/components/shadcn/ui/input.tsx";
 import {
   DevotionalDialog,
   DevotionalRail,
 } from "@/components/Feed/DevotionalRail";
-import LessonCard from "@/components/Feed/LessonCardComponents";
-import { formatDate } from "@/utils/formatters";
 import PageBanner from "@/components/PageBanner";
 
 function ScripturesPage() {
-  const [query, setQuery] = useState("");
-  const [sort, setSort] = useState("newest");
+  // const [query, setQuery] = useState("");
+  // const [sort, setSort] = useState("newest");
+  // const filtered = useMemo(() => {
+  //   let arr = lessons;
+
+  //   const q = query.trim().toLowerCase();
+  //   if (q) {
+  //     arr = arr.filter((l) => {
+  //       const hay = [
+  //         l.opening_hook,
+  //         l.personal_question,
+  //         l.biblical_qa,
+  //         l.reflection,
+  //         l.story,
+  //         l.prayer,
+  //         l.activity_guide,
+  //         formatDate(l.date_posted),
+  //       ]
+  //         .join(" ")
+  //         .toLowerCase();
+  //       return hay.includes(q);
+  //     });
+  //   }
+
+  //   arr.sort((a, b) => {
+  //     if (sort === "newest") return b.date_posted.localeCompare(a.date_posted);
+  //     if (sort === "oldest") return a.date_posted.localeCompare(b.date_posted);
+  //     return 0;
+  //   });
+
+  //   return arr;
+  // }, [query, sort, lessons]);
   const [lessons, setLessons] = useState([]);
   const [devotionals, setDevotionals] = useState([]);
 
   const [selectedDev, setSelectedDev] = useState(null);
   const [devDialogOpen, setDevDialogOpen] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
-
-  const filtered = useMemo(() => {
-    let arr = lessons;
-
-    const q = query.trim().toLowerCase();
-    if (q) {
-      arr = arr.filter((l) => {
-        const hay = [
-          l.opening_hook,
-          l.personal_question,
-          l.biblical_qa,
-          l.reflection,
-          l.story,
-          l.prayer,
-          l.activity_guide,
-          formatDate(l.date_posted),
-        ]
-          .join(" ")
-          .toLowerCase();
-        return hay.includes(q);
-      });
-    }
-
-    arr.sort((a, b) => {
-      if (sort === "newest") return b.date_posted.localeCompare(a.date_posted);
-      if (sort === "oldest") return a.date_posted.localeCompare(b.date_posted);
-      return 0;
-    });
-
-    return arr;
-  }, [query, sort, lessons]);
-
-  // eslint-disable-next-line no-unused-vars
-  function openLesson(lesson) {
-    // TODO: OPEN LESSON PAGE
-  }
 
   function openDev(d) {
     setSelectedDev(d);
@@ -130,10 +111,9 @@ function ScripturesPage() {
         </div>
 
         {/* LESSONS */}
-        <div className="w-full p-4 md:p-6">
+        {/* <div className="w-full p-4 md:p-6">
           <div className="space-y-10">
             <div className="flex max-lg:flex-col sm:items-center sm:justify-between gap-4">
-              {/* SECTION TITLE */}
               <div className="flex items-center gap-2">
                 <div className="inline-flex size-11 items-center justify-center rounded-xl border bg-background">
                   <BookOpenIcon className="h-5 w-5" />
@@ -148,7 +128,6 @@ function ScripturesPage() {
                 </div>
               </div>
 
-              {/* SEARCH */}
               <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
                 <div className="relative w-full sm:w-80">
                   <SearchIcon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -212,7 +191,7 @@ function ScripturesPage() {
               </button>
             </div>
           </div>
-        </div>
+        </div> */}
       </main>
 
       <DevotionalDialog

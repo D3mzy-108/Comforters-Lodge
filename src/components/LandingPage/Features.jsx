@@ -126,16 +126,16 @@ export default function SiteFeatures() {
                           Mission
                         </TabsTrigger>
                         <TabsTrigger
-                          value="community"
+                          value="prayer"
                           className="bg-transparent transform-[scale(0.9)] font-normal data-[state=active]:font-medium focus-visible:ring-0 focus-visible:shadow-none focus-visible:border-none text-lg"
                         >
-                          Our Offer
+                          Prayer
                         </TabsTrigger>
                         <TabsTrigger
-                          value="guided-prayer"
+                          value="faith-anchor"
                           className="bg-transparent transform-[scale(0.9)] font-normal data-[state=active]:font-medium focus-visible:ring-0 focus-visible:shadow-none focus-visible:border-none text-lg"
                         >
-                          Guded Prayer
+                          Faith Anchor
                         </TabsTrigger>
                       </div>
                     </TabsList>
@@ -149,22 +149,22 @@ export default function SiteFeatures() {
                           name: "daily-devotional",
                           paragraph:
                             "Experience God Everyday. We provide resources and community to transform your daily walk. In the midst of a busy life, we help you find practical ways to hear His voice and feel His presence.",
-                          btnText: "Explore",
-                          href: "/scripture",
+                          btnText: "Explore Devotionals",
+                          href: "/devotionals",
                         },
                         {
-                          name: "community",
+                          name: "prayer",
                           paragraph:
                             "A growing relationship with God that thrives on consistent, daily connection. Every Day, Dozens join us to pause, center their hearts on Scripture, and encounter the Word in a deeper, more personal way. You should join us too.",
-                          btnText: "Join Our Community",
-                          href: "/",
+                          btnText: "Today's Prayer",
+                          href: "/prayer",
                         },
                         {
-                          name: "guided-prayer",
+                          name: "faith-anchor",
                           paragraph:
-                            "The heartbeat of the Christian life is prayer, yet we all have moments when we don't know what to say. Our guided prayer sessions provide a gentle structure to help you quiet the noise and enter into a meaningful conversation with your Creator. Whether you are seeking peace, interceding for others, or offering praise, these prompts help you align your heart with His.",
-                          btnText: "Send a Message",
-                          href: "/",
+                            "The Word of God is the anchor for the soul, yet we all have seasons when we feel adrift. Our faith anchor provides a steady path to help you quiet the noise and ground your life in eternal Truth.",
+                          btnText: "Meditate on Truth",
+                          href: "/prayer",
                         },
                       ].map((_, index) => {
                         return (
