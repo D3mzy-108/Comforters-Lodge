@@ -51,7 +51,7 @@ const NavBar = () => {
     },
     {
       to: "/hymns",
-      label: "Hymns",
+      label: "Hymnnal",
     },
     {
       to: "/prayer",

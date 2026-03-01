@@ -32,7 +32,7 @@ const About = () => {
               Abiding Grace, Peace, and Love.
             </p>
 
-            <h1 className="text-2xl max-w-4xl text-center mt-8 text-beta">
+            <h1 className="text-2xl max-w-4xl text-center mt-16 md:mt-8 text-beta">
               {`At Comforter's Lodge Ministries, we are a place of rest, renewal,
               and revival within the Cherubim & Seraphim Church family based in
               Lagos, Nigeria. Here, we help believers encounter the living
@@ -64,7 +64,7 @@ const About = () => {
         </div>
       </div>
       <div className="py-16 flex px-4 md:px-20 flex-col items-center">
-        <h1 className="md:text-4xl text-2xl font-bold text-(--textHighlight) font">
+        <h1 className="md:text-4xl text-3xl font-bold text-(--textHighlight) font">
           Our Mission
         </h1>
         <div className="flex gap-4">
@@ -80,7 +80,7 @@ const About = () => {
         </div>
       </div>
       <div className="py-16 flex px-4 md:px-20 flex-col items-center">
-        <h1 className="md:text-4xl text-2xl font-bold text-(--textHighlight) font">
+        <h1 className="md:text-4xl text-3xl font-bold text-(--textHighlight) font">
           Our Story
         </h1>
         <div className="flex gap-4">
@@ -101,7 +101,7 @@ const About = () => {
         </div>
       </div>
       <div className="py-16 flex px-4 md:px-20 flex-col items-center">
-        <h1 className="md:text-4xl text-2xl font-bold text-(--textHighlight) font">
+        <h1 className="md:text-4xl text-3xl font-bold text-(--textHighlight) font">
           What We Believe
         </h1>
         <div className="flex gap-4">
