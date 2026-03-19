@@ -51,11 +51,15 @@ const NavBar = () => {
     },
     {
       to: "/hymns",
-      label: "Hymnnal",
+      label: "Hymnal",
     },
     {
       to: "/prayer",
       label: "Prayer",
+    },
+    {
+      to: "/bible",
+      label: "Bible",
     },
   ];
 

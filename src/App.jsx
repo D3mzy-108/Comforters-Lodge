@@ -8,6 +8,8 @@ import Footer from "@/components/Footer";
 import About from "./pages/About/About";
 import Declaration from "./pages/About/Declaration";
 import HymnsPage from "./pages/Hymns/Hymns";
+import Error404 from "./Error404";
+import BibleApp from "./pages/Bible/bible";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -31,6 +33,7 @@ const App = () => {
     { path: "/devotionals", element: <LessonPage /> },
     { path: "/prayer", element: <ScripturesPage /> },
     { path: "/hymns", element: <HymnsPage /> },
+    { path: "/bible", element: <BibleApp /> },
   ];
   return (
     <>
@@ -40,6 +43,8 @@ const App = () => {
         {routes.map((route) => (
           <Route key={route.path} path={route.path} element={route.element} />
         ))}
+
+        <Route path="*" element={<Error404 />} />
       </Routes>
       <Footer />
     </>

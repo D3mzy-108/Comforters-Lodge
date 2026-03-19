@@ -124,7 +124,9 @@ export default function DevotionalDetailsView({ devotional }) {
                     An outreach of the Cherubim & Seraphim Church
                   </span>
                   <br />
-                  <span className="font-light">www.clm.org | info@clm.org</span>
+                  <span className="font-light">
+                    www.clm.org.ng | info@clm.org.ng
+                  </span>
                 </div>
               </div>
             </div>
