@@ -4,8 +4,6 @@ import {
   TabsContent,
 } from "../../components/shadcn/animate-ui/components/radix/tabs.tsx";
 import { Button } from "../../components/shadcn/animate-ui/components/buttons/button.tsx";
-import englishBibleData from "@/assets/bibles/english-bible.json";
-import englishBibleKJVData from "@/assets/bibles/english-bible-kjv.json";
 import { ChevronLeftIcon, ChevronRightIcon, GlobeIcon } from "lucide-react";
 import {
   DropdownMenu,
@@ -27,19 +25,32 @@ import {
   AccordionTrigger,
 } from "../../components/shadcn/animate-ui/components/radix/accordion.tsx";
 import { ScrollArea } from "../../components/shadcn/ui/scroll-area.tsx";
+import englishBibleData from "@/assets/bibles/en_bbe.json";
+import chineseBibleData from "@/assets/bibles/zh_ncv.json";
+import germanBibleData from "@/assets/bibles/de_schlachter.json";
+import greekBibleData from "@/assets/bibles/el_greek.json";
+import spanishBibleData from "@/assets/bibles/es_rvr.json";
+import frenchBibleData from "@/assets/bibles/fr_apee.json";
+import koreanBibleData from "@/assets/bibles/ko_ko.json";
+import portugueseBibleData from "@/assets/bibles/pt_nvi.json";
+import russianBibleData from "@/assets/bibles/ru_synodal.json";
+import vietnameseBibleData from "@/assets/bibles/vi_vietnamese.json";
 
 const bibleDataSources = {
-  english: englishBibleData,
-  kjv: englishBibleKJVData,
+  kjv: { label: "English (BBE)", data: englishBibleData },
+  ceb: { label: "Chinese (NCV)", data: chineseBibleData },
+  de: { label: "German", data: germanBibleData },
+  el: { label: "Greek", data: greekBibleData },
+  es: { label: "Spanish", data: spanishBibleData },
+  fr: { label: "French", data: frenchBibleData },
+  ko: { label: "Korean", data: koreanBibleData },
+  pt: { label: "Portuguese", data: portugueseBibleData },
+  ru: { label: "Russian", data: russianBibleData },
+  vi: { label: "Vietnamese", data: vietnameseBibleData },
 };
 
-const bibleVersions = [
-  { key: "english", label: "English Standard Version (ESV)" },
-  { key: "kjv", label: "King James Version (KJV)" },
-];
-
 export default function BibleApp() {
-  const [bible, setBible] = useState(bibleDataSources.english);
+  const [bible, setBible] = useState(bibleDataSources.kjv.data);
   const [currentBibleIndex, setCurrentBibleIndex] = useState(0);
   const [currentBook, setCurrentBook] = useState(bible[0]);
   const [currentChapterIndex, setCurrentChapterIndex] = useState(0);
@@ -86,10 +97,15 @@ export default function BibleApp() {
       }
       // If we are on the first chapter of the first book, it falls through and does nothing.
     }
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const handleVersionChange = (versionKey) => {
-    const newBibleData = bibleDataSources[versionKey];
+    const newBibleData = bibleDataSources[versionKey].data;
     setBible(newBibleData);
 
     // Try to find the same book in the new version, otherwise default to the first book
@@ -196,7 +212,7 @@ export default function BibleApp() {
                   size={"lg"}
                   className="flex-1 rounded-full bg-transparent hover:bg-transparent text-[17px] md:text-lg"
                 >
-                  {currentBook.name}
+                  {currentBook.name} {currentChapterIndex + 1}
                 </Button>
               </BibleIndexDialog>
               <Button
@@ -222,23 +238,25 @@ export default function BibleApp() {
 
               <DropdownMenuContent
                 align="end"
-                className="w-full max-w-sm bg-white rounded-2xl shadow-2xl p-4 border-none"
+                className="w-full max-w-sm min-w-3xs bg-white rounded-2xl shadow-2xl p-4 border-none"
               >
-                {bibleVersions.map((version, index) => (
-                  <DropdownMenuItem
-                    key={version.key}
-                    onClick={() => {
-                      handleVersionChange(version.key);
-                      setCurrentBibleIndex(index);
-                    }}
-                    className="cursor-pointer p-3 flex gap-2 hover:bg-white bg-white rounded-none"
-                  >
-                    <div className="flex-1">{version.label}</div>
-                    {currentBibleIndex === index && (
-                      <span className="text-green-500 font-bold">✓</span>
-                    )}
-                  </DropdownMenuItem>
-                ))}
+                {Object.entries(bibleDataSources).map(
+                  ([_key, version], index) => (
+                    <DropdownMenuItem
+                      key={_key}
+                      onClick={() => {
+                        handleVersionChange(_key);
+                        setCurrentBibleIndex(index);
+                      }}
+                      className="cursor-pointer p-3 flex gap-2 hover:bg-white bg-white rounded-none"
+                    >
+                      <div className="flex-1">{version.label}</div>
+                      {currentBibleIndex === index && (
+                        <span className="text-green-500 font-bold">✓</span>
+                      )}
+                    </DropdownMenuItem>
+                  ),
+                )}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -289,7 +307,7 @@ function BibleIndexDialog({ currentBible, children, onSelectChapter }) {
                         key={index}
                         variant="secondary"
                         size="lg"
-                        className="w-full h-full aspect-3/2 text-center bg-white border-2 border-white/40 inset-shadow-sm shadow-md"
+                        className="w-full h-full aspect-3/2 text-center bg-gray-100 border-4 border-white/70 inset-shadow-sm shadow-md"
                         onClick={() => handleChapterClick(book.name, index)}
                       >
                         {index + 1}
