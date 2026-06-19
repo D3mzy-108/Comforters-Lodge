@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Tabs,
   TabsContent,
 } from "../../components/shadcn/animate-ui/components/radix/tabs.tsx";
 import { Button } from "../../components/shadcn/animate-ui/components/buttons/button.tsx";
-import { ChevronLeftIcon, ChevronRightIcon, GlobeIcon } from "lucide-react";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  GlobeIcon,
+  SearchIcon,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,44 +24,55 @@ import {
   DialogTrigger,
 } from "../../components/shadcn/ui/dialog.tsx";
 import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/shadcn/ui/drawer";
+import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "../../components/shadcn/animate-ui/components/radix/accordion.tsx";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "../../components/shadcn/ui/input-group.tsx";
 import { ScrollArea } from "../../components/shadcn/ui/scroll-area.tsx";
-import englishBibleData from "@/assets/bibles/en_bbe.json";
-import chineseBibleData from "@/assets/bibles/zh_ncv.json";
-import germanBibleData from "@/assets/bibles/de_schlachter.json";
-import greekBibleData from "@/assets/bibles/el_greek.json";
-import spanishBibleData from "@/assets/bibles/es_rvr.json";
-import frenchBibleData from "@/assets/bibles/fr_apee.json";
-import koreanBibleData from "@/assets/bibles/ko_ko.json";
-import portugueseBibleData from "@/assets/bibles/pt_nvi.json";
-import russianBibleData from "@/assets/bibles/ru_synodal.json";
-import vietnameseBibleData from "@/assets/bibles/vi_vietnamese.json";
-
-const bibleDataSources = {
-  kjv: { label: "English (BBE)", data: englishBibleData },
-  ceb: { label: "Chinese (NCV)", data: chineseBibleData },
-  de: { label: "German", data: germanBibleData },
-  el: { label: "Greek", data: greekBibleData },
-  es: { label: "Spanish", data: spanishBibleData },
-  fr: { label: "French", data: frenchBibleData },
-  ko: { label: "Korean", data: koreanBibleData },
-  pt: { label: "Portuguese", data: portugueseBibleData },
-  ru: { label: "Russian", data: russianBibleData },
-  vi: { label: "Vietnamese", data: vietnameseBibleData },
-};
+import { bibleService } from "./services/bible-services.js";
 
 export default function BibleApp() {
-  const [bible, setBible] = useState(bibleDataSources.kjv.data);
-  const [currentBibleIndex, setCurrentBibleIndex] = useState(0);
-  const [currentBook, setCurrentBook] = useState(bible[0]);
+  const [bible, setBible] = useState(undefined);
+  const [currentBibleKey, setCurrentBibleKey] = useState("eng_pev");
+  const [currentBook, setCurrentBook] = useState(undefined);
   const [currentChapterIndex, setCurrentChapterIndex] = useState(0);
-  const [currentView, setCurrentView] = useState(
-    `${currentBook.name}-chapter-${currentChapterIndex + 1}`,
-  );
+  const [currentView, setCurrentView] = useState(undefined);
+
+  useEffect(() => {
+    async function loadContent() {
+      const bible = await bibleService.loadBible(currentBibleKey);
+      setBible(bible);
+      setCurrentBook(bible[0]);
+    }
+
+    loadContent();
+  }, [currentBibleKey]);
+
+  useEffect(() => {
+    if (currentBook && currentBook.name) {
+      setCurrentView(`${currentBook.name}-chapter-${currentChapterIndex + 1}`);
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  }, [currentBook, currentChapterIndex]);
 
   const handleChapterChange = (step) => {
     // Find where we are in the overall bible array
@@ -104,13 +120,14 @@ export default function BibleApp() {
     });
   };
 
-  const handleVersionChange = (versionKey) => {
-    const newBibleData = bibleDataSources[versionKey].data;
+  const handleVersionChange = async (versionKey) => {
+    const newBibleData = await bibleService.loadBible(versionKey);
     setBible(newBibleData);
 
     // Try to find the same book in the new version, otherwise default to the first book
     const equivalentBook =
-      newBibleData.find((b) => b.name === currentBook.name) || newBibleData[0];
+      newBibleData.find((b) => b.abbrev === currentBook.abbrev) ||
+      newBibleData[0];
 
     // Ensure the chapter index exists in the new book, otherwise fallback to chapter 1
     const safeChapterIndex =
@@ -131,6 +148,14 @@ export default function BibleApp() {
       setCurrentView(`${selectedBook.name}-chapter-${chapterIndex + 1}`);
     }
   };
+
+  if (!bible) {
+    return (
+      <div className="w-full py-12">
+        <span className="text-center">Loading...</span>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -240,23 +265,21 @@ export default function BibleApp() {
                 align="end"
                 className="w-full max-w-sm min-w-3xs bg-white rounded-2xl shadow-2xl p-4 border-none"
               >
-                {Object.entries(bibleDataSources).map(
-                  ([_key, version], index) => (
-                    <DropdownMenuItem
-                      key={_key}
-                      onClick={() => {
-                        handleVersionChange(_key);
-                        setCurrentBibleIndex(index);
-                      }}
-                      className="cursor-pointer p-3 flex gap-2 hover:bg-white bg-white rounded-none"
-                    >
-                      <div className="flex-1">{version.label}</div>
-                      {currentBibleIndex === index && (
-                        <span className="text-green-500 font-bold">✓</span>
-                      )}
-                    </DropdownMenuItem>
-                  ),
-                )}
+                {bibleService.versions.map((version) => (
+                  <DropdownMenuItem
+                    key={version.key}
+                    onClick={() => {
+                      handleVersionChange(version.key);
+                      setCurrentBibleKey(version.key);
+                    }}
+                    className="cursor-pointer p-3 flex gap-2 hover:bg-white bg-white rounded-none"
+                  >
+                    <div className="flex-1">{version.label}</div>
+                    {currentBibleKey === version.key && (
+                      <span className="text-green-500 font-bold">✓</span>
+                    )}
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -268,40 +291,58 @@ export default function BibleApp() {
 
 function BibleIndexDialog({ currentBible, children, onSelectChapter }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchVal, setSearchVal] = useState("");
 
   const handleChapterClick = (bookName, chapterIndex) => {
     onSelectChapter(bookName, chapterIndex);
     setIsOpen(false); // Close the dialog after selection
   };
 
-  return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+  const filteredBooks = useMemo(() => {
+    return currentBible.filter((c) =>
+      c.name.toLowerCase().includes(searchVal.toLowerCase()),
+    );
+  }, [searchVal, currentBible]);
 
-      {/* max-h-[80vh] and overflow-y-auto ensure the dialog is scrollable */}
-      <DialogContent
-        className="max-w-md border-none bg-white rounded-3xl shadow-2xl p-0"
-        showCloseButton={false}
-      >
-        <DialogHeader className="hidden">
-          <DialogTitle className="text-2xl font-bold text-center mb-4">
-            Books
-          </DialogTitle>
-        </DialogHeader>
-        <ScrollArea className="w-full h-[70vh] p-8">
+  useEffect(() => {
+    if (!isOpen) {
+      setSearchVal("");
+    }
+  }, [isOpen]);
+
+  return (
+    <Drawer direction={"left"} open={isOpen} onOpenChange={setIsOpen}>
+      <DrawerTrigger asChild>{children}</DrawerTrigger>
+      <DrawerContent className="max-w-md! w-full! border-none bg-white shadow-2xl p-0 z-9999">
+        <ScrollArea className="w-full h-screen">
+          <div className="h-4"></div>
+          <DrawerHeader className="w-full sticky top-0 z-10 bg-white">
+            <InputGroup className="rounded-full border border-slate-300 bg-slate-100 shadow-none h-11 px-1 gap-2 outline-0 ring-0!">
+              <InputGroupAddon>
+                <SearchIcon className="size-4 text-gray-600" />
+              </InputGroupAddon>
+              <InputGroupInput
+                placeholder="Find books..."
+                onChange={(e) => setSearchVal(e.target.value)}
+              />
+            </InputGroup>
+          </DrawerHeader>
           <Accordion type="single" collapsible className="w-full">
-            {currentBible.map((book) => (
+            {filteredBooks.map((book) => (
               <AccordionItem
                 key={book.name}
                 value={book.name}
                 className="border-b border-b-gray-300"
               >
-                <AccordionTrigger className="text-lg transition-colors">
+                <AccordionTrigger
+                  showArrow={false}
+                  className="text-[1.075rem] transition-colors py-5 px-6"
+                >
                   {book.name}
                 </AccordionTrigger>
                 <AccordionContent>
                   {/* Display chapters in a responsive grid */}
-                  <div className="grid grid-cols-4 sm:grid-cols-5 gap-2.5 p-1 mt-2">
+                  <div className="grid grid-cols-4 sm:grid-cols-5 gap-2.5 p-1 px-2.5 mt-2">
                     {book.chapters.map((_, index) => (
                       <Button
                         key={index}
@@ -319,7 +360,7 @@ function BibleIndexDialog({ currentBible, children, onSelectChapter }) {
             ))}
           </Accordion>
         </ScrollArea>
-      </DialogContent>
-    </Dialog>
+      </DrawerContent>
+    </Drawer>
   );
 }

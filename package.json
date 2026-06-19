@@ -21,7 +21,7 @@
     "html-to-image": "^1.11.13",
     "lucide-react": "^0.562.0",
     "motion": "^12.24.11",
-    "radix-ui": "^1.4.3",
+    "radix-ui": "^1.6.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-icons": "^5.5.0",
